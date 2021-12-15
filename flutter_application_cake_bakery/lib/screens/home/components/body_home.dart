@@ -1,5 +1,3 @@
-
-
 //import 'package:doan/screens/home/components/top_products_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/screens/home/components/banner_home.dart';
@@ -15,7 +13,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
+    return ListView(children: const [
       SearchBarHome(),
       //Banner
       Banners(),
@@ -25,7 +23,6 @@ class Body extends StatelessWidget {
       TopProducts(),
       //NavigationBar(),
       //BloC, GetX, Provider
-      
     ]);
   }
 }

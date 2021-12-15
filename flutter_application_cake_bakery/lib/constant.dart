@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 const ktextColor = Colors.black;
 //padding
 const double kDefaultPadding = 20.0;
-const primaryColor = Color(0xFFF06292);
+const primaryColor = Color(0xFFFE724C);
 const textColor = Colors.black;
 const backgroundColor = Color(0xFFFFF5F5);
 const double defaultPadding = 20.0;

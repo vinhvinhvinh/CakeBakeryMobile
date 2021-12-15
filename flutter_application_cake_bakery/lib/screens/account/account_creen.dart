@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_cake_bakery/components/header.dart';
+import 'package:flutter_application_cake_bakery/components/header_without_pop.dart';
+
 import 'package:flutter_application_cake_bakery/constant.dart';
 import 'package:flutter_application_cake_bakery/screens/account/components/body.dart';
 
@@ -11,7 +12,7 @@ class AccountScreen extends StatelessWidget {
     return const Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 50.0),
-        child: Header(
+        child: HeaderWithoutPop(
             title: 'Your Account',
             backgrColor: primaryColor,
             textColor: Colors.white,

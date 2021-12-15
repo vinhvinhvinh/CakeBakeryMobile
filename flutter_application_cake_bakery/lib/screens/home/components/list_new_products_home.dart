@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 
@@ -33,7 +32,7 @@ class NewProducts extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.only(left: kDefaultPadding / 2),
+            padding: const EdgeInsets.only(left: kDefaultPadding / 2),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(
@@ -45,18 +44,18 @@ class NewProducts extends StatelessWidget {
             ),
           ),
           Container(
-              padding: EdgeInsets.only(left: kDefaultPadding),
-              child: Icon(
+              padding: const EdgeInsets.only(left: kDefaultPadding),
+              child: const Icon(
                 Icons.fiber_new,
                 color: Colors.red,
                 size: 30,
               )),
           Container(
             width: 120,
-            padding: EdgeInsets.fromLTRB(37, 105, 0, 0),
+            padding: const EdgeInsets.fromLTRB(37, 105, 0, 0),
             child: Text(
               '$price đ',
-              style: TextStyle(
+              style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                   color: backgroundColor,
@@ -65,7 +64,6 @@ class NewProducts extends StatelessWidget {
                       blurRadius: 20.0,
                       color: ktextColor,
                     ),
-                    
                   ]),
             ),
           ),
@@ -97,9 +95,9 @@ class TitleWithButton extends StatelessWidget {
         ),
         OutlinedButton(
           style: OutlinedButton.styleFrom(
-            backgroundColor: primaryColor , // background
+            backgroundColor: primaryColor, // background
             primary: Colors.orange, // foreground text
-            side: BorderSide(color: Colors.white),
+            side: const BorderSide(color: Colors.white),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
