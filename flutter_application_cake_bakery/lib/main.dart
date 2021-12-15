@@ -18,7 +18,7 @@ class CakeBakery extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const Home(),
+        '/': (context) => const HomeScreen(),
       },
       initialRoute: '/',
     );

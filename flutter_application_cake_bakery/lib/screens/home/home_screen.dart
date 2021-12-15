@@ -1,22 +1,26 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/screens/home/components/body_home.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Hello',
-            style: TextStyle(
-              color: primaryColor,
-              fontSize: 10,
-            )),
-      ),
-      body: Container(
-        child: const Text('Hihi'),
+      appBar: buildAppBar(),
+      body: Body(
+              
       ),
     );
   }
+
+  AppBar buildAppBar() {
+    return AppBar(
+    title: const Text('Home'),
+    backgroundColor: primaryColor,
+    centerTitle: true,);
+  }
+  
 }
