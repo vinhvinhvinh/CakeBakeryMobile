@@ -38,7 +38,15 @@ Widget directionalUser() {
         ),
         const SizedBox(height: 20),
         ElevatedButton.icon(
-          onPressed: () {},
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(btnColor),
+            padding: MaterialStateProperty.all<EdgeInsets>(
+                const EdgeInsets.only(
+                    top: 10, bottom: 10, left: 30, right: 30)),
+          ),
+          onPressed: () {
+            print('Log out');
+          },
           icon: const Icon(
             Icons.logout_outlined,
             color: Colors.white,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 
@@ -8,7 +7,10 @@ class ListCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [TitleWithButton(), CategoriesList()],
+      children: [
+        const TitleWithButton(),
+        CategoriesList(),
+      ],
     );
   }
 
@@ -18,17 +20,40 @@ class ListCategories extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          Category(image: '1.png', categoryName: 'DONUT',press: (){},),
-          Category(image:'2.png', categoryName:'CUPCAKE',press: (){},),
-          Category(image:'c-feature-6.jpg', categoryName:'GATO',press: (){},),
-          Category(image:'1.png', categoryName:'DONUT',press: (){},),
-          Category(image:'2.png', categoryName:'CUPCAKE',press: (){},),
-          Category(image:'c-feature-6.jpg', categoryName:'GATO',press: (){},),
+          Category(
+            image: '1.png',
+            categoryName: 'DONUT',
+            press: () {},
+          ),
+          Category(
+            image: '2.png',
+            categoryName: 'CUPCAKE',
+            press: () {},
+          ),
+          Category(
+            image: 'c-feature-6.jpg',
+            categoryName: 'GATO',
+            press: () {},
+          ),
+          Category(
+            image: '1.png',
+            categoryName: 'DONUT',
+            press: () {},
+          ),
+          Category(
+            image: '2.png',
+            categoryName: 'CUPCAKE',
+            press: () {},
+          ),
+          Category(
+            image: 'c-feature-6.jpg',
+            categoryName: 'GATO',
+            press: () {},
+          ),
         ],
       ),
     );
   }
-
 }
 
 class Category extends StatelessWidget {
@@ -36,7 +61,10 @@ class Category extends StatelessWidget {
   final String categoryName;
   final Function press;
   const Category({
-    Key? key, required this.image, required this.categoryName, required this.press,
+    Key? key,
+    required this.image,
+    required this.categoryName,
+    required this.press,
   }) : super(key: key);
 
   @override
@@ -46,46 +74,47 @@ class Category extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Container(
-      width: 100,
-      height: 105,
-      margin: EdgeInsets.all(kDefaultPadding / 2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-      ),
-          ),
-          Container(
-      //mainAxisAlignment: MainAxisAlignment.center,
-      padding: EdgeInsets.fromLTRB(18, 0, 1, 12),
-      child: Column(
-        children: [
-          Container(
+            width: 100,
+            height: 105,
+            margin: const EdgeInsets.all(kDefaultPadding / 2),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              border: Border.all(
-                width: 2,
-                color: primaryColor,
-              ),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: Image.asset(
-                'assets/images/$image',
-                width: 80,
-                height: 80,
-                fit: BoxFit.cover,
-              ),
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
             ),
           ),
           Container(
-            child: Text(
-              categoryName,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            //mainAxisAlignment: MainAxisAlignment.center,
+            padding: const EdgeInsets.fromLTRB(18, 0, 1, 12),
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    border: Border.all(
+                      width: 2,
+                      color: primaryColor,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.asset(
+                      'assets/images/$image',
+                      width: 80,
+                      height: 80,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    categoryName,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                  margin: EdgeInsets.only(top: 3),
+                ),
+              ],
             ),
-            margin: EdgeInsets.only(top: 3),
-          ),
-        ],
-      ),
           ),
         ],
       ),
@@ -118,7 +147,7 @@ class TitleWithButton extends StatelessWidget {
           style: OutlinedButton.styleFrom(
             backgroundColor: primaryColor, // background
             primary: Colors.orange, // foreground text
-            side: BorderSide(color: Colors.white),
+            side: const BorderSide(color: Colors.white),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),

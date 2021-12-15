@@ -4,7 +4,7 @@ import 'package:flutter_application_cake_bakery/screens/account/profile/componen
 
 Widget profileImgAndName() {
   return Container(
-    color: const Color(0xFFFFC2D0),
+    color: const Color(0xFFFFDFD7),
     padding: const EdgeInsets.all(defaultPadding),
     child: Row(
       children: [

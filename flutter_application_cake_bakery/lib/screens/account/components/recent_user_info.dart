@@ -3,7 +3,7 @@ import 'package:flutter_application_cake_bakery/constant.dart';
 
 Widget recentUserInfo() {
   return Container(
-    color: const Color(0xFFFFC2D0),
+    color: const Color(0xFFFFDFD7),
     padding: const EdgeInsets.all(defaultPadding),
     child: Row(
       children: [
