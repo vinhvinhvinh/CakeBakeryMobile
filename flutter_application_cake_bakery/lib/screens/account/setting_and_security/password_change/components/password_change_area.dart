@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_cake_bakery/screens/account/setting_and_security/password_change/components/user_password_field.dart';
 
 class PasswordChangeArea extends StatefulWidget {
   PasswordChangeArea({Key? key}) : super(key: key);
@@ -12,6 +13,10 @@ class _PasswordChangeAreaState extends State<PasswordChangeArea> {
   var newPassword = TextEditingController();
   var confirmPassword = TextEditingController();
 
+  var hidePassword_old = true;
+  var hidePassword_new = true;
+  var hidePassword_confirm = true;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,41 +25,52 @@ class _PasswordChangeAreaState extends State<PasswordChangeArea> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('Password:'),
-          userInfoTextField(recentPassword, '', TextInputType.text, true,
-              Icons.password_outlined),
+          UserPasswordField(
+              fieldHint: '',
+              preIcon: Icons.edit_outlined,
+              suffIcon:
+                  hidePassword_old ? Icons.visibility_off : Icons.visibility,
+              keyboardType: TextInputType.text,
+              txtController: recentPassword,
+              isHide: hidePassword_old,
+              press: () {
+                setState(() {
+                  hidePassword_old = !hidePassword_old;
+                });
+              }),
           const SizedBox(height: 25),
           const Text('New Password:'),
-          userInfoTextField(newPassword, '', TextInputType.text, true,
-              Icons.password_outlined),
+          UserPasswordField(
+              fieldHint: '',
+              preIcon: Icons.vpn_key,
+              suffIcon:
+                  hidePassword_new ? Icons.visibility_off : Icons.visibility,
+              keyboardType: TextInputType.text,
+              txtController: newPassword,
+              isHide: hidePassword_new,
+              press: () {
+                setState(() {
+                  hidePassword_new = !hidePassword_new;
+                });
+              }),
           const SizedBox(height: 25),
           const Text('Confirm Password:'),
-          userInfoTextField(
-              confirmPassword, '', TextInputType.text, true, Icons.check_sharp),
+          UserPasswordField(
+              fieldHint: '',
+              preIcon: Icons.check,
+              suffIcon: hidePassword_confirm
+                  ? Icons.visibility_off
+                  : Icons.visibility,
+              keyboardType: TextInputType.text,
+              txtController: confirmPassword,
+              isHide: hidePassword_confirm,
+              press: () {
+                setState(() {
+                  hidePassword_confirm = !hidePassword_confirm;
+                });
+              }),
         ],
       ),
-    );
-  }
-
-  TextField userInfoTextField(
-      TextEditingController txtController,
-      String fieldHint,
-      TextInputType keyboardType,
-      bool isPassword,
-      IconData icon) {
-    return TextField(
-      obscureText: isPassword,
-      controller: txtController,
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        hintText: fieldHint,
-        suffixIcon: Icon(icon),
-      ),
-      onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (!currentFocus.hasPrimaryFocus) {
-          currentFocus.unfocus();
-        }
-      },
     );
   }
 }

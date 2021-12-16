@@ -15,7 +15,10 @@ class HomeScreen extends StatelessWidget {
 
   AppBar buildAppBar() {
     return AppBar(
-      title: const Text('Home'),
+      title: Text(
+        'Home'.toUpperCase(),
+      ),
+      automaticallyImplyLeading: false,
       backgroundColor: primaryColor,
       centerTitle: true,
     );
