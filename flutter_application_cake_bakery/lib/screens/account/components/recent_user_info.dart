@@ -14,8 +14,7 @@ Widget recentUserInfo() {
             backgroundColor: Colors.white,
             child: CircleAvatar(
               radius: 45,
-              backgroundImage: NetworkImage(
-                  "https://instagram.fvca1-4.fna.fbcdn.net/v/t51.2885-15/sh0.08/e35/s750x750/231585679_350578173305985_6719501263762081001_n.jpg?_nc_ht=instagram.fvca1-4.fna.fbcdn.net&_nc_cat=109&_nc_ohc=BKbMWBKH-SAAX-vWqUF&edm=AP_V10EBAAAA&ccb=7-4&oh=0372162811679d68b9401b039baf9920&oe=61BE00D8&_nc_sid=4f375e"),
+              backgroundImage: AssetImage("assets/images/marinhonda2.jpg"),
             ),
           ),
         ),
