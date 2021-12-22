@@ -119,7 +119,7 @@ class _buildProductItemsState extends State<buildProductItems> {
                   ),
                   // //Icon Cart-Shopping
                   Padding(
-                    padding: EdgeInsets.only(left: 40),
+                    padding: EdgeInsets.only(left: 30),
                     child: IconButton(
                       onPressed: () {},
                       icon: Icon(

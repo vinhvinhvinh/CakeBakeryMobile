@@ -50,7 +50,7 @@ Widget Banner(String bannerTitle, String subTitle, String image) {
           child: Image.asset(
             'assets/images/banner/$image',
             fit: BoxFit.fill,
-            width: 450,
+            width: 448,
             height: 150,
           ),
         ),
