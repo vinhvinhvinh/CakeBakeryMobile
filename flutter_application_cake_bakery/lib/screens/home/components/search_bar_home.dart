@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/screens/SearchResult/search_result.dart';
 
 class SearchBarHome extends StatelessWidget {
   const SearchBarHome({
@@ -23,7 +24,10 @@ class SearchBarHome extends StatelessWidget {
           fillColor: Colors.white,
           filled: true,
           suffixIcon: IconButton(
-            onPressed: () {},
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SearchResult()),
+            ),
             icon: const Icon(Icons.search),
           ),
         ),
