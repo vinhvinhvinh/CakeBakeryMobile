@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/screens/Favorite/favorite_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/listproductsbycategory/list_products_by_catergory_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/account/account_creen.dart';
 import 'package:flutter_application_cake_bakery/screens/account/profile/my_profile_screen.dart';
@@ -33,7 +34,7 @@ class CakeBakery extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        '/': (context) => const ProductsByCategory(),
+        '/': (context) => const FavoriteScreen(),
         '/main_screen': (context) => MainScreen(),
         '/signup': (context) => const SignUpScreen(),
         '/forget_password': (context) => const ForgetPassword(),
@@ -45,7 +46,8 @@ class CakeBakery extends StatelessWidget {
             const SettingAndSecurityScreen(),
         'account/account_and_security/change_password': (context) =>
             const PasswordChangeScreen(),
-        '/products_by_category': (context) => const ProductsByCategory(),
+        'products_by_category': (context) => const ProductsByCategory(),
+        'favorite_products':(context)=>const FavoriteScreen(),
       },
       initialRoute: '/',
     );
