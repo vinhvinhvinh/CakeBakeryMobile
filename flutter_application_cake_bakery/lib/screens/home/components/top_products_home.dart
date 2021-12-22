@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/models/Product.dart';
 
 class TopProducts extends StatelessWidget {
   const TopProducts({Key? key}) : super(key: key);
@@ -10,114 +10,42 @@ class TopProducts extends StatelessWidget {
     return Column(
       children: [
         const TitleTopProducts(),
-        TopProduct(
-          image: '1.png',
-          productName: 'JHJKHKKL',
-          price: '30 000',
-          press: () {},
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const ScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 12,
+            mainAxisExtent: 260,
+          ),
+          itemBuilder: (context, index) {
+            return buildProductItems(product: lstProducts[index]);
+          },
+          itemCount: lstProducts.length,
         ),
       ],
     );
   }
 }
 
-class TopProduct extends StatelessWidget {
-  final String image;
-  final String productName;
-  final String price;
-  final Function press;
-  const TopProduct(
-      {Key? key,
-      required this.image,
-      required this.productName,
-      required this.price,
-      required this.press})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: press(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width - 20,
-            child: Column( 
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 4,
-                      child: buildProductItems(
-                          image: image, productName: productName, price: price),
-                    ),
-                    const SizedBox(width:15),
-                    Expanded(
-                      flex: 4,
-                      child: buildProductItems(
-                          image: image, productName: productName, price: price),
-                    ),
-                  ],
-                ),
-                const SizedBox(height:15),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 4,
-                      child: buildProductItems(
-                          image: image, productName: productName, price: price),
-                    ),
-                    const SizedBox(width:15),
-                    Expanded(
-                      flex: 4,
-                      child: buildProductItems(
-                          image: image, productName: productName, price: price),
-                    ),
-                  ],
-                ),
-                const SizedBox(height:15),
-                Row(
-                  children: [
-                    Expanded(
-                      flex: 4,
-                      child: buildProductItems(
-                          image: image, productName: productName, price: price),
-                    ),
-                    const SizedBox(width:15),
-                    Expanded(
-                      flex: 4,
-                      child: buildProductItems(
-                          image: image, productName: productName, price: price),
-                    ),
-                  ],
-                ),
-                const SizedBox(height:30),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class buildProductItems extends StatelessWidget {
+class buildProductItems extends StatefulWidget {
   const buildProductItems({
     Key? key,
-    required this.image,
-    required this.productName,
-    required this.price,
+    required this.product,
   }) : super(key: key);
+  final Product product;
 
-  final String image;
-  final String productName;
-  final String price;
+  @override
+  State<buildProductItems> createState() => _buildProductItemsState();
+}
+
+class _buildProductItemsState extends State<buildProductItems> {
+  bool _isChecked = false;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
@@ -142,33 +70,37 @@ class buildProductItems extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: Image.asset(
-                  "assets/images/$image",
-                  height: 185,
-                  fit: BoxFit.cover,
+                  "assets/images/${widget.product.image}",
+                  //height: 155,
+                  fit: BoxFit.fitWidth,
                 ),
               ),
               //Icon heart-favorite
               Padding(
-                padding: const EdgeInsets.only(left: kDefaultPadding * 6),
+                padding: const EdgeInsets.only(left: 125),
                 child: IconButton(
-                  icon: const Icon(
-                    Icons.favorite_border,
+                  icon: Icon(
+                    _isChecked ? Icons.favorite_sharp : Icons.favorite_outline,
                     color: primaryColor,
                     size: 36,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _isChecked = !_isChecked;
+                    });
+                  },
                 ),
               ),
             ],
           ),
           //Product name+price + icon cart-shopping
-          Stack(
+          Column(
             children: [
               //Product Name
               Padding(
-                padding: const EdgeInsets.all(kDefaultPadding / 2),
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: Text(
-                  productName,
+                  '${widget.product.productName}',
                   style: const TextStyle(
                       color: ktextColor,
                       fontWeight: FontWeight.bold,
@@ -176,26 +108,30 @@ class buildProductItems extends StatelessWidget {
                 ),
               ),
               //Price Product
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 55, 10, 10),
-                child: Text(
-                  "$price đ",
-                  style: TextStyle(color: ktextColor, fontSize: 18),
-                ),
-              ),
-              //Icon Cart-Shopping
-              Padding(
-                padding: EdgeInsets.only(left: 120, top: 35),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: primaryColor,
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      "${widget.product.price} đ",
+                      style: TextStyle(color: ktextColor, fontSize: 18),
+                    ),
                   ),
-                ),
+                  // //Icon Cart-Shopping
+                  Padding(
+                    padding: EdgeInsets.only(left: 40),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.shopping_cart_outlined,
+                        color: primaryColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
-          )
+          ),
         ],
       ),
     );
