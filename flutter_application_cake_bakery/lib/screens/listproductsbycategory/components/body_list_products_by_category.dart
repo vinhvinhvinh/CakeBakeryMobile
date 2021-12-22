@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 import 'package:flutter_application_cake_bakery/models/Product.dart';
@@ -64,13 +63,13 @@ class _ProductItemState extends State<ProductItem> {
                   Column(
                     children: [
                       Container(
-                        padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
-                        width: 190,
+                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                        width: 170,
                         child: Row(
                           children: [
                             Container(
                               //padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              width: 130,
+                              width: 110,
                               child: Text(
                                 '${widget.product.productName}',
                                 style: const TextStyle(
@@ -82,11 +81,13 @@ class _ProductItemState extends State<ProductItem> {
                             const Spacer(),
                             IconButton(
                               onPressed: () {
-                                setState((){_isChecked=!_isChecked;});
+                                setState(() {
+                                  _isChecked = !_isChecked;
+                                });
                               },
                               icon: Icon(
                                 _isChecked
-                                    ? Icons.favorite_sharp 
+                                    ? Icons.favorite_sharp
                                     : Icons.favorite_outline,
                                 color: primaryColor,
                               ),
@@ -98,13 +99,14 @@ class _ProductItemState extends State<ProductItem> {
                       //Price Product
                       Container(
                         padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 190,
+                        width: 170,
                         //color: Colors.green,
                         child: Row(
                           children: [
                             Text(
                               "${widget.product.price} đ",
-                              style: const TextStyle(color: ktextColor, fontSize: 20),
+                              style: const TextStyle(
+                                  color: ktextColor, fontSize: 20),
                             ),
                             const Spacer(),
                             IconButton(

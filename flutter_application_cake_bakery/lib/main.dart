@@ -33,7 +33,7 @@ class CakeBakery extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       routes: {
-        '/': (context) => const LoginScreen(),
+        '/': (context) => const ProductsByCategory(),
         '/main_screen': (context) => MainScreen(),
         '/signup': (context) => const SignUpScreen(),
         '/forget_password': (context) => const ForgetPassword(),
@@ -45,7 +45,7 @@ class CakeBakery extends StatelessWidget {
             const SettingAndSecurityScreen(),
         'account/account_and_security/change_password': (context) =>
             const PasswordChangeScreen(),
-            '/products_by_category':(context)=> const ProductsByCategory(),
+        '/products_by_category': (context) => const ProductsByCategory(),
       },
       initialRoute: '/',
     );
