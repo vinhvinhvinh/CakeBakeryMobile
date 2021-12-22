@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/screens/listproductsbycategory/list_products_by_catergory_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/account/account_creen.dart';
 import 'package:flutter_application_cake_bakery/screens/account/profile/my_profile_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/login/login_screen.dart';
@@ -44,6 +45,7 @@ class CakeBakery extends StatelessWidget {
             const SettingAndSecurityScreen(),
         'account/account_and_security/change_password': (context) =>
             const PasswordChangeScreen(),
+            '/products_by_category':(context)=> const ProductsByCategory(),
       },
       initialRoute: '/',
     );
