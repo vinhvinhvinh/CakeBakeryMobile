@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 
@@ -77,11 +76,11 @@ class ProductBestSelling extends StatelessWidget {
             height: 110,
             width: 300,
             color: Colors.white,
-            margin: EdgeInsets.all(kDefaultPadding / 2),
+            margin: const EdgeInsets.all(kDefaultPadding / 2),
           ),
           Container(
             //margin: EdgeInsets.only(left:kDefaultPadding / 2),
-            margin: EdgeInsets.only(left: kDefaultPadding / 2),
+            margin: const EdgeInsets.only(left: kDefaultPadding / 2),
             child: Row(
               children: [
                 ClipRRect(
@@ -93,61 +92,60 @@ class ProductBestSelling extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: kDefaultPadding / 2,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: kDefaultPadding,
                     ),
                     //Product Name
                     Text(
                       productName,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: kDefaultPadding / 2,
                     ),
                     //Price
                     Text(
                       price,
-                      style: TextStyle(fontSize: 20),
+                      style: const TextStyle(fontSize: 20),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: kDefaultPadding / 2,
                     ),
-                    
-                      //Evaluate
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.star_border,
-                            color: Colors.yellow,
-                          ),
-                          Icon(
-                            Icons.star_border,
-                            color: Colors.yellow,
-                          ),
-                          Icon(
-                            Icons.star_border,
-                            color: Colors.yellow,
-                          ),
-                          Icon(
-                            Icons.star_border,
-                            color: Colors.yellow,
-                          ),
-                          Icon(
-                            Icons.star_border,
-                            color: Colors.yellow,
-                          ),
-                        ],
-                      ),
-                   
+
+                    //Evaluate
+                    Row(
+                      children: const [
+                        Icon(
+                          Icons.star_border,
+                          color: Colors.yellow,
+                        ),
+                        Icon(
+                          Icons.star_border,
+                          color: Colors.yellow,
+                        ),
+                        Icon(
+                          Icons.star_border,
+                          color: Colors.yellow,
+                        ),
+                        Icon(
+                          Icons.star_border,
+                          color: Colors.yellow,
+                        ),
+                        Icon(
+                          Icons.star_border,
+                          color: Colors.yellow,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
                 //),
@@ -186,7 +184,7 @@ class TitleWithButton extends StatelessWidget {
           style: OutlinedButton.styleFrom(
             backgroundColor: primaryColor, // background
             primary: Colors.orange, // foreground text
-            side: BorderSide(color: Colors.white),
+            side: const BorderSide(color: Colors.white),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),

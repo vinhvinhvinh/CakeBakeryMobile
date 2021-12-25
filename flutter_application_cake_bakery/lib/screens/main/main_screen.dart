@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 import 'package:flutter_application_cake_bakery/screens/account/account_creen.dart';
+import 'package:flutter_application_cake_bakery/screens/cart/cart_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/home/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -16,6 +17,7 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> defaultPages = <Widget>[
     const HomeScreen(),
+    const Cart(),
     const AccountScreen(),
   ];
 
