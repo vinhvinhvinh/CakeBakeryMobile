@@ -15,7 +15,7 @@ Widget directionalUser() {
         directionalUserItem(
           'My Orders',
           Icons.receipt_long_outlined,
-          '/myorder',
+          'account/myorder',
           '',
         ),
         directionalUserItem(
