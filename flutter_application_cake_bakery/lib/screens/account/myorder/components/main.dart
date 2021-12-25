@@ -27,7 +27,9 @@ class Product extends StatelessWidget {
           Row(
             children: [
               const Padding(
-                  padding: EdgeInsets.symmetric(vertical: kDefaultPadding, horizontal: kDefaultPadding/3)),
+                  padding: EdgeInsets.symmetric(
+                      vertical: kDefaultPadding,
+                      horizontal: kDefaultPadding / 3)),
               Text(
                 text,
                 style: myStyle(18, Color(0xFF8C8181), FontWeight.normal),
@@ -35,13 +37,21 @@ class Product extends StatelessWidget {
               const SizedBox(
                 width: (kDefaultPadding / 3),
               ),
-              Text(time, style: myStyle(18,  Color(0xFF8C8181), FontWeight.normal),),
+              Text(
+                time,
+                style: myStyle(18, Color(0xFF8C8181), FontWeight.normal),
+              ),
             ],
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/2),
-            color: const Color(0xFF8C8181).withOpacity(0.09),
-            child: Row(           
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: const Color(0xFF8C8181).withOpacity(0.09),
+            ),
+            padding:
+                const EdgeInsets.only(left: 0, right: 10, top: 0, bottom: 0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
@@ -53,9 +63,7 @@ class Product extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(
-                  width: (kDefaultPadding * 2),
-                ),
+                //const SizedBox(width: (kDefaultPadding * 2),),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -64,8 +72,7 @@ class Product extends StatelessWidget {
                             vertical: kDefaultPadding / 2)),
                     Text(
                       productname,
-                      style:
-                           myStyle(18, Colors.black, FontWeight.bold),
+                      style: myStyle(18, Colors.black, FontWeight.bold),
                     ),
                     const SizedBox(
                       height: (kDefaultPadding / 2),
@@ -73,19 +80,22 @@ class Product extends StatelessWidget {
                     Text(price),
                   ],
                 ),
-                const SizedBox(
-                  width: (kDefaultPadding*2),
-                ),
+                //const SizedBox(width: (kDefaultPadding * 2),),
                 Column(
                   children: [
-                    const Padding(padding: EdgeInsets.only(top: kDefaultPadding * 2)),
-                    Text('X$totalPrice',
-                        style:  myStyle(18, Colors.black, FontWeight.bold),),
+                    const Padding(
+                        padding: EdgeInsets.only(top: kDefaultPadding * 2)),
+                    Text(
+                      'X$totalPrice',
+                      style: myStyle(18, Colors.black, FontWeight.bold),
+                    ),
                     const SizedBox(
                       height: (kDefaultPadding / 2),
                     ),
-                    Text('Total Price',
-                      style:  myStyle(18, Colors.black, FontWeight.bold),),
+                    Text(
+                      'Total Price',
+                      style: myStyle(18, Colors.black, FontWeight.bold),
+                    ),
                   ],
                 )
               ],
