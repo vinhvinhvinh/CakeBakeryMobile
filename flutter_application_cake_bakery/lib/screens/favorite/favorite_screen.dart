@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 import 'package:flutter_application_cake_bakery/screens/favorite/components/body_favorite.dart';
@@ -10,10 +9,10 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: buildAppBar(), body: Body());
+    return Scaffold(appBar: buildAppBar(context), body: Body());
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: primaryColor,
       elevation: 0,
@@ -25,7 +24,7 @@ class FavoriteScreen extends StatelessWidget {
         height: 65,
         //padding: const EdgeInsets.only(left: 80,top:20),
         margin: const EdgeInsets.only(top: 10, bottom: 10),
-        child: Center(
+        child: const Center(
           child: Text(
             'FAVORITE',
             style: TextStyle(
@@ -42,9 +41,11 @@ class FavoriteScreen extends StatelessWidget {
             // By default our  icon color is white
             color: ktextColor,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, 'cart');
+          },
         ),
-        SizedBox(width: kDefaultPadding / 2),
+        const SizedBox(width: kDefaultPadding / 2),
       ],
     );
   }
