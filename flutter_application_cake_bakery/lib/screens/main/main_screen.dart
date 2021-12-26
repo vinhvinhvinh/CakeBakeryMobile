@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 import 'package:flutter_application_cake_bakery/screens/account/account_creen.dart';
 import 'package:flutter_application_cake_bakery/screens/cart/cart_screen.dart';
+import 'package:flutter_application_cake_bakery/screens/favorite/favorite_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/home/home_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -18,6 +19,7 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> defaultPages = <Widget>[
     const HomeScreen(),
     const Cart(),
+    const FavoriteScreen(),
     const AccountScreen(),
   ];
 
@@ -57,7 +59,7 @@ class _MainScreenState extends State<MainScreen> {
         BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
         BottomNavigationBarItem(
             icon: Icon(Icons.shopping_basket_outlined), label: 'Cart'),
-        BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
         BottomNavigationBarItem(
             icon: Icon(Icons.person_outline), label: 'Account'),
       ],
