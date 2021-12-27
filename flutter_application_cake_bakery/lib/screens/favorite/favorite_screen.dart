@@ -17,8 +17,12 @@ class FavoriteScreen extends StatelessWidget {
       backgroundColor: primaryColor,
       elevation: 0,
       leading: IconButton(
-        icon: SvgPicture.asset("assets/svg/icons/back.svg"),
-        onPressed: () {},
+        icon: const Icon(
+          Icons.arrow_back,
+          size: 24,
+        ),
+        onPressed: () =>Navigator.pop(context),
+        
       ),
       title: Container(
         height: 65,

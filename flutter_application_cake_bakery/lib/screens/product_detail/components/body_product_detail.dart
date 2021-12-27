@@ -132,7 +132,7 @@ class _BodyState extends State<Body> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.add),
+                      icon: const Icon(Icons.remove),
                     ),
                     Text(
                       '1',
@@ -140,7 +140,7 @@ class _BodyState extends State<Body> {
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: const Icon(Icons.remove),
+                      icon: const Icon(Icons.add),
                     ),
                   ],
                 ),
