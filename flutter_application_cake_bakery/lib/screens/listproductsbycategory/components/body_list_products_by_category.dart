@@ -39,6 +39,10 @@ class _ProductItemState extends State<ProductItem> {
       child: Container(
         height: 130,
         decoration: BoxDecoration(
+          border: Border.all(
+            width: 2,
+            color: Colors.black.withOpacity(0.2),
+          ),
           color: Colors.white,
           borderRadius: BorderRadius.circular(25),
         ),
@@ -63,13 +67,13 @@ class _ProductItemState extends State<ProductItem> {
                   Column(
                     children: [
                       Container(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                        width: 170,
+                        padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
+                        width: 180,
                         child: Row(
                           children: [
                             Container(
                               //padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              width: 110,
+                              width: 120,
                               child: Text(
                                 '${widget.product.productName}',
                                 style: const TextStyle(
@@ -99,7 +103,7 @@ class _ProductItemState extends State<ProductItem> {
                       //Price Product
                       Container(
                         padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 170,
+                        width: 180,
                         //color: Colors.green,
                         child: Row(
                           children: [
@@ -112,7 +116,7 @@ class _ProductItemState extends State<ProductItem> {
                             IconButton(
                               onPressed: () {},
                               icon: const Icon(
-                                Icons.shopping_cart_outlined,
+                                Icons.shopping_cart,
                                 color: primaryColor,
                               ),
                             ),
@@ -126,7 +130,7 @@ class _ProductItemState extends State<ProductItem> {
               ),
               Container(
                 //color: Colors.blue,
-                width: 40,
+                width: 30,
                 child: IconButton(
                   onPressed: () {},
                   icon: const Icon(
