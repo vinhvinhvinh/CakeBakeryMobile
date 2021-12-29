@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_cake_bakery/components/header_without_pop.dart';
+import 'package:flutter_application_cake_bakery/components/header.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 
 import 'components/body.dart';
 
-class Cart extends StatelessWidget {
-  const Cart({Key? key}) : super(key: key);
+class CheckoutScreen extends StatelessWidget {
+  const CheckoutScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       appBar: PreferredSize(
-        child: HeaderWithoutPop(
-            title: '',
+        child: Header(
+            title: 'CHECKOUT',
             backgrColor: primaryColor,
             textColor: Colors.white,
             action: null),
-        preferredSize: Size(double.infinity, 0.0),
+        preferredSize: Size(double.infinity, 50),
       ),
       body: Body(),
       bottomNavigationBar: CheckOut(),
@@ -48,18 +48,9 @@ class CheckOut extends StatelessWidget {
         ],
       ),
       child: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Total:',
-                    style: myStyle(18, Colors.grey, FontWeight.normal)),
-                Text('420.000 VND',
-                    style: myStyle(20, Colors.orange, FontWeight.normal)),
-              ],
-            ),
             Container(
               margin: const EdgeInsets.only(top: 20),
               child: Row(
@@ -77,10 +68,9 @@ class CheckOut extends StatelessWidget {
                               top: 15, bottom: 15, left: 92, right: 92)),
                     ),
                     onPressed: () {
-                      print('READY TO CHECKOUT');
-                      Navigator.pushNamed(context, '/checkout');
+                      print('PURCHASE');
                     },
-                    child: Text('Ready to checkout',
+                    child: Text('PURCHASE',
                         style: myStyle(20, Colors.white, FontWeight.normal)),
                   ),
                 ],

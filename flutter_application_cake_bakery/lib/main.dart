@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_cake_bakery/screens/cart/checkout/checkout_screen.dart';
 import 'screens/account/setting_and_security/password_change/password_change_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
 import 'screens/account/setting_and_security/setting_security_screen.dart';
@@ -45,6 +46,7 @@ class CakeBakery extends StatelessWidget {
         '/change': (context) => const ChangePassword(),
         'account': (context) => const AccountScreen(),
         'cart': (context) => const Cart(),
+        '/checkout': (context) => const CheckoutScreen(),
         'account/myprofile': (context) => const ProfileScreen(),
         'account/myorder': (context) => const MyOrderScreen(),
         'account/setting_and_security': (context) =>

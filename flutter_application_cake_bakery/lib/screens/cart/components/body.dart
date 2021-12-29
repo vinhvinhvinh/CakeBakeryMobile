@@ -23,7 +23,7 @@ class Body extends StatelessWidget {
       alignment: Alignment.center,
       margin: const EdgeInsets.only(top: 10, bottom: 20),
       child: const Text(
-        'Your Cart',
+        'Giỏ Hàng',
         style: TextStyle(fontSize: 28, fontWeight: FontWeight.normal),
       ),
     );
