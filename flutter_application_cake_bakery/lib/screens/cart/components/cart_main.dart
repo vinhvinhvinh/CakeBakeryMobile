@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/screens/cart/components/cart_card_item.dart';
 
 class CartMain extends StatefulWidget {
-  CartMain({Key? key}) : super(key: key);
+  const CartMain({Key? key}) : super(key: key);
 
   @override
   _CartMainState createState() => _CartMainState();
