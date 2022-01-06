@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 import 'package:flutter_application_cake_bakery/models/Product.dart';
+import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
@@ -132,7 +133,12 @@ class _ProductItemState extends State<ProductItem> {
                 //color: Colors.blue,
                 width: 30,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetail(),
+                    ),
+                  ),
                   icon: const Icon(
                     Icons.arrow_forward_ios,
                   ),

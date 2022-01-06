@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
 
 class NewProducts extends StatelessWidget {
   const NewProducts({Key? key}) : super(key: key);
@@ -14,10 +15,10 @@ class NewProducts extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              newProduct('c-feature-3.jpg', '30 000'),
-              newProduct('c-feature-4.jpg', '30 000'),
-              newProduct('c-feature-5.jpg', '30 000'),
-              newProduct('c-feature-6.jpg', '30 000'),
+              newProduct('c-feature-3.jpg', '30 000',context),
+              newProduct('c-feature-4.jpg', '30 000',context),
+              newProduct('c-feature-5.jpg', '30 000',context),
+              newProduct('c-feature-6.jpg', '30 000',context),
             ],
           ),
         )
@@ -25,49 +26,57 @@ class NewProducts extends StatelessWidget {
     );
   }
 
-  Container newProduct(String image, String price) {
-    return Container(
-      height: 130,
-      // color: Colors.green,
-      child: Stack(
-        children: [
-          Container(
-            padding: const EdgeInsets.only(left: kDefaultPadding / 2),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
-                'assets/images/$image',
-                width: 130,
-                height: 130,
-                fit: BoxFit.cover,
+  Widget newProduct(String image, String price,BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProductDetail(),
+        ),
+      ),
+      child: Container(
+        height: 130,
+        // color: Colors.green,
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: kDefaultPadding / 2),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  'assets/images/$image',
+                  width: 130,
+                  height: 130,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          Container(
-              padding: const EdgeInsets.only(left: kDefaultPadding),
-              child: const Icon(
-                Icons.fiber_new,
-                color: Colors.red,
-                size: 30,
-              )),
-          Container(
-            width: 120,
-            padding: const EdgeInsets.fromLTRB(37, 105, 0, 0),
-            child: Text(
-              '$price đ',
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: backgroundColor,
-                  shadows: [
-                    Shadow(
-                      blurRadius: 20.0,
-                      color: ktextColor,
-                    ),
-                  ]),
+            Container(
+                padding: const EdgeInsets.only(left: kDefaultPadding),
+                child: const Icon(
+                  Icons.fiber_new,
+                  color: Colors.red,
+                  size: 30,
+                )),
+            Container(
+              width: 120,
+              padding: const EdgeInsets.fromLTRB(37, 105, 0, 0),
+              child: Text(
+                '$price đ',
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: backgroundColor,
+                    shadows: [
+                      Shadow(
+                        blurRadius: 20.0,
+                        color: ktextColor,
+                      ),
+                    ]),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/screens/favorite/favorite_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/listproductsbycategory/components/body_list_products_by_category.dart';
 
 
@@ -8,10 +9,10 @@ class ProductsByCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: buildAppBar(), body: Body());
+    return Scaffold(appBar: buildAppBar(context), body: Body());
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: primaryColor,
       elevation: 0,
@@ -21,7 +22,7 @@ class ProductsByCategory extends StatelessWidget {
           size: 24,
           color: Colors.white,
         ),
-        onPressed: () {},
+        onPressed: () =>Navigator.pop(context),
       ),
       title: Container(
         height: 65,
@@ -43,7 +44,12 @@ class ProductsByCategory extends StatelessWidget {
             Icons.favorite_border_outlined,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () =>Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FavoriteScreen(),
+              ),
+            ),
         ),
         const SizedBox(width: kDefaultPadding / 2),
       ],

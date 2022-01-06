@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/screens/listproductsbycategory/list_products_by_catergory_screen.dart';
 
 class ListCategories extends StatelessWidget {
   const ListCategories({Key? key}) : super(key: key);
@@ -9,12 +10,12 @@ class ListCategories extends StatelessWidget {
     return Column(
       children: [
         const TitleWithButton(),
-        CategoriesList(),
+        CategoriesList(context),
       ],
     );
   }
 
-  Widget CategoriesList() {
+  Widget CategoriesList(BuildContext context) {
     return Container(
       height: 130,
       child: ListView(
@@ -44,11 +45,13 @@ class ListCategories extends StatelessWidget {
             image: '2.png',
             categoryName: 'CUPCAKE',
             press: () {},
+             
+            
           ),
           Category(
             image: 'c-feature-6.jpg',
             categoryName: 'GATO',
-            press: () {},
+            press: (){},
           ),
         ],
       ),
@@ -70,7 +73,12 @@ class Category extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: press(),
+      onTap: ()=>Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductsByCategory(),
+              ),
+            ),
       child: Stack(
         children: <Widget>[
           Container(
