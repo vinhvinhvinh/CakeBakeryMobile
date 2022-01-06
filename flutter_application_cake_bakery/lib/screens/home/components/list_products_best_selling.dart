@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
 
 class BestSellingProduct extends StatelessWidget {
   const BestSellingProduct({Key? key}) : super(key: key);
@@ -69,7 +70,12 @@ class ProductBestSelling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: press(),
+      onTap: ()=> Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProductDetail(),
+        ),
+      ),
       child: Stack(
         children: [
           Container(
