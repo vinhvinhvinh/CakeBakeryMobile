@@ -85,7 +85,8 @@ class _BodyState extends State<Body> {
                     text: 'Sign In',
                     backgroundColor: yellowColor,
                     press: () {
-                      Navigator.pushNamed(context, '/main_screen');
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/main_screen', (route) => false);
                     }),
                 Button(
                     text: 'Sign Up',
