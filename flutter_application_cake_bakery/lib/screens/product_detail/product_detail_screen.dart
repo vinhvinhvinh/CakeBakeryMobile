@@ -8,16 +8,16 @@ class ProductDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: buildAppBar(), body: const Body());
+    return Scaffold(appBar: buildAppBar(context), body: const Body());
   }
 
-  AppBar buildAppBar() {
+  AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: primaryColor,
       elevation: 0,
       leading: IconButton(
         icon: SvgPicture.asset("assets/svg/icons/back.svg"),
-        onPressed: () {},
+        onPressed: () =>Navigator.pop(context),
       ),
       title: Container(
         height: 65,
