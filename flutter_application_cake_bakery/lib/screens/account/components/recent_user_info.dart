@@ -15,6 +15,7 @@ Widget recentUserInfo() {
             child: CircleAvatar(
               radius: 45,
               backgroundImage: AssetImage("assets/images/marinhonda2.jpg"),
+              //backgroundImage: AssetImage("assets/images/marinhonda2.jpg"),
             ),
           ),
         ),
