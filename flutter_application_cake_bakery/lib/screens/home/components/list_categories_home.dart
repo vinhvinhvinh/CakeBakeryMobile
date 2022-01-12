@@ -18,56 +18,25 @@ class ListCategories extends StatelessWidget {
   Widget CategoriesList(BuildContext context) {
     return Container(
       height: 130,
-      child: ListView(
+      child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        children: [
-          Category(
-            image: '1.png',
-            categoryName: 'DONUT',
-            press: () {},
-          ),
-          Category(
-            image: '2.png',
-            categoryName: 'CUPCAKE',
-            press: () {},
-          ),
-          Category(
-            image: 'c-feature-6.jpg',
-            categoryName: 'GATO',
-            press: () {},
-          ),
-          Category(
-            image: '1.png',
-            categoryName: 'DONUT',
-            press: () {},
-          ),
-          Category(
-            image: '2.png',
-            categoryName: 'CUPCAKE',
-            press: () {},
-             
-            
-          ),
-          Category(
-            image: 'c-feature-6.jpg',
-            categoryName: 'GATO',
-            press: (){},
-          ),
-        ],
+       itemBuilder: (BuildContext context, int index) {
+            return Category();
+       },
       ),
     );
   }
 }
 
 class Category extends StatelessWidget {
-  final String image;
-  final String categoryName;
-  final Function press;
+  // final String image;
+  // final String categoryName;
+  
   const Category({
     Key? key,
-    required this.image,
-    required this.categoryName,
-    required this.press,
+    // required this.image,
+    // required this.categoryName,
+    
   }) : super(key: key);
 
   @override
@@ -106,7 +75,7 @@ class Category extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: Image.asset(
-                      'assets/images/$image',
+                      'assets/images/1.png',
                       width: 80,
                       height: 80,
                       fit: BoxFit.cover,
@@ -115,7 +84,7 @@ class Category extends StatelessWidget {
                 ),
                 Container(
                   child: Text(
-                    categoryName,
+                    'DONUT',
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 16),
                   ),
