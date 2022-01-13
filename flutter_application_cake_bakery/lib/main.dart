@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/screens/cart/checkout/checkout_screen.dart';
+import 'package:provider/provider.dart';
 import 'screens/account/setting_and_security/password_change/password_change_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
 import 'screens/account/setting_and_security/setting_security_screen.dart';
 import 'screens/changepassword/change_pasword_screen.dart';
 import 'screens/forgetpassword/forget_password_screen.dart';
+import 'screens/home/provider/product_type_provider.dart';
 import 'screens/resetpassword/reset_password_screen.dart';
 import 'screens/signup/sign_up_screen.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
@@ -28,16 +30,20 @@ class CakeBakery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Cake Bakery',
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-        scaffoldBackgroundColor: backgroundColor,
-        textTheme: Theme.of(context).textTheme.apply(bodyColor: textColor),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      routes: {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductTypeProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Cake Bakery',
+        theme: ThemeData(
+          primarySwatch: Colors.pink,
+          scaffoldBackgroundColor: backgroundColor,
+          textTheme: Theme.of(context).textTheme.apply(bodyColor: textColor),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        routes: {
         '/': (context) => const LoginScreen(),
         '/main_screen': (context) => MainScreen(),
         '/signup': (context) => const SignUpScreen(),
@@ -56,9 +62,9 @@ class CakeBakery extends StatelessWidget {
         'products_by_category': (context) => const ProductsByCategory(),
         'favorite_products': (context) => const FavoriteScreen(),
         'product_detail': (context) => const ProductDetail(),
-
       },
-      initialRoute: '/',
+        initialRoute: '/',
+      ),
     );
   }
 }
