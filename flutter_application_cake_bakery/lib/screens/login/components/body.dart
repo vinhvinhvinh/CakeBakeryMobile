@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/components/button.dart';
 import 'package:flutter_application_cake_bakery/components/logo.dart';
 import 'package:flutter_application_cake_bakery/components/textfield.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../constant.dart';
 
@@ -84,9 +87,30 @@ class _BodyState extends State<Body> {
                 Button(
                     text: 'Sign In',
                     backgroundColor: yellowColor,
-                    press: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, '/main_screen', (route) => false);
+                    press: () async {
+                      if (usernameController.text.isNotEmpty &&
+                          passwordController.text.isNotEmpty) {
+                        var response = await http.post(
+                            Uri.parse(
+                                "http://10.0.2.2:8000/api/accounts/login"),
+                            body: ({
+                              "Email": usernameController.text,
+                              "Password": passwordController.text
+                            }));
+                        var list =
+                            json.decode(response.body) as Map<String, dynamic>;
+                        if (response.statusCode == 200) {
+                          if (list["success"] == true) {
+                            Navigator.pushNamed(context, '/main_screen');
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                                content: Text('Tài khoản hoặc mật khẩu sai')));
+                          }
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                            content: Text("Vui lòng điền đầy đủ thông tin")));
+                      }
                     }),
                 Button(
                     text: 'Sign Up',
@@ -101,4 +125,6 @@ class _BodyState extends State<Body> {
       ),
     );
   }
+
+  
 }

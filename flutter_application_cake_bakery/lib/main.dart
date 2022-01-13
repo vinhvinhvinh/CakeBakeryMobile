@@ -56,6 +56,7 @@ class CakeBakery extends StatelessWidget {
         'products_by_category': (context) => const ProductsByCategory(),
         'favorite_products': (context) => const FavoriteScreen(),
         'product_detail': (context) => const ProductDetail(),
+
       },
       initialRoute: '/',
     );
