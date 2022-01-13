@@ -1,53 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/screens/home/provider/product_type_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/listproductsbycategory/list_products_by_catergory_screen.dart';
+import 'package:provider/provider.dart';
 
-class ListCategories extends StatelessWidget {
+import '../../../base_url.dart';
+
+class ListCategories extends StatefulWidget {
   const ListCategories({Key? key}) : super(key: key);
+
+  @override
+  State<ListCategories> createState() => _ListCategoriesState();
+}
+
+class _ListCategoriesState extends State<ListCategories> {
+  @override
+  void initState() {
+    super.initState();
+    final products = Provider.of<ProductTypeProvider>(context, listen: false);
+    products.getProductType(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         const TitleWithButton(),
-        CategoriesList(context),
+        Consumer<ProductTypeProvider>(builder: (context, state, child) {
+          return Container(
+            height: 130,
+            child: ListView.builder(
+              itemCount: state.productTypes.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                return Category(
+                    image: state.productTypes[index].image,
+                    categoryName: state.productTypes[index].name);
+              },
+            ),
+          );
+        })
       ],
     );
   }
 
-  Widget CategoriesList(BuildContext context) {
-    return Container(
-      height: 130,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-       itemBuilder: (BuildContext context, int index) {
-            return Category();
-       },
-      ),
-    );
-  }
+  // Widget CategoriesList(BuildContext context) {
+  //   return Container(
+  //     height: 130,
+  //     child: ListView.builder(
+  //       scrollDirection: Axis.horizontal,
+  //       itemBuilder: (BuildContext context, int index) {
+  //         return Category();
+  //       },
+  //     ),
+  //   );
+  // }
 }
 
 class Category extends StatelessWidget {
-  // final String image;
-  // final String categoryName;
-  
+  final String? image;
+  final String categoryName;
+
   const Category({
     Key? key,
-    // required this.image,
-    // required this.categoryName,
-    
+    this.image,
+    required this.categoryName,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=>Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProductsByCategory(),
-              ),
-            ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ProductsByCategory(),
+        ),
+      ),
       child: Stack(
         children: <Widget>[
           Container(
@@ -74,8 +102,8 @@ class Category extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(50),
-                    child: Image.asset(
-                      'assets/images/1.png',
+                    child: Image.network(
+                      imgUrl + '/producttype/' + image!,
                       width: 80,
                       height: 80,
                       fit: BoxFit.cover,
@@ -84,11 +112,11 @@ class Category extends StatelessWidget {
                 ),
                 Container(
                   child: Text(
-                    'DONUT',
+                    categoryName,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 16),
                   ),
-                  margin: EdgeInsets.only(top: 3),
+                  margin: const EdgeInsets.only(top: 3),
                 ),
               ],
             ),
