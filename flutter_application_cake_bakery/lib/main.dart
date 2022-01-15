@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/screens/cart/checkout/checkout_screen.dart';
+import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
 import 'package:provider/provider.dart';
 import 'screens/account/setting_and_security/password_change/password_change_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
@@ -33,6 +34,7 @@ class CakeBakery extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProductTypeProvider()),
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -44,25 +46,26 @@ class CakeBakery extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routes: {
-        '/': (context) => const LoginScreen(),
-        '/main_screen': (context) => MainScreen(),
-        '/signup': (context) => const SignUpScreen(),
-        '/forget_password': (context) => const ForgetPassword(),
-        '/reset': (context) => const ResetPasswordScreen(),
-        '/change': (context) => const ChangePassword(),
-        'account': (context) => const AccountScreen(),
-        'cart': (context) => const Cart(),
-        '/checkout': (context) => const CheckoutScreen(),
-        'account/myprofile': (context) => const ProfileScreen(),
-        'account/myorder': (context) => const MyOrderScreen(),
-        'account/setting_and_security': (context) =>
-            const SettingAndSecurityScreen(),
-        'account/account_and_security/change_password': (context) =>
-            const PasswordChangeScreen(),
-        'products_by_category': (context) => const ProductsByCategory(),
-        'favorite_products': (context) => const FavoriteScreen(),
-        'product_detail': (context) => const ProductDetail(),
-      },
+          // '/': (context) => const LoginScreen(),
+          '/': (context) => MainScreen(),
+          '/main_screen': (context) => MainScreen(),
+          '/signup': (context) => const SignUpScreen(),
+          '/forget_password': (context) => const ForgetPassword(),
+          '/reset': (context) => const ResetPasswordScreen(),
+          '/change': (context) => const ChangePassword(),
+          'account': (context) => const AccountScreen(),
+          'cart': (context) => const Cart(),
+          '/checkout': (context) => const CheckoutScreen(),
+          'account/myprofile': (context) => const ProfileScreen(),
+          'account/myorder': (context) => const MyOrderScreen(),
+          'account/setting_and_security': (context) =>
+              const SettingAndSecurityScreen(),
+          'account/account_and_security/change_password': (context) =>
+              const PasswordChangeScreen(),
+          'products_by_category': (context) => const ProductsByCategory(),
+          'favorite_products': (context) => const FavoriteScreen(),
+          'product_detail': (context) => const ProductDetail(),
+        },
         initialRoute: '/',
       ),
     );

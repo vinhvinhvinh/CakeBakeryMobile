@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+//format tiền nha
+var formatMoney = NumberFormat.currency(locale: "vi_VN", symbol: "đ");
 //Color
 
 const ktextColor = Colors.black; //bích tiền

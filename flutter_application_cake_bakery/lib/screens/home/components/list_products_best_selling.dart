@@ -1,52 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
+import 'package:provider/provider.dart';
 
-class BestSellingProduct extends StatelessWidget {
+import '../../../base_url.dart';
+
+class BestSellingProduct extends StatefulWidget {
   const BestSellingProduct({Key? key}) : super(key: key);
+
+  @override
+  State<BestSellingProduct> createState() => _BestSellingProductState();
+}
+
+class _BestSellingProductState extends State<BestSellingProduct> {
+  @override
+  void initState() {
+    super.initState();
+    final products = Provider.of<ProductProvider>(context, listen: false);
+    products.bestSelling(context);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         TitleWithButton(),
-        Container(
-          height: 130,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              ProductBestSelling(
-                image: '1.png',
-                price: '30 000 VND',
-                productName: 'Cupcake Matcha',
-                press: () {},
+        Consumer<ProductProvider>(
+          builder: (context, state, child) {
+            return Container(
+              height: 130,
+              child: ListView.builder(
+                itemCount: state.products.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return ProductBestSelling(
+                    image: state.products[index].image,
+                    productName: state.products[index].name,
+                    price: state.products[index].price,
+                  );
+                },
               ),
-              ProductBestSelling(
-                image: '2.png',
-                price: '30 000 VND',
-                productName: 'Cupcake Matcha',
-                press: () {},
-              ),
-              ProductBestSelling(
-                image: '3.png',
-                price: '30 000 VND',
-                productName: 'Cupcake Matcha',
-                press: () {},
-              ),
-              ProductBestSelling(
-                image: '1.png',
-                price: '30 000 VND',
-                productName: 'Cupcake Matcha',
-                press: () {},
-              ),
-              ProductBestSelling(
-                image: '2.png',
-                price: '30 000 VND',
-                productName: 'Cupcake Matcha',
-                press: () {},
-              ),
-            ],
-          ),
+            );
+          },
         ),
       ],
     );
@@ -57,20 +53,19 @@ class BestSellingProduct extends StatelessWidget {
 class ProductBestSelling extends StatelessWidget {
   final String image;
   final String productName;
-  final String price;
-  final Function press;
+  final int price;
+
   const ProductBestSelling({
     Key? key,
     required this.image,
     required this.productName,
     required this.price,
-    required this.press,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=> Navigator.push(
+      onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => ProductDetail(),
@@ -91,8 +86,8 @@ class ProductBestSelling extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    'assets/images/$image',
+                  child: Image.network(
+                    imgUrl + 'product/' + image,
                     width: 100,
                     height: 110,
                     fit: BoxFit.cover,
@@ -120,7 +115,7 @@ class ProductBestSelling extends StatelessWidget {
                     ),
                     //Price
                     Text(
-                      price,
+                      formatMoney.format(price),
                       style: const TextStyle(fontSize: 20),
                     ),
                     const SizedBox(

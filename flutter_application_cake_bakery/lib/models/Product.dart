@@ -1,68 +1,58 @@
-import 'package:flutter/material.dart';
-
 class Product {
-  final String? image, productName;
-  final int? price, id;
-  Product({
-    this.id,
-    this.image,
-    this.productName,
-    this.price,
-  });
-}
+  late String id;
+  late String name;
+  late int price;
+  late int stock;
+  late String date;
+  late String image;
+  late String productTypeId;
+  late String description;
+  late int status;
+  String? createdAt;
+  String? updatedAt;
 
-List<Product> lstProducts = [
-  Product(
-    id: 1,
-    image: '1.png',
-    productName: 'Bánh donut truyền thống',
-    price: 30000,
-  ),
-  Product(
-    id: 2,
-    image: '2.png',
-    productName: 'Bánh donut truyền thống',
-    price: 30000,
-  ),
-  Product(
-    id: 3,
-    image: '3.png',
-    productName: 'Bánh donut truyền thống',
-    price: 30000,
-  ),  Product(
-    id: 1,
-    image: '1.png',
-    productName: 'Bánh donut truyền thống',
-    price: 30000,
-  ),
-  Product(
-    id: 2,
-    image: '2.png',
-    productName: 'Bánh donut truyền thống',
-    price: 30000,
-  ),
-  Product(
-    id: 3,
-    image: '3.png',
-    productName: 'Bánh donut truyền thống',
-    price: 30000,
-  ),
-    Product(
-    id: 1,
-    image: '1.png',
-    productName: 'Bánh donut truyền thống',
-    price: 30000,
-  ),
-  Product(
-    id: 2,
-    image: '2.png',
-    productName: 'Bánh donut truyền thống',
-    price: 30000,
-  ),
-  Product(
-    id: 3,
-    image: '3.png',
-    productName: 'Bánh donut truyền thống',
-    price: 30000,
-  )
-  ];
+  Product({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.stock,
+    required this.date,
+    required this.image,
+    required this.productTypeId,
+    required this.description,
+    required this.status,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  Product.fromJson(Map<String, dynamic> json) {
+    id = json['Id'];
+    name = json['Name'];
+    price = json['Price'];
+    stock = json['Stock'];
+    date = json['Date'];
+    image = json['Image'];
+    productTypeId = json['ProductTypeId'];
+    description = json['Description'];
+    status = json['Status'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['Id'] = id;
+    data['Name'] = name;
+    data['Price'] = price;
+    data['Stock'] = stock;
+    data['Date'] = date;
+    data['Image'] = image;
+    data['ProductTypeId'] = productTypeId;
+    data['Description'] = description;
+    data['Status'] = status;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+
+    return data;
+  }
+}
