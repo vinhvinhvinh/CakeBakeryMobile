@@ -1,27 +1,29 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
-import 'package:flutter_application_cake_bakery/models/Product.dart';
+import 'package:flutter_application_cake_bakery/models/product.dart';
+import 'package:flutter_application_cake_bakery/screens/account/myorder/components/main.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (context, index) {
-        return ProductItem(product: lstProducts[index]);
-      },
-      itemCount: lstProducts.length,
-    );
+    return Container();
+    // return ListView.builder(
+    //   itemBuilder: (context, index) {
+    //     return ProductItem(product: lstProducts[index]);
+    //   },
+    //   itemCount: lstProducts.length,
+    // );
   }
 }
 
 class ProductItem extends StatefulWidget {
-  final Product product;
+  //final Product product;
   ProductItem({
     Key? key,
-    required this.product,
+    //required this.product,
   }) : super(key: key);
 
   @override
@@ -57,7 +59,7 @@ class _ProductItemState extends State<ProductItem> {
                   bottomLeft: Radius.circular(25),
                 ),
                 child: Image.asset(
-                  "assets/images/${widget.product.image}",
+                  "assets/images/1.png",
                   height: 130,
                   fit: BoxFit.cover,
                 ),
@@ -76,7 +78,7 @@ class _ProductItemState extends State<ProductItem> {
                               //padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
                               width: 120,
                               child: Text(
-                                '${widget.product.productName}',
+                                'Ten san pham',
                                 style: const TextStyle(
                                     color: ktextColor,
                                     fontWeight: FontWeight.bold,
@@ -107,7 +109,7 @@ class _ProductItemState extends State<ProductItem> {
                         child: Row(
                           children: [
                             Text(
-                              "${widget.product.price} đ",
+                              "Price đ",
                               style: const TextStyle(color: ktextColor, fontSize: 20),
                             ),
                             const Spacer(),
