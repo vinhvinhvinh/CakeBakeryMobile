@@ -87,7 +87,7 @@ class ProductBestSelling extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
-                    imgUrl + image,
+                    imgUrl + 'product/' + image,
                     width: 100,
                     height: 110,
                     fit: BoxFit.cover,
@@ -115,7 +115,7 @@ class ProductBestSelling extends StatelessWidget {
                     ),
                     //Price
                     Text(
-                      productName,
+                      formatMoney.format(price),
                       style: const TextStyle(fontSize: 20),
                     ),
                     const SizedBox(

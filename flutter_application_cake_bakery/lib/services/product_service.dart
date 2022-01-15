@@ -16,7 +16,7 @@ Future<List<Product>> getbestSelling(context) async {
     );
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
-      print(item);
+      //print(item);
       products = (item as List).map((prod) => Product.fromJson(prod)).toList();
     }
   } catch (e) {
