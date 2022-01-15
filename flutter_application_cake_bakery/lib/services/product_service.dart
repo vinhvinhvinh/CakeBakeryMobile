@@ -4,7 +4,7 @@ import 'package:flutter_application_cake_bakery/base_url.dart';
 import 'package:flutter_application_cake_bakery/models/product.dart';
 import 'package:http/http.dart' as http;
 
-Future<List<Product>> bestSelling(context) async {
+Future<List<Product>> getbestSelling(context) async {
   List<Product> products = [];
 
   try {
@@ -17,8 +17,7 @@ Future<List<Product>> bestSelling(context) async {
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
       print(item);
-      products =
-          (item as List).map((prod) => Product.fromJson(prod)).toList();
+      products = (item as List).map((prod) => Product.fromJson(prod)).toList();
     }
   } catch (e) {
     rethrow;

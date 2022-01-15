@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/models/product.dart';
-
+import 'package:flutter_application_cake_bakery/services/product_service.dart';
 
 class ProductProvider extends ChangeNotifier {
   List<Product> products = [];
@@ -10,7 +10,7 @@ class ProductProvider extends ChangeNotifier {
   bestSelling(context) async {
     loading = true;
 
-    products = await bestSelling(context);
+    products = await getbestSelling(context);
     loading = false;
     notifyListeners();
   }

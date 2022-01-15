@@ -10,20 +10,20 @@ class Product {
   late int status;
   String? createdAt;
   String? updatedAt;
-  
-  Product(
-      {required this.id,
-      required this.name,
-      required this.price,
-      required this.stock,
-      required this.date,
-      required this.image,
-      required this.productTypeId,
-      required this.description,
-      required this.status,
-      this.createdAt,
-      this.updatedAt,
-      });
+
+  Product({
+    required this.id,
+    required this.name,
+    required this.price,
+    required this.stock,
+    required this.date,
+    required this.image,
+    required this.productTypeId,
+    required this.description,
+    required this.status,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   Product.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
@@ -37,7 +37,6 @@ class Product {
     status = json['Status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    
   }
 
   Map<String, dynamic> toJson() {
@@ -53,7 +52,7 @@ class Product {
     data['Status'] = status;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
-    
+
     return data;
   }
 }
