@@ -16,7 +16,8 @@ Future<List<ProductType>> getAllProductType(context) async {
     );
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
-      print(item);
+
+      //print(item);
       productTypes =
           (item as List).map((pt) => ProductType.fromJson(pt)).toList();
     }
