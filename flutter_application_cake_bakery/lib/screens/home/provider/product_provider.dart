@@ -14,4 +14,12 @@ class ProductProvider extends ChangeNotifier {
     loading = false;
     notifyListeners();
   }
+
+  getNewProduct(context) async {
+    loading = true;
+
+    products = await getAllNewProduct(context);
+    loading = false;
+    notifyListeners();
+  }
 }
