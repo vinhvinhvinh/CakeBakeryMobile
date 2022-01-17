@@ -17,13 +17,14 @@ Future<List<Product>> getbestSelling(context) async {
     );
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
-      //print(item);
+      
       products = (item as List).map((prod) => Product.fromJson(prod)).toList();
+      //print(products);
     }
   } catch (e) {
     rethrow;
   }
-
+  //print(products);
   return products;
 }
 
