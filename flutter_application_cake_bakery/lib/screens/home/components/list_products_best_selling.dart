@@ -76,20 +76,27 @@ class ProductBestSelling extends StatelessWidget {
           Container(
             height: 110,
             width: 300,
-            color: Colors.white,
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 2,
+                color: primaryColor.withOpacity(0.7),
+              ),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(25),
+            ),
             margin: const EdgeInsets.all(kDefaultPadding / 2),
           ),
           Container(
             //margin: EdgeInsets.only(left:kDefaultPadding / 2),
-            margin: const EdgeInsets.only(left: kDefaultPadding / 2),
+            margin: const EdgeInsets.only(left: 12),
             child: Row(
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(25),
                   child: Image.network(
                     imgUrl + 'product/' + image,
                     width: 100,
-                    height: 110,
+                    height: 105,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -103,11 +110,14 @@ class ProductBestSelling extends StatelessWidget {
                       height: kDefaultPadding,
                     ),
                     //Product Name
-                    Text(
-                      productName,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                    Container(
+                      width: 170,
+                      child: Text(
+                        productName,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                     const SizedBox(
@@ -123,30 +133,6 @@ class ProductBestSelling extends StatelessWidget {
                     ),
 
                     //Evaluate
-                    Row(
-                      children: const [
-                        Icon(
-                          Icons.star_border,
-                          color: Colors.yellow,
-                        ),
-                        Icon(
-                          Icons.star_border,
-                          color: Colors.yellow,
-                        ),
-                        Icon(
-                          Icons.star_border,
-                          color: Colors.yellow,
-                        ),
-                        Icon(
-                          Icons.star_border,
-                          color: Colors.yellow,
-                        ),
-                        Icon(
-                          Icons.star_border,
-                          color: Colors.yellow,
-                        ),
-                      ],
-                    ),
                   ],
                 ),
                 //),
