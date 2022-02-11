@@ -4,7 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/components/button.dart';
 import 'package:flutter_application_cake_bakery/components/logo.dart';
 import 'package:flutter_application_cake_bakery/components/textfield.dart';
+import 'package:flutter_application_cake_bakery/database/db_helper.dart';
+import 'package:flutter_application_cake_bakery/models/user.dart';
+import 'package:flutter_application_cake_bakery/screens/account/provider/account_provider.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 import '../../../constant.dart';
 
@@ -16,9 +22,14 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  DBHelper? dbHelper;
+
   bool isChecked = true;
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
+
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,26 +101,33 @@ class _BodyState extends State<Body> {
                     press: () async {
                       if (usernameController.text.isNotEmpty &&
                           passwordController.text.isNotEmpty) {
-                        var response = await http.post(
-                            Uri.parse(
-                                "http://10.0.2.2:8000/api/accounts/login"),
-                            body: ({
-                              "Email": usernameController.text,
-                              "Password": passwordController.text
-                            }));
-                        var list =
-                            json.decode(response.body) as Map<String, dynamic>;
-                        if (response.statusCode == 200) {
-                          if (list["success"] == true) {
-                            Navigator.pushNamed(context, '/main_screen');
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                                content: Text('Tài khoản hoặc mật khẩu sai')));
-                          }
-                        }
+                        Provider.of<AccountProvider>(context, listen: false)
+                            .login(usernameController.text,
+                                passwordController.text)
+                            .then((user) => {
+                                  if (user != null)
+                                    {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  "Đăng nhập thành công"))),
+                                      Navigator.pushNamedAndRemoveUntil(context,
+                                          "/main_screen", (route) => false),
+                                      //Navigator.pushNamed(context, '/main_screen');
+                                    }
+                                  else
+                                    {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Tài khoản hoặc mật khẩu sai'))),
+                                    }
+                                });
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text("Vui lòng điền đầy đủ thông tin")));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content:
+                                    Text("Vui lòng điền đầy đủ thông tin")));
                       }
                     }),
                 Button(
@@ -125,6 +143,6 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-
-  
 }
+
+const spinkit = SpinKitRing(color: Colors.red);

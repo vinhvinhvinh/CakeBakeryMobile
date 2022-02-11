@@ -11,7 +11,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        recentUserInfo(),
+        recentUserInfo(context),
         directionalUser(),
       ],
     );
