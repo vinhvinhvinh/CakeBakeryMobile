@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/screens/cart/checkout/checkout_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
 import 'package:provider/provider.dart';
+import 'screens/account/provider/account_provider.dart';
 import 'screens/account/setting_and_security/password_change/password_change_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
 import 'screens/account/setting_and_security/setting_security_screen.dart';
@@ -35,6 +36,7 @@ class CakeBakery extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ProductTypeProvider()),
         ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => AccountProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -46,7 +48,7 @@ class CakeBakery extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routes: {
-          // '/': (context) => const LoginScreen(),
+          //'/': (context) => const LoginScreen(),
           '/': (context) => MainScreen(),
           '/main_screen': (context) => MainScreen(),
           '/signup': (context) => const SignUpScreen(),

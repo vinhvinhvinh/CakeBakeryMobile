@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_cake_bakery/models/user.dart';
+import 'package:flutter_application_cake_bakery/screens/account/provider/account_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../base_url.dart';
 
 class ProfilePic extends StatelessWidget {
   const ProfilePic({
@@ -8,6 +13,7 @@ class ProfilePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<AccountProvider>(context, listen: false).user!;
     return SizedBox(
       height: 100,
       width: 100,
@@ -15,8 +21,8 @@ class ProfilePic extends StatelessWidget {
         fit: StackFit.expand,
         clipBehavior: Clip.none,
         children: [
-          const CircleAvatar(
-            backgroundImage: AssetImage("assets/images/marinhonda2.jpg"),
+          CircleAvatar(
+            backgroundImage: NetworkImage(imgUrl + 'user/' + user.avatar!),
           ),
           Positioned(
             right: -10,

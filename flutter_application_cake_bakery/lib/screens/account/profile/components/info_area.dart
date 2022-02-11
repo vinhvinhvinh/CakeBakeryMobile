@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/models/user.dart';
+import 'package:flutter_application_cake_bakery/screens/account/provider/account_provider.dart';
+import 'package:provider/provider.dart';
 
 class InfomationArea extends StatefulWidget {
   const InfomationArea({Key? key}) : super(key: key);
@@ -31,25 +34,27 @@ class _InfomationAreaState extends State<InfomationArea> {
 
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<AccountProvider>(context, listen: false).user!;
+
     return Container(
       padding: const EdgeInsets.all(15),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Name:'),
-          userInfoTextField(usernameController, 'Nguyen The Vinh',
+          userInfoTextField(usernameController, user.fullname,
               TextCapitalization.words, 50, 1, TextInputType.text),
           Text('Email:'),
-          userInfoTextField(emailController, 'codemetlam@gmail.com',
+          userInfoTextField(emailController, user.email,
               TextCapitalization.none, 100, 1, TextInputType.emailAddress),
           Text('Phone:'),
-          userInfoTextField(phoneController, '0123456789',
+          userInfoTextField(phoneController, user.phone,
               TextCapitalization.none, 10, 1, TextInputType.phone),
           Text('Address 1:'),
-          userInfoTextField(addressController1, '123 Main Street, New York',
+          userInfoTextField(addressController1, user.address1,
               TextCapitalization.none, 200, 2, TextInputType.text),
           Text('Address 2:'),
-          userInfoTextField(addressController2, '123 Main Street, New York',
+          userInfoTextField(addressController2, user.address2 ?? '',
               TextCapitalization.none, 200, 2, TextInputType.text),
           ElevatedButton(
             style: ButtonStyle(
