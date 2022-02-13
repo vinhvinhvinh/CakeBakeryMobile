@@ -131,21 +131,21 @@ class _ProductItemState extends State<ProductItem> {
                   ),
                 ],
               ),
-              Container(
-                //color: Colors.blue,
-                width: 30,
-                child: IconButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductDetail(),
-                    ),
-                  ),
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                  ),
-                ),
-              ),
+              // Container(
+              //   //color: Colors.blue,
+              //   width: 30,
+              //   child: IconButton(
+              //     onPressed: () => Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) => ProductDetail(detail: ,),
+              //       ),
+              //     ),
+              //     icon: const Icon(
+              //       Icons.arrow_forward_ios,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ]),

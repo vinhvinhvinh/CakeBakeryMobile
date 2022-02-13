@@ -41,7 +41,7 @@ class Body extends StatelessWidget {
       ListCategories(),
       BestSellingProduct(),
       NewProducts(),
-      //TopProducts(),
+      TopProducts(),
       //NavigationBar(),
       //BloC, GetX, Provider
     ]);

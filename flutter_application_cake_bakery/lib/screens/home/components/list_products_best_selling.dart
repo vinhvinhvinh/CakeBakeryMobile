@@ -34,10 +34,20 @@ class _BestSellingProductState extends State<BestSellingProduct> {
                 itemCount: state.products.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
-                  return ProductBestSelling(
-                    image: state.products[index].image,
-                    productName: state.products[index].name,
-                    price: state.products[index].price,
+                  return GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetail(
+                          detail: state.products[index],
+                        ),
+                      ),
+                    ),
+                    child: ProductBestSelling(
+                      image: state.products[index].image,
+                      productName: state.products[index].name,
+                      price: state.products[index].price,
+                    ),
                   );
                 },
               ),
@@ -64,83 +74,75 @@ class ProductBestSelling extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ProductDetail(),
-        ),
-      ),
-      child: Stack(
-        children: [
-          Container(
-            height: 110,
-            width: 300,
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 2,
-                color: primaryColor.withOpacity(0.7),
-              ),
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25),
+    return Stack(
+      children: [
+        Container(
+          height: 110,
+          width: 300,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 2,
+              color: primaryColor.withOpacity(0.7),
             ),
-            margin: const EdgeInsets.all(kDefaultPadding / 2),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(25),
           ),
-          Container(
-            //margin: EdgeInsets.only(left:kDefaultPadding / 2),
-            margin: const EdgeInsets.only(left: 12),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(25),
-                  child: Image.network(
-                    imgUrl + 'product/' + image,
-                    width: 100,
-                    height: 105,
-                    fit: BoxFit.cover,
+          margin: const EdgeInsets.all(kDefaultPadding / 2),
+        ),
+        Container(
+          //margin: EdgeInsets.only(left:kDefaultPadding / 2),
+          margin: const EdgeInsets.only(left: 12),
+          child: Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(25),
+                child: Image.network(
+                  imgUrl + 'product/' + image,
+                  width: 100,
+                  height: 105,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(
+                width: kDefaultPadding / 2,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: kDefaultPadding,
                   ),
-                ),
-                const SizedBox(
-                  width: kDefaultPadding / 2,
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: kDefaultPadding,
-                    ),
-                    //Product Name
-                    Container(
-                      width: 170,
-                      child: Text(
-                        productName,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+                  //Product Name
+                  Container(
+                    width: 170,
+                    child: Text(
+                      productName,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
-                    const SizedBox(
-                      height: kDefaultPadding / 2,
-                    ),
-                    //Price
-                    Text(
-                      formatMoney.format(price),
-                      style: const TextStyle(fontSize: 20),
-                    ),
-                    const SizedBox(
-                      height: kDefaultPadding / 2,
-                    ),
+                  ),
+                  const SizedBox(
+                    height: kDefaultPadding / 2,
+                  ),
+                  //Price
+                  Text(
+                    formatMoney.format(price),
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: kDefaultPadding / 2,
+                  ),
 
-                    //Evaluate
-                  ],
-                ),
-                //),
-              ],
-            ),
+                  //Evaluate
+                ],
+              ),
+              //),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
