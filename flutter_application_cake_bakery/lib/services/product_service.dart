@@ -5,6 +5,7 @@ import 'package:flutter_application_cake_bakery/models/product.dart';
 import 'package:http/http.dart' as http;
 
 // Product BestSelling
+//goị API
 Future<List<Product>> getbestSelling(context) async {
   List<Product> products = [];
 
@@ -17,7 +18,7 @@ Future<List<Product>> getbestSelling(context) async {
     );
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
-      
+
       products = (item as List).map((prod) => Product.fromJson(prod)).toList();
       //print(products);
     }

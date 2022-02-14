@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
 import 'package:flutter_application_cake_bakery/screens/account/provider/account_provider.dart';
+import 'package:flutter_application_cake_bakery/screens/account/provider/user_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +14,7 @@ class ProfilePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<AccountProvider>(context, listen: false).user!;
+    UserDB user = Provider.of<UserProvider>(context, listen: false).user!;
     return SizedBox(
       height: 100,
       width: 100,

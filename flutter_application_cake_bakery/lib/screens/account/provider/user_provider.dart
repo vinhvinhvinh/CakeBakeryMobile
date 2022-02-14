@@ -9,13 +9,19 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:http/http.dart' as http;
 
-class AProvider with ChangeNotifier {
+class UserProvider with ChangeNotifier {
   //Test sqflite
   DBHelper dbHelper = DBHelper.instance;
+  //tạo tạm user để hiện dữ liệu
+  UserDB? _user;
+  //tạo 1 user để lưu user đã login
+  late Future<UserDB> userLogined;
 
-  User? _user;
-  User? get user => _user;
-  Future<User?> login(String username, String password) async {
+  //get user
+  UserDB? get user => _user;
+  //get user Logined
+
+  Future<UserDB?> login(String username, String password) async {
     var response = await http.post(Uri.parse(loginUrl),
         body: ({
           "Username": username,
@@ -47,9 +53,23 @@ class AProvider with ChangeNotifier {
           .onError((error, stackTrace) =>
               print('Thêm thất bại, Lỗi:' + error.toString()));
 
-      //print(userLogined.user!.email);
-      _user = userLogined.user;
-      return userLogined.user;
+      //Tạo một user để vừa lưu cho Provider vừa để trả về
+      UserDB userPackage = UserDB(
+        id: userLogined.user!.id,
+        username: userLogined.user!.username,
+        password: userLogined.user!.password,
+        email: userLogined.user!.email,
+        fullname: userLogined.user!.fullname,
+        address1: userLogined.user!.address1,
+        address2: userLogined.user?.address2,
+        phone: userLogined.user!.phone,
+        avatar: userLogined.user!.avatar,
+        otp: "",
+        userToken: userLogined.userToken,
+        status: userLogined.user!.status,
+      );
+      _user = userPackage;
+      return userPackage;
     }
   }
 
@@ -80,5 +100,11 @@ class AProvider with ChangeNotifier {
                 ],
               ));
     }
+  }
+
+  getUserData() async {
+    userLogined = DBHelper.instance.getUser();
+    //print(userLogined);
+    return userLogined;
   }
 }

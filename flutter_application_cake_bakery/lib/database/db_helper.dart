@@ -43,9 +43,9 @@ class DBHelper {
     return UserDB.fromJson(queryResult.first);
   }
 
-  Future<int> delete(id) async {
+  Future<int> delete(id, String table) async {
     var dbClient = await db;
     print('xoa thanh cong');
-    return await dbClient.delete('user', where: 'id = ?', whereArgs: [id]);
+    return await dbClient.delete(table, where: 'id = ?', whereArgs: [id]);
   }
 }

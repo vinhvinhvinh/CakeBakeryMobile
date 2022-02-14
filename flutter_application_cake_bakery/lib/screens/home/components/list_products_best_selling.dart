@@ -31,13 +31,13 @@ class _BestSellingProductState extends State<BestSellingProduct> {
             return Container(
               height: 130,
               child: ListView.builder(
-                itemCount: state.products.length,
+                itemCount: state.bestSellingproducts.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   return ProductBestSelling(
-                    image: state.products[index].image,
-                    productName: state.products[index].name,
-                    price: state.products[index].price,
+                    image: state.bestSellingproducts[index].image,
+                    productName: state.bestSellingproducts[index].name,
+                    price: state.bestSellingproducts[index].price,
                   );
                 },
               ),
