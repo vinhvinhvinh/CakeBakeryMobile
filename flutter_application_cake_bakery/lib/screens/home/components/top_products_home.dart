@@ -17,15 +17,14 @@ class TopProducts extends StatefulWidget {
 }
 
 class _TopProductsState extends State<TopProducts> {
+ bool _isChecked = false;
+
   @override
   void initState() {
     super.initState();
     final products = Provider.of<ProductProvider>(context, listen: false);
     products.getAll(context);
   }
-
-  @override
-  bool _isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +45,7 @@ class _TopProductsState extends State<TopProducts> {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProductDetail(detail: state.products[index],),
+                    builder: (context) => ProductDetail(detail: state.topProducts[index],),
                   ),
                 ),
                 child: Container(
@@ -77,7 +76,7 @@ class _TopProductsState extends State<TopProducts> {
                             child: Image.network(
                               imgUrl +
                                   '/product/' +
-                                  state.products[index].image,
+                                  state.topProducts[index].image,
                               //height: 155,
                               fit: BoxFit.fitWidth,
                             ),
@@ -109,7 +108,7 @@ class _TopProductsState extends State<TopProducts> {
                           Padding(
                             padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                             child: Text(
-                              state.products[index].name,
+                              state.topProducts[index].name,
                               style: const TextStyle(
                                   color: ktextColor,
                                   fontWeight: FontWeight.bold,
@@ -149,7 +148,7 @@ class _TopProductsState extends State<TopProducts> {
                 ),
               );
             },
-            itemCount: state.products.length,
+            itemCount: state.topProducts.length,
           ),
         ],
       );

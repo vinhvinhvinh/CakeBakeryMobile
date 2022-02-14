@@ -90,7 +90,7 @@ Future<List<Product>> getProductsByType(context, typeId) async{
       final item = json.decode(response.body);
       
       products = (item as List).map((prod) => Product.fromJson(prod)).toList();
-      //print(products);
+      print(products);
     }
   } catch (e) {
     rethrow;

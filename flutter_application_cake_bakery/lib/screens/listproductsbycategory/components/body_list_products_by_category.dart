@@ -28,9 +28,9 @@ class _BodyState extends State<Body> {
     return Consumer<ProductProvider>(builder: (context, state, child){
       return ListView.builder(
         itemBuilder: (context, index) {
-          return ProductItem(name: state.products[index].name,image: state.products[index].image,price: state.products[index].price,);
+          return ProductItem(name: state.byProductTypeId[index].name,image: state.byProductTypeId[index].image,price: state.byProductTypeId[index].price,);
         },
-        itemCount: state.products.length,
+        itemCount: state.byProductTypeId.length,
       );
      }); 
   }
