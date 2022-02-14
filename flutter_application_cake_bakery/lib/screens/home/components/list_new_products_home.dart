@@ -28,35 +28,6 @@ class _NewProductsState extends State<NewProducts> {
     return Column(
       children: [
         const TitleWithButton(),
-<<<<<<< HEAD
-        Consumer<ProductProvider>(
-          builder: (context, state, child) {
-            return Container(
-              height: 130,
-              child: ListView.builder(
-                itemCount: state.products.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            ProductDetail(detail: state.products[index]),
-                            //ProductDetail(),
-                      ),
-                    ),
-                    child: NewProds(
-                      name: state.products[index].name,
-                      image: state.products[index].image,
-                    ),
-                  );
-                },
-              ),
-            );
-          },
-        ),
-=======
         Consumer<ProductProvider>(builder: (context, state, child) {
           return Container(
             height: 130,
@@ -72,7 +43,6 @@ class _NewProductsState extends State<NewProducts> {
             ),
           );
         })
->>>>>>> 4f807f0c6124834e4c0a4eae1e61b39d608ff9a5
       ],
     );
   }
