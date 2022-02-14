@@ -123,7 +123,7 @@ class _TopProductsState extends State<TopProducts> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
-                                  formatMoney.format(state.products[index].price),
+                                  formatMoney.format(state.topProducts[index].price),
                                   style: TextStyle(
                                       color: ktextColor, fontSize: 18),
                                 ),
