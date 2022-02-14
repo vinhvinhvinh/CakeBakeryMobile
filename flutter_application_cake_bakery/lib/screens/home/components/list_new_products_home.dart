@@ -28,6 +28,7 @@ class _NewProductsState extends State<NewProducts> {
     return Column(
       children: [
         const TitleWithButton(),
+<<<<<<< HEAD
         Consumer<ProductProvider>(
           builder: (context, state, child) {
             return Container(
@@ -55,6 +56,23 @@ class _NewProductsState extends State<NewProducts> {
             );
           },
         ),
+=======
+        Consumer<ProductProvider>(builder: (context, state, child) {
+          return Container(
+            height: 130,
+            child: ListView.builder(
+              itemCount: state.newProducts.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                return NewProds(
+                  name: state.newProducts[index].name,
+                  image: state.newProducts[index].image,
+                );
+              },
+            ),
+          );
+        })
+>>>>>>> 4f807f0c6124834e4c0a4eae1e61b39d608ff9a5
       ],
     );
   }

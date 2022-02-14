@@ -31,9 +31,10 @@ class _BestSellingProductState extends State<BestSellingProduct> {
             return Container(
               height: 130,
               child: ListView.builder(
-                itemCount: state.products.length,
+                itemCount: state.bestSellingproducts.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
+<<<<<<< HEAD
                   return GestureDetector(
                     onTap: () => Navigator.push(
                       context,
@@ -48,6 +49,12 @@ class _BestSellingProductState extends State<BestSellingProduct> {
                       productName: state.products[index].name,
                       price: state.products[index].price,
                     ),
+=======
+                  return ProductBestSelling(
+                    image: state.bestSellingproducts[index].image,
+                    productName: state.bestSellingproducts[index].name,
+                    price: state.bestSellingproducts[index].price,
+>>>>>>> 4f807f0c6124834e4c0a4eae1e61b39d608ff9a5
                   );
                 },
               ),

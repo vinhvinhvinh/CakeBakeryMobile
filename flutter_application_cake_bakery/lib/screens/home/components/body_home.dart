@@ -33,7 +33,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getUser();
+    //getUser();
     return ListView(children: const [
       SearchBarHome(),
       //Banner

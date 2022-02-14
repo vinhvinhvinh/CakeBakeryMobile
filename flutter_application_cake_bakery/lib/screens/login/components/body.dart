@@ -6,7 +6,7 @@ import 'package:flutter_application_cake_bakery/components/logo.dart';
 import 'package:flutter_application_cake_bakery/components/textfield.dart';
 import 'package:flutter_application_cake_bakery/database/db_helper.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
-import 'package:flutter_application_cake_bakery/screens/account/provider/account_provider.dart';
+import 'package:flutter_application_cake_bakery/screens/account/provider/user_provider.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:http/http.dart' as http;
@@ -28,10 +28,9 @@ class _BodyState extends State<Body> {
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
 
- 
-
   @override
   Widget build(BuildContext context) {
+    final userPrvd = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Container(
@@ -101,7 +100,7 @@ class _BodyState extends State<Body> {
                     press: () async {
                       if (usernameController.text.isNotEmpty &&
                           passwordController.text.isNotEmpty) {
-                        Provider.of<AccountProvider>(context, listen: false)
+                        userPrvd
                             .login(usernameController.text,
                                 passwordController.text)
                             .then((user) => {

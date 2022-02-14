@@ -29,6 +29,7 @@ Future<List<Product>> getAllProducts(context) async{
   return products;
 }
 // Product BestSelling
+//goị API
 Future<List<Product>> getbestSelling(context) async {
   List<Product> products = [];
 
@@ -41,7 +42,7 @@ Future<List<Product>> getbestSelling(context) async {
     );
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
-      
+
       products = (item as List).map((prod) => Product.fromJson(prod)).toList();
       //print(products);
     }

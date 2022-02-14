@@ -1,7 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/models/user.dart';
+import 'package:flutter_application_cake_bakery/screens/account/provider/user_provider.dart';
+import 'package:flutter_application_cake_bakery/services/logout_service.dart';
+import 'package:provider/provider.dart';
 
-Widget directionalUser() {
+Widget directionalUser(BuildContext context) {
+  UserDB userPrvd = UserDB(
+      id: 0,
+      username: "",
+      password: "",
+      email: "",
+      fullname: "",
+      address1: "",
+      phone: "",
+      otp: "",
+      userToken: "",
+      status: 0);
+
+  userPrvd = Provider.of<UserProvider>(context, listen: false).user!;
   return Container(
     padding: const EdgeInsets.all(27),
     child: Column(
@@ -46,6 +63,7 @@ Widget directionalUser() {
           ),
           onPressed: () {
             print('Log out');
+            logout(userPrvd.userToken, userPrvd.id, context);
           },
           icon: const Icon(
             Icons.logout_outlined,
