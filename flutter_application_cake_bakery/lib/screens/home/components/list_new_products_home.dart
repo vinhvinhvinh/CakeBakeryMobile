@@ -30,12 +30,12 @@ class _NewProductsState extends State<NewProducts> {
           return Container(
             height: 130,
             child: ListView.builder(
-              itemCount: state.products.length,
+              itemCount: state.newProducts.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
                 return NewProds(
-                  name: state.products[index].name,
-                  image: state.products[index].image,
+                  name: state.newProducts[index].name,
+                  image: state.newProducts[index].image,
                 );
               },
             ),

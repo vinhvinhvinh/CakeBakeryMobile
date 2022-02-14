@@ -4,6 +4,12 @@ const baseUrl = 'http://10.0.2.2:8000/api';
 //img cloud in phpAdmin
 const imgUrl = 'http://10.0.2.2/img/mobile/';
 
+//Login Url
+const loginUrl = 'http://10.0.2.2:8000/api/login';
+
+//Logout Url
+const logoutUrl = 'http://10.0.2.2:8000/api/logout';
+
 //path of Object
 //Product
 const productUrl = baseUrl + '/products';
