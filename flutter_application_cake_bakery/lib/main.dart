@@ -68,9 +68,9 @@ class CakeBakery extends StatelessWidget {
               const SettingAndSecurityScreen(),
           'account/account_and_security/change_password': (context) =>
               const PasswordChangeScreen(),
-          'products_by_category': (context) => const ProductsByCategory(),
+          // 'products_by_category': (context) => ProductsByCategory(type: ,),
           'favorite_products': (context) => const FavoriteScreen(),
-          'product_detail': (context) => const ProductDetail(),
+          //'product_detail': (context) => const ProductDetail(),
         },
         initialRoute: '/',
       ),

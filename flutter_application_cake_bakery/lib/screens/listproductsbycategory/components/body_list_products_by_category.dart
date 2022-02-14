@@ -1,28 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
-import 'package:flutter_application_cake_bakery/models/product.dart';
 import 'package:flutter_application_cake_bakery/screens/account/myorder/components/main.dart';
+import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
+import 'package:provider/provider.dart';
 
-class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+import '../../../base_url.dart';
+
+class Body extends StatefulWidget {
+  final String id;
+  const Body({Key? key, required this.id}) : super(key: key);
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+@override
+  void initState() {
+    super.initState();
+    final products = Provider.of<ProductProvider>(context, listen: false);
+    products.getProductByType(context, widget.id);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
-    // return ListView.builder(
-    //   itemBuilder: (context, index) {
-    //     return ProductItem(product: lstProducts[index]);
-    //   },
-    //   itemCount: lstProducts.length,
-    // );
+    //return Container();
+    return Consumer<ProductProvider>(builder: (context, state, child){
+      return ListView.builder(
+        itemBuilder: (context, index) {
+          return ProductItem(name: state.byProductTypeId[index].name,image: state.byProductTypeId[index].image,price: state.byProductTypeId[index].price,);
+        },
+        itemCount: state.byProductTypeId.length,
+      );
+     }); 
   }
 }
 
 class ProductItem extends StatefulWidget {
-  //final Product product;
+final String name;
+final String image;
+final int price;
   ProductItem({
-    Key? key,
+    Key? key, required this.name, required this.image, required this.price,
     //required this.product,
   }) : super(key: key);
 
@@ -58,9 +77,12 @@ class _ProductItemState extends State<ProductItem> {
                   topLeft: Radius.circular(25),
                   bottomLeft: Radius.circular(25),
                 ),
-                child: Image.asset(
-                  "assets/images/1.png",
+                child: Image.network(
+                              imgUrl +
+                                  '/product/' +
+                                  widget.image,
                   height: 130,
+                  width: 130,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -70,15 +92,16 @@ class _ProductItemState extends State<ProductItem> {
                   Column(
                     children: [
                       Container(
-                        padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
-                        width: 180,
+                        //color: Colors.amber,
+                        padding: const EdgeInsets.fromLTRB(15, 20, 0, 0),
+                        width: 237,
                         child: Row(
                           children: [
                             Container(
                               //padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              width: 120,
+                              width: 140,
                               child: Text(
-                                'Ten san pham',
+                                widget.name,
                                 style: const TextStyle(
                                     color: ktextColor,
                                     fontWeight: FontWeight.bold,
@@ -98,6 +121,7 @@ class _ProductItemState extends State<ProductItem> {
                                     : Icons.favorite_outline,
                                 color: primaryColor,
                               ),
+                              iconSize: 32,
                               color: primaryColor,
                             ),
                           ],
@@ -105,13 +129,13 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                       //Price Product
                       Container(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 180,
+                        padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
+                        width: 237,
                         //color: Colors.green,
                         child: Row(
                           children: [
                             Text(
-                              "Gia đ",
+                              formatMoney.format(widget.price),
                               style: const TextStyle(
                                   color: ktextColor, fontSize: 20),
                             ),
@@ -119,9 +143,11 @@ class _ProductItemState extends State<ProductItem> {
                             IconButton(
                               onPressed: () {},
                               icon: const Icon(
-                                Icons.shopping_cart,
+                                Icons.shopping_cart_outlined,
                                 color: primaryColor,
+                                
                               ),
+                              iconSize: 32,
                             ),
                           ],
                         ),
@@ -131,21 +157,21 @@ class _ProductItemState extends State<ProductItem> {
                   ),
                 ],
               ),
-              Container(
-                //color: Colors.blue,
-                width: 30,
-                child: IconButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProductDetail(),
-                    ),
-                  ),
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                  ),
-                ),
-              ),
+              // Container(
+              //   //color: Colors.blue,
+              //   width: 30,
+              //   child: IconButton(
+              //     onPressed: () => Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (context) => ProductDetail(detail: ,),
+              //       ),
+              //     ),
+              //     icon: const Icon(
+              //       Icons.arrow_forward_ios,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ]),

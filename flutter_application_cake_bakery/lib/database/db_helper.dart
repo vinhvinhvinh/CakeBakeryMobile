@@ -20,8 +20,8 @@ class DBHelper {
   initDatabase() async {
     io.Directory documentDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentDirectory.path, 'cakebakery.db');
-    var db = await openDatabase(path, version: 1, onCreate: _onCreate);
-    //await deleteDatabase(path);
+    //var db = await openDatabase(path, version: 1, onCreate: _onCreate);
+    await deleteDatabase(path);
     return db;
   }
 

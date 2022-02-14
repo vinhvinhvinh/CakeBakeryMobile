@@ -1,9 +1,12 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_application_cake_bakery/base_url.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/models/Product.dart';
 
 class Body extends StatefulWidget {
-  const Body({Key? key}) : super(key: key);
+  final Product detail;
+  const Body({Key? key, required this.detail}) : super(key: key);
 
   @override
   State<Body> createState() => _BodyState();
@@ -24,8 +27,8 @@ class _BodyState extends State<Body> {
               topLeft: Radius.circular(25),
               topRight: Radius.circular(25),
             ),
-            child: Image.asset(
-              "assets/images/3.png",
+            child: Image.network(
+                imgUrl + '/product/' + widget.detail.image,
               fit: BoxFit.cover,
               height: 250,
             ),
@@ -51,7 +54,7 @@ class _BodyState extends State<Body> {
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  'Tên loại sản phẩm',
+                  widget.detail.productTypeId,
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -72,7 +75,7 @@ class _BodyState extends State<Body> {
                 //color: Colors.white,
                 padding: const EdgeInsets.only(left: 20),
                 child: Text(
-                  'Bánh Cupcake Matcha ',
+                  widget.detail.name,
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -103,13 +106,13 @@ class _BodyState extends State<Body> {
           child: Row(
             children: [
               Text(
-                '25 000đ',
+                formatMoney.format(widget.detail.price),
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 30),
                 child: Text(
-                  '30 000đ',
+                  formatMoney.format(widget.detail.price),
                   style: TextStyle(
                       fontSize: 18, decoration: TextDecoration.lineThrough),
                 ),
@@ -200,7 +203,7 @@ class _BodyState extends State<Body> {
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
                 width: 350,
                 child: Text(
-                  'Thông tin chi tiết sản phẩm Thông tin chi tiết sản phẩm Thông tin chi tiết sản phẩm',
+                  widget.detail.description,
                   style: TextStyle(fontSize: 18),
                 ),
               ),

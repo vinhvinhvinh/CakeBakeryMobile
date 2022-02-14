@@ -26,20 +26,30 @@ class _ListCategoriesState extends State<ListCategories> {
     return Column(
       children: [
         const TitleWithButton(),
-        Consumer<ProductTypeProvider>(builder: (context, state, child) {
-          return Container(
-            height: 130,
-            child: ListView.builder(
-              itemCount: state.productTypes.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                return Category(
-                    image: state.productTypes[index].image,
-                    categoryName: state.productTypes[index].name);
-              },
-            ),
-          );
-        })
+        Consumer<ProductTypeProvider>(
+          builder: (context, state, child) {
+            return Container(
+              height: 130,
+              child: ListView.builder(
+                  itemCount: state.productTypes.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    return GestureDetector(
+                        onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductsByCategory(
+                                  type: state.productTypes[index],
+                                ),
+                              ),
+                            ),
+                        child: Category(
+                            image: state.productTypes[index].image,
+                            categoryName: state.productTypes[index].name));
+                  }),
+            );
+          },
+        )
       ],
     );
   }
@@ -69,60 +79,52 @@ class Category extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ProductsByCategory(),
+    return Stack(
+      children: <Widget>[
+        Container(
+          width: 100,
+          height: 105,
+          margin: const EdgeInsets.all(kDefaultPadding / 2),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
         ),
-      ),
-      child: Stack(
-        children: <Widget>[
-          Container(
-            width: 100,
-            height: 105,
-            margin: const EdgeInsets.all(kDefaultPadding / 2),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
-            ),
-          ),
-          Container(
-            //mainAxisAlignment: MainAxisAlignment.center,
-            padding: const EdgeInsets.fromLTRB(18, 0, 1, 12),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    border: Border.all(
-                      width: 2,
-                      color: primaryColor,
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Image.network(
-                      imgUrl + '/producttype/' + image!,
-                      width: 80,
-                      height: 80,
-                      fit: BoxFit.cover,
-                    ),
+        Container(
+          //mainAxisAlignment: MainAxisAlignment.center,
+          padding: const EdgeInsets.fromLTRB(18, 0, 1, 12),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(
+                    width: 2,
+                    color: primaryColor,
                   ),
                 ),
-                Container(
-                  child: Text(
-                    categoryName,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 16),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.network(
+                    imgUrl + '/producttype/' + image!,
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
                   ),
-                  margin: const EdgeInsets.only(top: 3),
                 ),
-              ],
-            ),
+              ),
+              Container(
+                child: Text(
+                  categoryName,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+                margin: const EdgeInsets.only(top: 3),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -1,9 +1,33 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_application_cake_bakery/base_url.dart';
-import 'package:flutter_application_cake_bakery/models/product.dart';
+import 'package:flutter_application_cake_bakery/models/Product.dart';
+import 'package:flutter_application_cake_bakery/models/product_type.dart';
 import 'package:http/http.dart' as http;
 
+//Top product
+Future<List<Product>> getAllProducts(context) async{
+  List<Product> products = [];
+
+  try {
+    final response = await http.get(
+      Uri.parse(productUrl),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+      
+      products = (item as List).map((prod) => Product.fromJson(prod)).toList();
+      //print(products);
+    }
+  } catch (e) {
+    rethrow;
+  }
+  //print(products);
+  return products;
+}
 // Product BestSelling
 //goị API
 Future<List<Product>> getbestSelling(context) async {
@@ -42,7 +66,7 @@ Future<List<Product>> getAllNewProduct(context) async {
     );
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
-      //print(item);
+      print(item);
       products = (item as List).map((prod) => Product.fromJson(prod)).toList();
     }
   } catch (e) {
@@ -51,3 +75,28 @@ Future<List<Product>> getAllNewProduct(context) async {
 
   return products;
 }
+
+//Product By ProductType
+Future<List<Product>> getProductsByType(context, typeId) async{
+  List<Product> products = [];
+
+  try {
+    final response = await http.get(
+      Uri.parse(productUrl+'/productByType/$typeId'),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+      
+      products = (item as List).map((prod) => Product.fromJson(prod)).toList();
+      print(products);
+    }
+  } catch (e) {
+    rethrow;
+  }
+  //print(products);
+  return products;
+}
+

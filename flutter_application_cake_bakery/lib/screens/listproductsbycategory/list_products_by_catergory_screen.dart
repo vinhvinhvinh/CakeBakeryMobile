@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/models/product_type.dart';
 import 'package:flutter_application_cake_bakery/screens/favorite/favorite_screen.dart';
+import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/listproductsbycategory/components/body_list_products_by_category.dart';
+import 'package:provider/provider.dart';
 
 
-class ProductsByCategory extends StatelessWidget {
-  const ProductsByCategory({Key? key}) : super(key: key);
+class ProductsByCategory extends StatefulWidget {
+  final ProductType type;
+  const ProductsByCategory({Key? key, required this.type}) : super(key: key);
 
   @override
+  State<ProductsByCategory> createState() => _ProductsByCategoryState();
+}
+
+class _ProductsByCategoryState extends State<ProductsByCategory> {
+  
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: buildAppBar(context), body: Body());
+    return Scaffold(appBar: buildAppBar(context), body: Body(id: widget.type.id));
   }
 
   AppBar buildAppBar(BuildContext context) {
@@ -30,7 +40,7 @@ class ProductsByCategory extends StatelessWidget {
         margin: const EdgeInsets.only(top: 10, bottom: 10),
         child: Center(
           child: Text(
-            'PRODUCT TYPE NAME',
+            widget.type.name,
             style: TextStyle(
               color: Colors.white,
             ),
@@ -41,7 +51,7 @@ class ProductsByCategory extends StatelessWidget {
       actions: <Widget>[
         IconButton(
           icon: Icon(
-            Icons.favorite_border_outlined,
+            Icons.shopping_cart_outlined,
             color: Colors.white,
           ),
           onPressed: () =>Navigator.push(
