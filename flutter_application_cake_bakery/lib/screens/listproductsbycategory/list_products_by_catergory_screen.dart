@@ -19,7 +19,7 @@ class _ProductsByCategoryState extends State<ProductsByCategory> {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: buildAppBar(context), body: Body());
+    return Scaffold(appBar: buildAppBar(context), body: Body(id: widget.type.id));
   }
 
   AppBar buildAppBar(BuildContext context) {

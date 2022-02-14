@@ -28,11 +28,11 @@ class ProductProvider extends ChangeNotifier {
     loading = false;
     notifyListeners();
   }
-  // getProductByType(context, type) async{
-  //     loading=true;
-  //     products=await getProductsByType(context, type);
-  //     loading=false;
-  //     notifyListeners();
-  //   }
+  getProductByType(context, type) async{
+      loading=true;
+      products=await getProductsByType(context, type);
+      loading=false;
+      notifyListeners();
+    }
 
 }

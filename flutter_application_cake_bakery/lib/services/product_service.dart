@@ -65,7 +65,7 @@ Future<List<Product>> getAllNewProduct(context) async {
     );
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
-      //print(item);
+      print(item);
       products = (item as List).map((prod) => Product.fromJson(prod)).toList();
     }
   } catch (e) {
@@ -76,26 +76,26 @@ Future<List<Product>> getAllNewProduct(context) async {
 }
 
 //Product By ProductType
-// Future<List<Product>> getProductsByType(context,ProductType type) async{
-//   List<Product> products = [];
+Future<List<Product>> getProductsByType(context, typeId) async{
+  List<Product> products = [];
 
-//   try {
-//     final response = await http.get(
-//       Uri.parse(productUrl+'/productType/$type'),
-//       headers: {
-//         HttpHeaders.contentTypeHeader: "application/json",
-//       },
-//     );
-//     if (response.statusCode == 200) {
-//       final item = json.decode(response.body);
+  try {
+    final response = await http.get(
+      Uri.parse(productUrl+'/productByType/$typeId'),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
       
-//       products = (item as List).map((prod) => Product.fromJson(prod)).toList();
-//       //print(products);
-//     }
-//   } catch (e) {
-//     rethrow;
-//   }
-//   //print(products);
-//   return products;
-// }
+      products = (item as List).map((prod) => Product.fromJson(prod)).toList();
+      //print(products);
+    }
+  } catch (e) {
+    rethrow;
+  }
+  //print(products);
+  return products;
+}
 
