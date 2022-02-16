@@ -25,4 +25,4 @@ const productTypeUrl = baseUrl + '/product_types';
 const accountUrl = '/accounts';
 
 //Favorite
-const favUrl=baseUrl+'/favorites';
+const favUrl = baseUrl + '/favorites';
