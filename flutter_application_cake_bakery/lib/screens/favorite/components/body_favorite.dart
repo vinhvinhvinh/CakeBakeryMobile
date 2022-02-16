@@ -1,21 +1,60 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/database/db_helper.dart';
 import 'package:flutter_application_cake_bakery/models/product.dart';
+import 'package:flutter_application_cake_bakery/models/user.dart';
 import 'package:flutter_application_cake_bakery/screens/account/myorder/components/main.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({ Key? key }) : super(key: key);
 
   @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  bool isLogin=false;
+  UserDB userLogined = UserDB(
+      id: 0,
+      username: "",
+      password: "",
+      email: "",
+      fullname: "",
+      address1: "",
+      phone: "",
+      otp: "",
+      userToken: "",
+      status: 0);
+
+  Future getUserData() async {
+    //lấy user từ sqflite lên
+    userLogined = await DBHelper.instance.getUser();
+    // print('hhhhhhh : ${userLogined.userToken}');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserData();
+    if(userLogined.id!=0){
+      isLogin=!isLogin;
+    }
+    else{
+      isLogin=!isLogin;
+    }
+  }
+  @override
   Widget build(BuildContext context) {
-    return Container();
-    // return ListView.builder(
-    //   itemBuilder: (context, index) {
-    //     return ProductItem(product: lstProducts[index]);
-    //   },
-    //   itemCount: lstProducts.length,
-    // );
+    //return Container();
+    return isLogin?ListView.builder(
+      itemBuilder: (context, index) {
+        return ProductItem();
+      },
+      itemCount: 3,
+    ):Text('Khong be oi, em chua dang nhap ma doi yeu thich la sao?');
+    
   }
 }
 
@@ -61,6 +100,7 @@ class _ProductItemState extends State<ProductItem> {
                 child: Image.asset(
                   "assets/images/1.png",
                   height: 130,
+                  width: 130,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -71,7 +111,7 @@ class _ProductItemState extends State<ProductItem> {
                     children: [
                       Container(
                         padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                        width: 180,
+                        width: 205,
                         child: Row(
                           children: [
                             Container(
@@ -106,7 +146,7 @@ class _ProductItemState extends State<ProductItem> {
                       //Price Product
                       Container(
                         padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 180,
+                        width: 205,
                         //color: Colors.green,
                         child: Row(
                           children: [

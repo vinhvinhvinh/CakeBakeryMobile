@@ -52,8 +52,8 @@ class CakeBakery extends StatelessWidget {
         ),
         routes: {
           //'/': (context) => const LoginScreen(),
-          //'/': (context) => MainScreen(),
-          '/':(context)=> SignUpScreen(),
+          '/': (context) => MainScreen(),
+          //'/':(context)=> SignUpScreen(),
           '/main_screen': (context) => MainScreen(),
           '/login': (context) => const LoginScreen(),
           '/signup': (context) => const SignUpScreen(),
