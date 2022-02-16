@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/database/db_helper.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
 import 'package:flutter_application_cake_bakery/screens/account/provider/user_provider.dart';
 import 'package:flutter_application_cake_bakery/services/logout_service.dart';
 import 'package:provider/provider.dart';
 
-Widget directionalUser(BuildContext context) {
-  UserDB userPrvd = UserDB(
+class DirectionalUser extends StatefulWidget {
+  DirectionalUser({Key? key}) : super(key: key);
+
+  @override
+  State<DirectionalUser> createState() => _DirectionalUserState();
+}
+
+class _DirectionalUserState extends State<DirectionalUser> {
+  UserDB userLogined = UserDB(
       id: 0,
       username: "",
       password: "",
@@ -18,66 +26,81 @@ Widget directionalUser(BuildContext context) {
       userToken: "",
       status: 0);
 
-  userPrvd = Provider.of<UserProvider>(context, listen: false).user!;
-  return Container(
-    padding: const EdgeInsets.all(27),
-    child: Column(
-      children: [
-        directionalUserItem(
-          'My Profile',
-          Icons.person_rounded,
-          'account/myprofile',
-          '',
-        ),
-        directionalUserItem(
-          'My Orders',
-          Icons.receipt_long_outlined,
-          'account/myorder',
-          '',
-        ),
-        directionalUserItem(
-          'Notifications',
-          Icons.notifications_active_rounded,
-          '/notification',
-          '',
-        ),
-        directionalUserItem(
-          'Settings and Security',
-          Icons.settings,
-          'account/setting_and_security',
-          '',
-        ),
-        directionalUserItem(
-          'Languages',
-          Icons.language_rounded,
-          '/language',
-          'English',
-        ),
-        const SizedBox(height: 20),
-        ElevatedButton.icon(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(btnColor),
-            padding: MaterialStateProperty.all<EdgeInsets>(
-                const EdgeInsets.only(
-                    top: 10, bottom: 10, left: 30, right: 30)),
+  Future getUserData() async {
+    //lấy user từ sqflite lên
+    userLogined = await DBHelper.instance.getUser();
+    // print('hhhhhhh : ${userLogined.userToken}');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getUserData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(27),
+      child: Column(
+        children: [
+          directionalUserItem(
+            'My Profile',
+            Icons.person_rounded,
+            'account/myprofile',
+            '',
           ),
-          onPressed: () {
-            print('Log out');
-            logout(userPrvd.userToken, userPrvd.id, context);
-          },
-          icon: const Icon(
-            Icons.logout_outlined,
-            color: Colors.white,
-            size: 24.0,
+          directionalUserItem(
+            'My Orders',
+            Icons.receipt_long_outlined,
+            'account/myorder',
+            '',
           ),
-          label: Text(
-            'Logout',
-            style: myStyle(16, Colors.white, FontWeight.normal),
+          directionalUserItem(
+            'Notifications',
+            Icons.notifications_active_rounded,
+            '/notification',
+            '',
           ),
-        ),
-      ],
-    ),
-  );
+          directionalUserItem(
+            'Settings and Security',
+            Icons.settings,
+            'account/setting_and_security',
+            '',
+          ),
+          directionalUserItem(
+            'Languages',
+            Icons.language_rounded,
+            '/language',
+            'English',
+          ),
+          const SizedBox(height: 20),
+          ElevatedButton.icon(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(btnColor),
+              padding: MaterialStateProperty.all<EdgeInsets>(
+                  const EdgeInsets.only(
+                      top: 10, bottom: 10, left: 30, right: 30)),
+            ),
+            onPressed: () {
+              print('Log out');
+              logout(userLogined.userToken, userLogined.id, context);
+            },
+            icon: const Icon(
+              Icons.logout_outlined,
+              color: Colors.white,
+              size: 24.0,
+            ),
+            label: Text(
+              'Logout',
+              style: myStyle(16, Colors.white, FontWeight.normal),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 Widget directionalUserItem(
@@ -119,3 +142,77 @@ class PageRoute extends StatelessWidget {
     );
   }
 }
+
+// Widget directionalUser(BuildContext context) {
+//   UserDB userPrvd = UserDB(
+//       id: 0,
+//       username: "",
+//       password: "",
+//       email: "",
+//       fullname: "",
+//       address1: "",
+//       phone: "",
+//       otp: "",
+//       userToken: "",
+//       status: 0);
+//   userPrvd = Provider.of<UserProvider>(context, listen: false).user!;
+//   return Container(
+//     padding: const EdgeInsets.all(27),
+//     child: Column(
+//       children: [
+//         directionalUserItem(
+//           'My Profile',
+//           Icons.person_rounded,
+//           'account/myprofile',
+//           '',
+//         ),
+//         directionalUserItem(
+//           'My Orders',
+//           Icons.receipt_long_outlined,
+//           'account/myorder',
+//           '',
+//         ),
+//         directionalUserItem(
+//           'Notifications',
+//           Icons.notifications_active_rounded,
+//           '/notification',
+//           '',
+//         ),
+//         directionalUserItem(
+//           'Settings and Security',
+//           Icons.settings,
+//           'account/setting_and_security',
+//           '',
+//         ),
+//         directionalUserItem(
+//           'Languages',
+//           Icons.language_rounded,
+//           '/language',
+//           'English',
+//         ),
+//         const SizedBox(height: 20),
+//         ElevatedButton.icon(
+//           style: ButtonStyle(
+//             backgroundColor: MaterialStateProperty.all<Color>(btnColor),
+//             padding: MaterialStateProperty.all<EdgeInsets>(
+//                 const EdgeInsets.only(
+//                     top: 10, bottom: 10, left: 30, right: 30)),
+//           ),
+//           onPressed: () {
+//             print('Log out');
+//             logout(userPrvd.userToken, userPrvd.id, context);
+//           },
+//           icon: const Icon(
+//             Icons.logout_outlined,
+//             color: Colors.white,
+//             size: 24.0,
+//           ),
+//           label: Text(
+//             'Logout',
+//             style: myStyle(16, Colors.white, FontWeight.normal),
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }

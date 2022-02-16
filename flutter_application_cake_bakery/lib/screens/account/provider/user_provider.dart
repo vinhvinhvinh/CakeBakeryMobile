@@ -102,7 +102,8 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  getUserData() async {
+  Future<UserDB> getUserData() async {
+    //lấy user sqflite lên trả về UserDB
     userLogined = DBHelper.instance.getUser();
     //print(userLogined);
     return userLogined;

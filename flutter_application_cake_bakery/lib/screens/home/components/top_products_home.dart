@@ -17,7 +17,7 @@ class TopProducts extends StatefulWidget {
 }
 
 class _TopProductsState extends State<TopProducts> {
- bool _isChecked = false;
+  bool _isChecked = false;
 
   @override
   void initState() {
@@ -45,7 +45,9 @@ class _TopProductsState extends State<TopProducts> {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProductDetail(detail: state.topProducts[index],),
+                    builder: (context) => ProductDetail(
+                      detail: state.topProducts[index],
+                    ),
                   ),
                 ),
                 child: Container(
@@ -77,8 +79,7 @@ class _TopProductsState extends State<TopProducts> {
                               imgUrl +
                                   '/product/' +
                                   state.topProducts[index].image,
-                              //height: 155,
-                              fit: BoxFit.fitWidth,
+                              fit: BoxFit.fill,
                             ),
                           ),
                           //Icon heart-favorite
@@ -123,7 +124,8 @@ class _TopProductsState extends State<TopProducts> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 child: Text(
-                                  formatMoney.format(state.topProducts[index].price),
+                                  formatMoney
+                                      .format(state.topProducts[index].price),
                                   style: TextStyle(
                                       color: ktextColor, fontSize: 18),
                                 ),
