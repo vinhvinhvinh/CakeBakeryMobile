@@ -159,7 +159,8 @@ Future<UserDB?> register(String email,String username, String password, String f
     }
   }
 
-  getUserData() async {
+  Future<UserDB> getUserData() async {
+    //lấy user sqflite lên trả về UserDB
     userLogined = DBHelper.instance.getUser();
     //print(userLogined);
     return userLogined;
