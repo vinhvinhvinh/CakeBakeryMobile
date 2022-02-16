@@ -17,6 +17,8 @@ class UserProvider with ChangeNotifier {
   //tạo 1 user để lưu user đã login
   late Future<UserDB> userLogined;
 
+//tạo 1 user để lưu user đã dang ky
+  late Future<UserDB> userResigter;
   //get user
   UserDB? get user => _user;
   //get user Logined
@@ -73,6 +75,61 @@ class UserProvider with ChangeNotifier {
     }
   }
 
+Future<UserDB?> register(String email,String username, String password, String fullname, String address1, String phone) async {
+    var response = await http.post(Uri.parse(registerUrl),
+        body: ({
+          "Email":email,
+          "Username": username,
+          "Password": password,
+          "Fullname": fullname,
+          "Address1": address1,
+          "Phone": phone,
+        }));
+
+    if (response.statusCode == 200) {
+      var userResigter = UserToken.fromJson(json.decode(response.body));
+
+      print('Đang đăng ky');
+      dbHelper
+          .insertUser(
+            UserDB(
+              id: userResigter.user!.id,
+              username: userResigter.user!.username,
+              password: userResigter.user!.password,
+              email: userResigter.user!.email,
+              fullname: userResigter.user!.fullname,
+              address1: userResigter.user!.address1,
+              address2: userResigter.user!.address2,
+              phone: userResigter.user!.phone,
+              avatar: userResigter.user!.avatar,
+              otp: "",
+              userToken: userResigter.userToken,
+              status: userResigter.user!.status,
+            ),
+          )
+          .then((value) => print('Thêm thành công'))
+          .onError((error, stackTrace) =>
+              print('Thêm thất bại, Lỗi:' + error.toString()));
+
+      //Tạo một user để vừa lưu cho Provider vừa để trả về
+      UserDB userPackage = UserDB(
+        id: userResigter.user!.id,
+        username: userResigter.user!.username,
+        password: userResigter.user!.password,
+        email: userResigter.user!.email,
+        fullname: userResigter.user!.fullname,
+        address1: userResigter.user!.address1,
+        address2: userResigter.user?.address2,
+        phone: userResigter.user!.phone,
+        avatar: userResigter.user!.avatar,
+        otp: "",
+        userToken: userResigter.userToken,
+        status: userResigter.user!.status,
+      );
+      _user = userPackage;
+      return userPackage;
+    }
+  }
   Future logout(userToken, int id, context) async {
     final response = await http.post(Uri.parse(logoutUrl),
         //Đăng xuất bằng token
@@ -107,4 +164,7 @@ class UserProvider with ChangeNotifier {
     //print(userLogined);
     return userLogined;
   }
+
+  
+
 }

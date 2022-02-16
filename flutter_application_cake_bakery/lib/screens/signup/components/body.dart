@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/components/button.dart';
 import 'package:flutter_application_cake_bakery/components/logo.dart';
 import 'package:flutter_application_cake_bakery/components/textfield.dart';
+import 'package:flutter_application_cake_bakery/database/db_helper.dart';
+import 'package:flutter_application_cake_bakery/screens/account/provider/user_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constant.dart';
 
@@ -13,14 +16,22 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  DBHelper? dbHelper;
+
   bool isChecked = true;
   bool isCheckedConfirm = true;
+
   final passwordController = TextEditingController();
   final confirmpassController = TextEditingController();
   final usernameController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final address1Controller = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final userPrvd = Provider.of<UserProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: backgroundColor,
       body: Container(
@@ -36,10 +47,20 @@ class _BodyState extends State<Body> {
             const Logo(),
             TextFieldCake(
               obs: false,
-              text: 'Username ...',
+              text: 'Email ...',
               textTypeInput: TextInputType.emailAddress,
-              textController: usernameController,
+              textController: emailController,
               preIcon: Icons.email,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextFieldCake(
+              obs: false,
+              text: 'Username ...',
+              textTypeInput: TextInputType.text,
+              textController: usernameController,
+              preIcon: Icons.person_outline,
             ),
             const SizedBox(
               height: 20,
@@ -75,15 +96,109 @@ class _BodyState extends State<Body> {
             const SizedBox(
               height: 20,
             ),
+            TextFieldCake(
+              obs: false,
+              text: 'Fullname ...',
+              textTypeInput: TextInputType.text,
+              textController: fullnameController,
+              preIcon: Icons.assignment_ind,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextFieldCake(
+              obs: false,
+              text: 'Address ...',
+              textTypeInput: TextInputType.text,
+              textController: address1Controller,
+              preIcon: Icons.home,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextFieldCake(
+              obs: false,
+              text: 'Phone ...',
+              textTypeInput: TextInputType.text,
+              textController: phoneController,
+              preIcon: Icons.phone,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Button(
-                    text: 'Sign Up',
-                    backgroundColor: yellowColor,
-                    press: () {
-                      print('SIGN UP');
-                    }),
+                  text: 'Sign Up',
+                  backgroundColor: yellowColor,
+                  press: () async {
+                    if (usernameController.text.isNotEmpty &&
+                        passwordController.text.isNotEmpty &&
+                        confirmpassController.text.isNotEmpty &&
+                        fullnameController.text.isNotEmpty &&
+                        emailController.text.isNotEmpty &&
+                        address1Controller.text.isNotEmpty &&
+                        phoneController.text.isNotEmpty) {
+                          if(passwordController.text==confirmpassController.text){
+                            userPrvd
+                          .register(
+                              emailController.text,
+                              usernameController.text,
+                              passwordController.text,
+                              fullnameController.text,
+                              address1Controller.text,
+                              phoneController.text)
+                          .then(
+                            (user) => {
+                              if (user != null)
+                                {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text("Đăng ky thành công"),
+                                    ),
+                                  ),
+                                  Navigator.pushNamedAndRemoveUntil(context,
+                                      "/main_screen", (route) => false),
+                                  //Navigator.pushNamed(context, '/main_screen');
+                                }
+                              // else if (passwordController.text !=
+                              //     confirmpassController.text)
+                              //   {
+                              //     ScaffoldMessenger.of(context).showSnackBar(
+                              //       const SnackBar(
+                              //         content:
+                              //             Text('Mật khẩu không trùng khớp'),
+                              //       ),
+                              //     ),
+                              //   }
+                              else
+                                {
+                                  print('Không có user')
+                                }
+                            },
+                          );
+                          }
+                          else{
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'Mật khẩu không trùng khớp'),
+                                    ),
+                                  );                
+                          }
+                      
+                    }
+                    else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'Vui lòng điền đầy đủ thông tin'),
+                                    ),
+                                  );
+                    }
+                  },
+                ),
                 Button(
                     text: 'Login',
                     backgroundColor: yellowColor,
