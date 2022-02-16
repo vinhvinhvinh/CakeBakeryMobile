@@ -21,6 +21,7 @@ class DBHelper {
     io.Directory documentDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentDirectory.path, 'cakebakery.db');
     var db = await openDatabase(path, version: 1, onCreate: _onCreate);
+    //Xóa Sqflite trường hợp debug
     //await deleteDatabase(path);
     return db;
   }

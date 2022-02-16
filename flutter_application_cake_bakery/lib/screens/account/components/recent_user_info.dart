@@ -132,7 +132,7 @@ class _RecentUserInfoState extends State<RecentUserInfo> {
                       child: const Text('Đăng kí',
                           style: TextStyle(color: Colors.orange, fontSize: 18)),
                       onTap: () {
-                        Navigator.pushNamed(context, '/register');
+                        Navigator.pushNamed(context, '/signup');
                       },
                     ),
                   ],

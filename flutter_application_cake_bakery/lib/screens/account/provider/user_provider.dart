@@ -75,21 +75,25 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-Future<UserDB?> register(String email,String username, String password, String fullname, String address1, String phone) async {
+  Future<UserDB?> register(String email, String username, String password,
+      String fullname, String address, String phone) async {
     var response = await http.post(Uri.parse(registerUrl),
         body: ({
-          "Email":email,
           "Username": username,
           "Password": password,
+          "Email": email,
           "Fullname": fullname,
-          "Address1": address1,
+          "Address1": address,
           "Phone": phone,
         }));
 
-    if (response.statusCode == 200) {
+    print(response.statusCode);
+
+    if (response.statusCode == 201) {
       var userResigter = UserToken.fromJson(json.decode(response.body));
 
-      print('Đang đăng ky');
+      print('Đang đăng ký');
+
       dbHelper
           .insertUser(
             UserDB(
@@ -107,11 +111,10 @@ Future<UserDB?> register(String email,String username, String password, String f
               status: userResigter.user!.status,
             ),
           )
-          .then((value) => print('Thêm thành công'))
+          .then((value) => print('Đăng ký->thêm thành công'))
           .onError((error, stackTrace) =>
               print('Thêm thất bại, Lỗi:' + error.toString()));
 
-      //Tạo một user để vừa lưu cho Provider vừa để trả về
       UserDB userPackage = UserDB(
         id: userResigter.user!.id,
         username: userResigter.user!.username,
@@ -126,10 +129,11 @@ Future<UserDB?> register(String email,String username, String password, String f
         userToken: userResigter.userToken,
         status: userResigter.user!.status,
       );
-      _user = userPackage;
+
       return userPackage;
     }
   }
+
   Future logout(userToken, int id, context) async {
     final response = await http.post(Uri.parse(logoutUrl),
         //Đăng xuất bằng token
@@ -165,7 +169,4 @@ Future<UserDB?> register(String email,String username, String password, String f
     //print(userLogined);
     return userLogined;
   }
-
-  
-
 }
