@@ -7,6 +7,9 @@ const imgUrl = 'http://10.0.2.2/img/mobile/';
 //Login Url
 const loginUrl = 'http://10.0.2.2:8000/api/login';
 
+//Resigter Url
+const registerUrl = 'http://10.0.2.2:8000/api/register';
+
 //Logout Url
 const logoutUrl = 'http://10.0.2.2:8000/api/logout';
 
