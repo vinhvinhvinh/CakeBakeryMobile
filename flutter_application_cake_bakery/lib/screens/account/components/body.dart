@@ -19,8 +19,8 @@ class _BodyState extends State<Body> {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        recentUserInfo(context),
-        directionalUser(context),
+        RecentUserInfo(),
+        DirectionalUser(),
       ],
     );
   }

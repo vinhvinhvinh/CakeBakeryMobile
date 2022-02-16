@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/database/db_helper.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
 import 'package:flutter_application_cake_bakery/screens/account/provider/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -32,43 +33,78 @@ class _InfomationAreaState extends State<InfomationArea> {
     super.dispose();
   }
 
+  //tạo một user trước
+  late UserDB userLogined;
+
   @override
   Widget build(BuildContext context) {
-    UserDB user = Provider.of<UserProvider>(context, listen: false).user!;
+    final userLogined = Provider.of<UserProvider>(context);
 
     return Container(
       padding: const EdgeInsets.all(15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Name:'),
-          userInfoTextField(usernameController, user.fullname,
-              TextCapitalization.words, 50, 1, TextInputType.text),
-          Text('Email:'),
-          userInfoTextField(emailController, user.email,
-              TextCapitalization.none, 100, 1, TextInputType.emailAddress),
-          Text('Phone:'),
-          userInfoTextField(phoneController, user.phone,
-              TextCapitalization.none, 10, 1, TextInputType.phone),
-          Text('Address 1:'),
-          userInfoTextField(addressController1, user.address1,
-              TextCapitalization.none, 200, 2, TextInputType.text),
-          Text('Address 2:'),
-          userInfoTextField(addressController2, user.address2 ?? '',
-              TextCapitalization.none, 200, 2, TextInputType.text),
-          ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(btnColor),
-              padding:
-                  MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(20)),
-            ),
-            child: Text('Save Changed'),
-            onPressed: () {
-              print('Save Changed');
-            },
-          ),
-        ],
-      ),
+      child: FutureBuilder(
+          future: userLogined.getUserData(),
+          builder: (context, AsyncSnapshot<UserDB> snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.id != null) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Name:'),
+                    userInfoTextField(
+                        usernameController,
+                        snapshot.data!.fullname,
+                        TextCapitalization.words,
+                        50,
+                        1,
+                        TextInputType.text),
+                    Text('Email:'),
+                    userInfoTextField(
+                        emailController,
+                        snapshot.data!.email,
+                        TextCapitalization.none,
+                        100,
+                        1,
+                        TextInputType.emailAddress),
+                    Text('Phone:'),
+                    userInfoTextField(phoneController, snapshot.data!.phone,
+                        TextCapitalization.none, 10, 1, TextInputType.phone),
+                    Text('Address 1:'),
+                    userInfoTextField(
+                        addressController1,
+                        snapshot.data!.address1,
+                        TextCapitalization.none,
+                        200,
+                        2,
+                        TextInputType.text),
+                    Text('Address 2:'),
+                    userInfoTextField(
+                        addressController2,
+                        snapshot.data!.address2 ?? '',
+                        TextCapitalization.none,
+                        200,
+                        2,
+                        TextInputType.text),
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(btnColor),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            EdgeInsets.all(20)),
+                      ),
+                      child: Text('Save Changed'),
+                      onPressed: () {
+                        print('Save Changed');
+                      },
+                    ),
+                  ],
+                );
+              } else {
+                return SizedBox();
+              }
+            }
+            return SizedBox();
+          }),
     );
   }
 

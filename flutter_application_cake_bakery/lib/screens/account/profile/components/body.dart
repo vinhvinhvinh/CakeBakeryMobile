@@ -10,7 +10,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: <Widget>[
-        profileImgAndName(context),
+        ProfileImgAndName(),
         const InfomationArea(),
       ],
     );
