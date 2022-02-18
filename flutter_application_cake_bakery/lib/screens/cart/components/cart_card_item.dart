@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_cake_bakery/base_url.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 
 class CartCardItem extends StatefulWidget {
@@ -50,8 +51,8 @@ class _CartCardItemState extends State<CartCardItem> {
                     padding: const EdgeInsets.all(12),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(15),
-                      child: Image.asset(
-                        'assets/images/${widget.productImage}',
+                      child: Image.network(
+                        imgUrl + 'product/' + widget.productImage,
                         width: 85,
                         height: 85,
                         fit: BoxFit.cover,
