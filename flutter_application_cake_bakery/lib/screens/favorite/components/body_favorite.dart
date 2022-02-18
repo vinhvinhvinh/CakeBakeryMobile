@@ -5,6 +5,10 @@ import 'package:flutter_application_cake_bakery/database/db_helper.dart';
 import 'package:flutter_application_cake_bakery/models/product.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
 import 'package:flutter_application_cake_bakery/screens/account/myorder/components/main.dart';
+import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
+import 'package:provider/provider.dart';
+
+import '../../../base_url.dart';
 
 class Body extends StatefulWidget {
   const Body({ Key? key }) : super(key: key);
@@ -14,7 +18,8 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  bool isLogin=false;
+    
+  @override
   UserDB userLogined = UserDB(
       id: 0,
       username: "",
@@ -26,42 +31,47 @@ class _BodyState extends State<Body> {
       otp: "",
       userToken: "",
       status: 0);
-
+@override
   Future getUserData() async {
     //lấy user từ sqflite lên
     userLogined = await DBHelper.instance.getUser();
-    // print('hhhhhhh : ${userLogined.userToken}');
+    //print('User: ');
+    //print(userLogined.id);
   }
-
+ 
   @override
   void initState() {
     // TODO: implement initState
+    
     super.initState();
     getUserData();
-    if(userLogined.id!=0){
-      isLogin=!isLogin;
-    }
-    else{
-      isLogin=!isLogin;
-    }
+     final products = Provider.of<ProductProvider>(context, listen: false);
+    products.getProductFav(context,4);
+    
   }
   @override
   Widget build(BuildContext context) {
     //return Container();
-    return isLogin?ListView.builder(
-      itemBuilder: (context, index) {
-        return ProductItem();
-      },
-      itemCount: 3,
-    ):Text('Khong be oi, em chua dang nhap ma doi yeu thich la sao?');
+    print(userLogined.id);
+    return Consumer<ProductProvider>(builder: (context, state, child){
+      return ListView.builder(
+        itemBuilder: (context, index) {
+          return ProductItem(name: state.productsFav[index].name, image: state.productsFav[index].image, price: state.productsFav[index].price,);
+        },
+        itemCount: state.productsFav.length,
+      );
+    }
+    );
     
   }
 }
 
 class ProductItem extends StatefulWidget {
-  //final Product product;
+  final String name;
+  final String image;
+  final int price;
   ProductItem({
-    Key? key,
+    Key? key, required this.name, required this.image, required this.price,
    // required this.product,
   }) : super(key: key);
 
@@ -97,8 +107,10 @@ class _ProductItemState extends State<ProductItem> {
                   topLeft: Radius.circular(25),
                   bottomLeft: Radius.circular(25),
                 ),
-                child: Image.asset(
-                  "assets/images/1.png",
+                child: Image.network(
+                              imgUrl +
+                                  '/product/' +
+                                  widget.image,
                   height: 130,
                   width: 130,
                   fit: BoxFit.cover,
@@ -116,9 +128,9 @@ class _ProductItemState extends State<ProductItem> {
                           children: [
                             Container(
                               //padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              width: 120,
+                              width: 135,
                               child: Text(
-                                'Tên sản phẩm',
+                                widget.name,
                                 style: const TextStyle(
                                     color: ktextColor,
                                     fontWeight: FontWeight.bold,
@@ -151,7 +163,8 @@ class _ProductItemState extends State<ProductItem> {
                         child: Row(
                           children: [
                             Text(
-                              "Gia san pham đ",
+                              formatMoney
+                                      .format(widget.price),
                               style: const TextStyle(
                                   color: ktextColor, fontSize: 20),
                             ),

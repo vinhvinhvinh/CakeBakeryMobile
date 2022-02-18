@@ -57,7 +57,7 @@ class _BodyState extends State<Body> {
             ),
             TextFieldCake(
               obs: false,
-              text: 'Username ...',
+              text: 'Tên đăng nhập',
               textTypeInput: TextInputType.text,
               textController: usernameController,
               preIcon: Icons.person_outline,
@@ -67,7 +67,7 @@ class _BodyState extends State<Body> {
             ),
             TextFieldCake(
               obs: isChecked,
-              text: 'Password ...',
+              text: 'Mật khẩu',
               textController: passwordController,
               preIcon: Icons.vpn_key,
               subIcon: isChecked ? Icons.visibility_off : Icons.visibility,
@@ -82,7 +82,7 @@ class _BodyState extends State<Body> {
             ),
             TextFieldCake(
               obs: isCheckedConfirm,
-              text: 'Confirm Password ...',
+              text: 'Xác nhận mật khẩu',
               textController: confirmpassController,
               preIcon: Icons.vpn_key,
               subIcon:
@@ -98,7 +98,7 @@ class _BodyState extends State<Body> {
             ),
             TextFieldCake(
               obs: false,
-              text: 'Fullname ...',
+              text: 'Tên',
               textTypeInput: TextInputType.text,
               textController: fullnameController,
               preIcon: Icons.assignment_ind,
@@ -108,7 +108,7 @@ class _BodyState extends State<Body> {
             ),
             TextFieldCake(
               obs: false,
-              text: 'Address ...',
+              text: 'Địa chỉ',
               textTypeInput: TextInputType.text,
               textController: address1Controller,
               preIcon: Icons.home,
@@ -118,7 +118,7 @@ class _BodyState extends State<Body> {
             ),
             TextFieldCake(
               obs: false,
-              text: 'Phone ...',
+              text: 'Điện thoại',
               textTypeInput: TextInputType.text,
               textController: phoneController,
               preIcon: Icons.phone,
@@ -136,66 +136,46 @@ class _BodyState extends State<Body> {
                     if (usernameController.text.isNotEmpty &&
                         passwordController.text.isNotEmpty &&
                         confirmpassController.text.isNotEmpty &&
-                        fullnameController.text.isNotEmpty &&
                         emailController.text.isNotEmpty &&
+                        fullnameController.text.isNotEmpty &&
                         address1Controller.text.isNotEmpty &&
                         phoneController.text.isNotEmpty) {
-                          if(passwordController.text==confirmpassController.text){
-                            userPrvd
-                          .register(
-                              emailController.text,
-                              usernameController.text,
-                              passwordController.text,
-                              fullnameController.text,
-                              address1Controller.text,
-                              phoneController.text)
-                          .then(
-                            (user) => {
-                              if (user != null)
-                                {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text("Đăng ky thành công"),
-                                    ),
-                                  ),
-                                  Navigator.pushNamedAndRemoveUntil(context,
-                                      "/main_screen", (route) => false),
-                                  //Navigator.pushNamed(context, '/main_screen');
-                                }
-                              // else if (passwordController.text !=
-                              //     confirmpassController.text)
-                              //   {
-                              //     ScaffoldMessenger.of(context).showSnackBar(
-                              //       const SnackBar(
-                              //         content:
-                              //             Text('Mật khẩu không trùng khớp'),
-                              //       ),
-                              //     ),
-                              //   }
-                              else
-                                {
-                                  print('Không có user')
-                                }
-                            },
-                          );
-                          }
-                          else{
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                          'Mật khẩu không trùng khớp'),
-                                    ),
-                                  );                
-                          }
-                      
-                    }
-                    else{
-                      ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                          'Vui lòng điền đầy đủ thông tin'),
-                                    ),
-                                  );
+                      if (passwordController.text ==
+                          confirmpassController.text) {
+                        userPrvd
+                            .register(
+                                emailController.text,
+                                usernameController.text,
+                                passwordController.text,
+                                fullnameController.text,
+                                address1Controller.text,
+                                phoneController.text)
+                            .then((user) => {
+                                  if (user != null)
+                                    {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content:
+                                                  Text("Đăng ký thành công"))),
+                                      Navigator.pushNamedAndRemoveUntil(context,
+                                          "/main_screen", (route) => false),
+                                    }
+                                  else
+                                    {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
+                                              content: Text(
+                                                  'Đăng ký thất bại, vui lòng thử lại'))),
+                                    }
+                                });
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text("Mật khẩu không trùng khớp")));
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Vui lòng điền đầy đủ thông tin")));
                     }
                   },
                 ),
@@ -203,7 +183,7 @@ class _BodyState extends State<Body> {
                     text: 'Login',
                     backgroundColor: yellowColor,
                     press: () {
-                      Navigator.pushNamed(context, '/');
+                      Navigator.pushNamed(context, '/login');
                     }),
               ],
             )
