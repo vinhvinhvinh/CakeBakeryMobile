@@ -24,7 +24,6 @@ UserDB user = UserDB(
 
 Future getUser() async {
   user = await DBHelper.instance.getUser();
-  print('hhhhhhh : ${user.userToken}');
 }
 
 class Body extends StatelessWidget {

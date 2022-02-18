@@ -99,3 +99,25 @@ Future<List<Product>> getProductsByType(context, typeId) async {
   //print(products);
   return products;
 }
+
+Future<List<Product>> getAllProductInCart(context, accountId) async {
+  List<Product> products = [];
+
+  try {
+    final response = await http.get(
+      Uri.parse(productInCartUrl + '$accountId'),
+      headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+      },
+    );
+    if (response.statusCode == 200) {
+      final item = json.decode(response.body);
+
+      products = (item as List).map((prod) => Product.fromJson(prod)).toList();
+    }
+  } catch (e) {
+    rethrow;
+  }
+  //print(products);
+  return products;
+}
