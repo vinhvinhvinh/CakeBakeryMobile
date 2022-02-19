@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter_application_cake_bakery/base_url.dart';
 import 'package:flutter_application_cake_bakery/models/Product.dart';
 import 'package:flutter_application_cake_bakery/models/product_type.dart';
+import 'package:flutter_application_cake_bakery/models/cart.dart';
 import 'package:http/http.dart' as http;
 
 //Top product
@@ -100,24 +101,26 @@ Future<List<Product>> getProductsByType(context, typeId) async {
   return products;
 }
 
-Future<List<Product>> getAllProductInCart(context, accountId) async {
-  List<Product> products = [];
+Future<List<Cart>> getAllProductInCart(context, accountId) async {
+  List<Cart> productsInCart = [];
 
   try {
     final response = await http.get(
-      Uri.parse(productInCartUrl + '$accountId'),
+      Uri.parse(productInCartUrl + '/$accountId'),
       headers: {
         HttpHeaders.contentTypeHeader: "application/json",
       },
     );
+    //print(response.statusCode);
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
 
-      products = (item as List).map((prod) => Product.fromJson(prod)).toList();
+      productsInCart =
+          (item as List).map((prod) => Cart.fromJson(prod)).toList();
     }
   } catch (e) {
     rethrow;
   }
   //print(products);
-  return products;
+  return productsInCart;
 }

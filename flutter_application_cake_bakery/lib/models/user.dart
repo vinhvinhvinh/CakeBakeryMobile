@@ -1,14 +1,11 @@
 // class UserToken {
 //   User? user;
 //   String? userToken;
-
 //   UserToken({this.user, this.userToken});
-
 //   UserToken.fromJson(Map<String, dynamic> json) {
 //     user = json['user'] != null ? new User.fromJson(json['user']) : null;
 //     userToken = json['user_token'];
 //   }
-
 //   Map<String, dynamic> toJson() {
 //     final Map<String, dynamic> data = new Map<String, dynamic>();
 //     if (this.user != null) {

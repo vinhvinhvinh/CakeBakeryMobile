@@ -15,6 +15,7 @@ class CartCardItem extends StatefulWidget {
   final String productName, productTypeName, productImage;
   final int productPrice;
   int productQuantity;
+
   @override
   _CartCardItemState createState() => _CartCardItemState();
 }
@@ -78,7 +79,7 @@ class _CartCardItemState extends State<CartCardItem> {
                                   myStyle(16, Colors.black, FontWeight.w700)),
                         ),
                         Text(
-                          '${widget.productPrice} VND',
+                          formatMoney.format(widget.productPrice) + ' VND',
                           style: myStyle(
                               15, const Color(0xFFF08F5F), FontWeight.bold),
                         ),
@@ -100,7 +101,7 @@ class _CartCardItemState extends State<CartCardItem> {
                           child: IconButton(
                             color: const Color(0xFFF08F5F),
                             onPressed: () {
-                              print('Delete on cart');
+                              print('delete on cart');
                             },
                             icon: const Icon(
                               Icons.delete_outline_outlined,

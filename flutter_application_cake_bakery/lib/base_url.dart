@@ -27,3 +27,6 @@ const accountUrl = '/accounts';
 
 //Favorite
 const favUrl = baseUrl + '/favorites';
+
+//cart
+const deleteCartRowUrl = baseUrl + '/carts/delete/';
