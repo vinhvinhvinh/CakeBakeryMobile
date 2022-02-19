@@ -19,7 +19,6 @@ const productUrl = baseUrl + '/products';
 const productSellingUrl = productUrl + '/bstSelling/all';
 const productInCartUrl = productUrl + '/prodInCart';
 const newProds = productUrl + '/newProduct/all';
-
 //ProdctType
 const productTypeUrl = baseUrl + '/product_types';
 

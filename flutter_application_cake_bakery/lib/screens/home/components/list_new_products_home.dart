@@ -35,9 +35,19 @@ class _NewProductsState extends State<NewProducts> {
               itemCount: state.newProducts.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
-                return NewProds(
-                  name: state.newProducts[index].name,
-                  image: state.newProducts[index].image,
+                return GestureDetector(
+                  onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetail(
+                      detail: state.newProducts[index],
+                    ),
+                  ),
+                ),
+                  child: NewProds(
+                    name: state.newProducts[index].name,
+                    image: state.newProducts[index].image,
+                  ),
                 );
               },
             ),
