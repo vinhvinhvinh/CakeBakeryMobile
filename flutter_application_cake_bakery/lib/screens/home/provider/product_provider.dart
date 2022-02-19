@@ -9,15 +9,15 @@ class ProductProvider extends ChangeNotifier {
   List<Product> products = [];
   List<Product> topProducts = [];
   List<Product> byProductTypeId = [];
-  List<Product> productsFav=[];
+  List<Product> productsFav = [];
+  List<Product> searchResult = [];
 
   bool loading = false;
-  getAll(context) async{
-    loading=true;
-    topProducts=await getAllProducts(context);
-    loading=false;
+  getAll(context) async {
+    loading = true;
+    topProducts = await getAllProducts(context);
+    loading = false;
     notifyListeners();
-  
   }
 
   bestSelling(context) async {
@@ -35,16 +35,25 @@ class ProductProvider extends ChangeNotifier {
     loading = false;
     notifyListeners();
   }
-  getProductByType(context, type) async{
-      loading=true;
-      byProductTypeId=await getProductsByType(context, type);
-      loading=false;
-      notifyListeners();
-    }
-getProductFav(context, acc) async{
-      loading=true;
-      productsFav=await getProductsFav(context, acc);
-      loading=false;
-      notifyListeners();
-    }
+
+  getProductByType(context, type) async {
+    loading = true;
+    byProductTypeId = await getProductsByType(context, type);
+    loading = false;
+    notifyListeners();
+  }
+
+  getProductFav(context, acc) async {
+    loading = true;
+    productsFav = await getProductsFav(context, acc);
+    loading = false;
+    notifyListeners();
+  }
+
+  getSearchResult(context, query) async {
+    loading = true;
+    searchResult = await getProductsSearch(context, query);
+    loading = false;
+    notifyListeners();
+  }
 }
