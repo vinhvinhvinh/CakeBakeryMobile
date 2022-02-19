@@ -1,68 +1,79 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 import 'package:flutter_application_cake_bakery/database/db_helper.dart';
 import 'package:flutter_application_cake_bakery/models/product.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
 import 'package:flutter_application_cake_bakery/screens/account/myorder/components/main.dart';
+import 'package:flutter_application_cake_bakery/screens/account/provider/user_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
+import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../../../base_url.dart';
 
 class Body extends StatefulWidget {
-  const Body({ Key? key }) : super(key: key);
+  const Body({Key? key}) : super(key: key);
 
   @override
   State<Body> createState() => _BodyState();
 }
 
 class _BodyState extends State<Body> {
-    
-  @override
-  UserDB userLogined = UserDB(
-      id: 0,
-      username: "",
-      password: "",
-      email: "",
-      fullname: "",
-      address1: "",
-      phone: "",
-      otp: "",
-      userToken: "",
-      status: 0);
-@override
-  Future getUserData() async {
-    //lấy user từ sqflite lên
-    userLogined = await DBHelper.instance.getUser();
-    //print('User: ');
-    //print(userLogined.id);
-  }
- 
+  final userr = DBHelper.instance.userr;
+
   @override
   void initState() {
     // TODO: implement initState
-    
+
     super.initState();
-    getUserData();
-     final products = Provider.of<ProductProvider>(context, listen: false);
-    products.getProductFav(context,4);
-    
+    print(userr.id);
+    final products = Provider.of<ProductProvider>(context, listen: false);
+    products.getProductFav(context, userr.id);
   }
+
   @override
   Widget build(BuildContext context) {
     //return Container();
-    print(userLogined.id);
-    return Consumer<ProductProvider>(builder: (context, state, child){
-      return ListView.builder(
-        itemBuilder: (context, index) {
-          return ProductItem(name: state.productsFav[index].name, image: state.productsFav[index].image, price: state.productsFav[index].price,);
-        },
-        itemCount: state.productsFav.length,
-      );
-    }
-    );
-    
+    final userLogined = Provider.of<UserProvider>(context);
+    return Consumer<ProductProvider>(builder: (context, state, child) {
+      return FutureBuilder(
+          future: userLogined.getUserData(),
+          builder: (context, AsyncSnapshot<UserDB> snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data!.id != null) {
+                return state.productsFav.length > 0
+                    ? ListView.builder(
+                        itemBuilder: (context, index) {
+                          return ProductItem(
+                            name: state.productsFav[index].name,
+                            image: state.productsFav[index].image,
+                            price: state.productsFav[index].price,
+                          );
+                        },
+                        itemCount: state.productsFav.length,
+                      )
+                    : Center(
+                        child: Container(
+                          //color:Colors.amberAccent,
+                          child: Text(
+                            'Danh sách yêu thích trống',
+                            style: TextStyle(color: Colors.red, fontSize: 20),
+                          ),
+                        ),
+                      );
+              }
+            }
+            return Center(
+              child: Container(
+                //color:Colors.amberAccent,
+                child: Text(
+                  'Chưa đăng nhập',
+                  style: TextStyle(color: Colors.red, fontSize: 20),
+                ),
+              ),
+            );
+          });
+    });
   }
 }
 
@@ -71,8 +82,11 @@ class ProductItem extends StatefulWidget {
   final String image;
   final int price;
   ProductItem({
-    Key? key, required this.name, required this.image, required this.price,
-   // required this.product,
+    Key? key,
+    required this.name,
+    required this.image,
+    required this.price,
+    // required this.product,
   }) : super(key: key);
 
   @override
@@ -92,9 +106,9 @@ class _ProductItemState extends State<ProductItem> {
         height: 130,
         decoration: BoxDecoration(
           border: Border.all(
-          width: 2,
-          color: Colors.black.withOpacity(0.2),
-        ),
+            width: 2,
+            color: Colors.black.withOpacity(0.2),
+          ),
           color: Colors.white,
           borderRadius: BorderRadius.circular(25),
         ),
@@ -108,9 +122,7 @@ class _ProductItemState extends State<ProductItem> {
                   bottomLeft: Radius.circular(25),
                 ),
                 child: Image.network(
-                              imgUrl +
-                                  '/product/' +
-                                  widget.image,
+                  imgUrl + '/product/' + widget.image,
                   height: 130,
                   width: 130,
                   fit: BoxFit.cover,
@@ -163,8 +175,7 @@ class _ProductItemState extends State<ProductItem> {
                         child: Row(
                           children: [
                             Text(
-                              formatMoney
-                                      .format(widget.price),
+                              formatMoney.format(widget.price),
                               style: const TextStyle(
                                   color: ktextColor, fontSize: 20),
                             ),

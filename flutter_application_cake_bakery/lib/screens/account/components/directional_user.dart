@@ -14,29 +14,13 @@ class DirectionalUser extends StatefulWidget {
 }
 
 class _DirectionalUserState extends State<DirectionalUser> {
-  UserDB userLogined = UserDB(
-      id: 0,
-      username: "",
-      password: "",
-      email: "",
-      fullname: "",
-      address1: "",
-      phone: "",
-      otp: "",
-      userToken: "",
-      status: 0);
-
-  Future getUserData() async {
-    //lấy user từ sqflite lên
-    userLogined = await DBHelper.instance.getUser();
-    // print('hhhhhhh : ${userLogined.userToken}');
-  }
+  final usser = DBHelper.instance.userr;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getUserData();
+    // TODO: implement initState
+    print(usser.id);
   }
 
   @override
@@ -85,7 +69,7 @@ class _DirectionalUserState extends State<DirectionalUser> {
             ),
             onPressed: () {
               print('Log out');
-              logout(userLogined.userToken, userLogined.id, context);
+              logout(usser.userToken, usser.id, context);
             },
             icon: const Icon(
               Icons.logout_outlined,

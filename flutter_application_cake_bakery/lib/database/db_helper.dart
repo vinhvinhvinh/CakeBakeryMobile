@@ -9,6 +9,22 @@ class DBHelper {
   static Database? _db;
   DBHelper._init();
 
+  // USER TẠM
+  UserDB userr = UserDB(
+      id: 0,
+      username: "",
+      password: "",
+      email: "",
+      fullname: "",
+      address1: "",
+      address2: "",
+      phone: "",
+      avatar: "",
+      otp: "",
+      userToken: "",
+      status: 1);
+  //USER TẠM
+
   Future<Database> get db async {
     if (_db != null) {
       return _db!;
@@ -41,6 +57,7 @@ class DBHelper {
   Future<UserDB> getUser() async {
     var dbClient = await db;
     final queryResult = await dbClient.query('user');
+    userr = UserDB.fromJson(queryResult.first);
     return UserDB.fromJson(queryResult.first);
   }
 

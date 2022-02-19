@@ -17,6 +17,7 @@ const logoutUrl = 'http://10.0.2.2:8000/api/logout';
 //Product
 const productUrl = baseUrl + '/products';
 const productSellingUrl = productUrl + '/bstSelling/all';
+const productInCartUrl = productUrl + '/prodInCart';
 const newProds = productUrl + '/newProduct/all';
 //ProdctType
 const productTypeUrl = baseUrl + '/product_types';
