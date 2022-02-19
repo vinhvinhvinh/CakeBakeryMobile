@@ -34,10 +34,20 @@ class _BestSellingProductState extends State<BestSellingProduct> {
                 itemCount: state.bestSellingproducts.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
-                  return ProductBestSelling(
-                    image: state.bestSellingproducts[index].image,
-                    productName: state.bestSellingproducts[index].name,
-                    price: state.bestSellingproducts[index].price,
+                  return GestureDetector(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductDetail(
+                          detail: state.bestSellingproducts[index],
+                        ),
+                      ),
+                    ),
+                    child: ProductBestSelling(
+                      image: state.bestSellingproducts[index].image,
+                      productName: state.bestSellingproducts[index].name,
+                      price: state.bestSellingproducts[index].price,
+                    ),
                   );
                 },
               ),

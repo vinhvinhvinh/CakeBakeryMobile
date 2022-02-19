@@ -15,12 +15,12 @@ class ProductDetail extends StatefulWidget {
 }
 
 class _ProductDetailState extends State<ProductDetail> {
-  @override
-  void initState(){
-    super.initState();
-    final product=Provider.of<ProductProvider>(context, listen: false);
-    product.getAll(context);
-  }
+  // @override
+  // void initState(){
+  //   super.initState();
+  //   final product=Provider.of<ProductProvider>(context, listen: false);
+  //   product.getAll(context);
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: buildAppBar(context), body: Body(detail: widget.detail));
