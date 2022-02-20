@@ -1,8 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/base_url.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 import 'package:flutter_application_cake_bakery/models/Product.dart';
+import 'package:flutter_application_cake_bakery/models/comment.dart';
+import 'package:flutter_application_cake_bakery/models/user.dart';
+import 'package:flutter_application_cake_bakery/screens/product_detail/provider/comment_provider.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   final Product detail;
@@ -14,8 +17,15 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   @override
+  void initState() {
+    super.initState();
+    final comments = Provider.of<CommentProvider>(context, listen: false);
+    comments.getCommentByProduct(context, widget.detail.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         //Ảnh
         Container(
@@ -28,7 +38,7 @@ class _BodyState extends State<Body> {
               topRight: Radius.circular(25),
             ),
             child: Image.network(
-                imgUrl + '/product/' + widget.detail.image,
+              imgUrl + '/product/' + widget.detail.image,
               fit: BoxFit.cover,
               height: 250,
             ),
@@ -44,7 +54,7 @@ class _BodyState extends State<Body> {
               const Padding(
                 padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                 child: Text(
-                  'Loại:',
+                  'Số lượng tồn:',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -54,7 +64,7 @@ class _BodyState extends State<Body> {
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  widget.detail.productTypeId,
+                  widget.detail.stock.toString()+' chiếc',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -221,76 +231,81 @@ class _BodyState extends State<Body> {
             ),
           ),
         ),
-        Comment(),
-        const Divider(
-          height: 5,
-          thickness: 2,
-          indent: 20,
-          endIndent: 20,
-          color: Colors.grey,
-        ),
-        Comment(),
-        const Divider(
-          height: 5,
-          thickness: 2,
-          indent: 20,
-          endIndent: 20,
-          color: Colors.grey,
-        ),
+        ListComment(),
       ],
     );
   }
 
-  Widget Comment() {
-    return Container(
-        margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
-        //color: Colors.purple,
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: Image.asset(
-                'assets/images/account/avatar-1.jpg',
-                width: 50,
-                height: 50,
-              ),
-            ),
-            Container(
-              //color: Colors.orange,
+  Widget ListComment() {
+    return Consumer<CommentProvider>(builder: (context, state, child) {
+      return Expanded(
+        child: ListView.builder(
+          itemCount: state.lstComments.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
+              //color: Colors.purple,
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 145),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Tên khách hàng',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.black,
+                  Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: Image.network(
+              imgUrl + 'user/' + state.lstComments[index].avatar.toString(),
+                          width: 50,
+                          height: 50,
                         ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    //color: Colors.yellow,
-                    margin: const EdgeInsets.only(
-                      left: 20,
-                    ),
-                    width: 280,
-                    child: Text(
-                      'Bánh ngon quá ạ! Nên mua nha mọi người, Ngon quá trời quá đất',
-                      style:TextStyle(
-                        fontSize: 18,
+                      Container(
+                        //color: Colors.orange,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 145),
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  state.lstComments[index].fullname.toString(),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              //color: Colors.yellow,
+                              margin: const EdgeInsets.only(
+                                left: 20,
+                              ),
+                              width: 260,
+                              child: Text(
+                                state.lstComments[index].content,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
+                  ),
+                  const Divider(
+                    height: 10,
+                    thickness: 2,
+                    indent: 5,
+                    endIndent: 5,
+                    color: Colors.grey,
                   ),
                 ],
               ),
-            ),
-          ],
+            );
+          },
         ),
       );
+    });
   }
 }
