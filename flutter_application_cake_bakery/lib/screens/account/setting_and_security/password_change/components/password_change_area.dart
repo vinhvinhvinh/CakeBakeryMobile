@@ -24,7 +24,7 @@ class _PasswordChangeAreaState extends State<PasswordChangeArea> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Password:'),
+          const Text('Old Password:'),
           UserPasswordField(
               fieldHint: '',
               preIcon: Icons.edit_outlined,
