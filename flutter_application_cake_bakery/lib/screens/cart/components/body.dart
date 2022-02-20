@@ -9,23 +9,18 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView(
-        children: [
-          yourCart(),
-          CartMain(),
-        ],
-      ),
+      child: const CartMain(),
     );
   }
 
-  Container yourCart() {
-    return Container(
-      alignment: Alignment.center,
-      margin: const EdgeInsets.only(top: 10, bottom: 20),
-      child: const Text(
-        'Giỏ Hàng',
-        style: TextStyle(fontSize: 28, fontWeight: FontWeight.normal),
-      ),
-    );
-  }
+  // Container yourCart() {
+  //   return Container(
+  //     alignment: Alignment.center,
+  //     margin: const EdgeInsets.only(top: 10, bottom: 20),
+  //     child: const Text(
+  //       'Giỏ Hàng',
+  //       style: TextStyle(fontSize: 28, fontWeight: FontWeight.normal),
+  //     ),
+  //   );
+  // }
 }

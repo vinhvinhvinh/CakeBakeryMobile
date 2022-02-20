@@ -28,3 +28,6 @@ const accountUrl = '/accounts';
 const favUrl = baseUrl + '/favorites';
 
 const cmtUrl=baseUrl+'/comments';
+//cart
+const deleteCartRowUrl = baseUrl + '/carts/delete/';
+const updateCartQtyUrl = baseUrl + '/carts/update/';

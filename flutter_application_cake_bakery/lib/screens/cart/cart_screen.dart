@@ -1,11 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/components/header_without_pop.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/database/db_helper.dart';
+import 'package:flutter_application_cake_bakery/screens/cart/provider/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'components/body.dart';
 
-class Cart extends StatelessWidget {
+class Cart extends StatefulWidget {
   const Cart({Key? key}) : super(key: key);
+
+  @override
+  State<Cart> createState() => _CartState();
+}
+
+class _CartState extends State<Cart> {
+  final userr = DBHelper.instance.userr;
+  int totalIC = 0;
+  @override
+  void initState() {
+    super.initState();
+
+    final productsInCart = Provider.of<CartProvider>(context, listen: false);
+    productsInCart.getProductInCart(context, userr.id);
+    productsInCart.getTotalInCart();
+
+    //productsIC.forEach((element) {totalIC+=element.});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +45,16 @@ class Cart extends StatelessWidget {
   }
 }
 
-class CheckOut extends StatelessWidget {
+class CheckOut extends StatefulWidget {
   const CheckOut({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<CheckOut> createState() => _CheckOutState();
+}
+
+class _CheckOutState extends State<CheckOut> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -56,7 +82,10 @@ class CheckOut extends StatelessWidget {
               children: [
                 Text('Total:',
                     style: myStyle(18, Colors.grey, FontWeight.normal)),
-                Text('420.000 VND',
+                Text(
+                    formatMoney.format(
+                        Provider.of<CartProvider>(context, listen: false)
+                            .total),
                     style: myStyle(20, Colors.orange, FontWeight.normal)),
               ],
             ),

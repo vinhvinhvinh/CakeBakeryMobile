@@ -54,7 +54,7 @@ class _BodyState extends State<Body> {
               const Padding(
                 padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                 child: Text(
-                  'Số lượng tồn:',
+                  'Còn lại:',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
