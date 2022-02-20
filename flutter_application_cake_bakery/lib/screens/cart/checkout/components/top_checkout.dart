@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_cake_bakery/screens/cart/checkout/checkout_screen.dart';
 
 import '../../../../constant.dart';
 
 class TopCheckout extends StatefulWidget {
+  final int total;
   const TopCheckout({
     Key? key,
+    required this.total,
   }) : super(key: key);
 
   @override
@@ -38,7 +41,7 @@ class _TopCheckoutState extends State<TopCheckout> {
           children: [
             Text('Checkout 💳',
                 style: myStyle(20, Colors.black, FontWeight.w400)),
-            Text('💸 420.000 VND',
+            Text('💸' + formatMoney.format(widget.total),
                 style: myStyle(18, Colors.orange.shade900, FontWeight.normal)),
           ],
         ),
