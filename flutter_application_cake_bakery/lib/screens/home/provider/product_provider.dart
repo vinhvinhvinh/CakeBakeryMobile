@@ -10,6 +10,7 @@ class ProductProvider extends ChangeNotifier {
   List<Product> topProducts = [];
   List<Product> byProductTypeId = [];
   List<Product> productsFav = [];
+  List<Product> searchResult = [];
 
   bool loading = false;
   getAll(context) async {
@@ -45,6 +46,13 @@ class ProductProvider extends ChangeNotifier {
   getProductFav(context, acc) async {
     loading = true;
     productsFav = await getProductsFav(context, acc);
+    loading = false;
+    notifyListeners();
+  }
+
+  getSearchResult(context, query) async {
+    loading = true;
+    searchResult = await getProductsSearch(context, query);
     loading = false;
     notifyListeners();
   }

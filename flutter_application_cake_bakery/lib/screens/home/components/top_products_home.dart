@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
-import 'package:flutter_application_cake_bakery/models/Product.dart';
-//import 'package:flutter_application_cake_bakery/models/Product.dart';
-import 'package:flutter_application_cake_bakery/models/Product.dart';
-import 'package:flutter_application_cake_bakery/network/network_product.dart';
 import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
 import 'package:provider/provider.dart';

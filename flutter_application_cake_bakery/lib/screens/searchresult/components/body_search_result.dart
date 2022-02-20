@@ -1,28 +1,67 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
-import 'package:flutter_application_cake_bakery/models/product.dart';
-import 'package:flutter_application_cake_bakery/screens/account/myorder/components/main.dart';
+import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
+import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
+import 'package:provider/provider.dart';
+import '../../../base_url.dart';
 
-class Body extends StatelessWidget {
-  const Body({Key? key}) : super(key: key);
+class BodySearch extends StatefulWidget {
+  final String value;
+  const BodySearch({Key? key, required this.value}) : super(key: key);
+
+  @override
+  State<BodySearch> createState() => _BodyState();
+}
+
+class _BodyState extends State<BodySearch> {
+  @override
+  void initState() {
+    super.initState();
+    final products = Provider.of<ProductProvider>(context, listen: false);
+    products.getSearchResult(context, widget.value);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
-    // return ListView.builder(
-    //   itemBuilder: (context, index) {
-    //     return ProductItem(product: lstProducts[index]);
-    //   },
-    //   itemCount: lstProducts.length,
-    // );
+    //return Container();
+    return Consumer<ProductProvider>(
+      builder: (context, state, child) {
+        //return Text(widget.value);
+        return  ListView.builder(
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetail(
+                      detail: state.searchResult[index],
+                    ),
+                  ),
+                ),
+                child: ProductItem(
+                  name: state.searchResult[index].name,
+                  image: state.searchResult[index].image,
+                  price: state.searchResult[index].price,
+                ),
+              );
+            },
+            itemCount: state.searchResult.length,
+          
+        );
+      },
+    );
   }
 }
 
 class ProductItem extends StatefulWidget {
-  //final Product product;
-  ProductItem({
+  final String name;
+  final String image;
+  final int price;
+  const ProductItem({
     Key? key,
+    required this.name,
+    required this.image,
+    required this.price,
     //required this.product,
   }) : super(key: key);
 
@@ -43,9 +82,9 @@ class _ProductItemState extends State<ProductItem> {
         height: 130,
         decoration: BoxDecoration(
           border: Border.all(
-          width: 2,
-          color: Colors.black.withOpacity(0.2),
-        ),
+            width: 2,
+            color: Colors.black.withOpacity(0.2),
+          ),
           color: Colors.white,
           borderRadius: BorderRadius.circular(25),
         ),
@@ -58,9 +97,10 @@ class _ProductItemState extends State<ProductItem> {
                   topLeft: Radius.circular(25),
                   bottomLeft: Radius.circular(25),
                 ),
-                child: Image.asset(
-                  "assets/images/1.png",
+                child: Image.network(
+                  imgUrl + '/product/' + widget.image,
                   height: 130,
+                  width: 130,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -71,14 +111,14 @@ class _ProductItemState extends State<ProductItem> {
                     children: [
                       Container(
                         padding: const EdgeInsets.fromLTRB(10, 20, 0, 0),
-                        width: 180,
+                        width: 205,
                         child: Row(
                           children: [
                             Container(
                               //padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              width: 120,
+                              width: 140,
                               child: Text(
-                                'Ten san pham',
+                                widget.name,
                                 style: const TextStyle(
                                     color: ktextColor,
                                     fontWeight: FontWeight.bold,
@@ -88,11 +128,13 @@ class _ProductItemState extends State<ProductItem> {
                             const Spacer(),
                             IconButton(
                               onPressed: () {
-                                setState((){_isChecked=!_isChecked;});
+                                setState(() {
+                                  _isChecked = !_isChecked;
+                                });
                               },
                               icon: Icon(
                                 _isChecked
-                                    ? Icons.favorite_sharp 
+                                    ? Icons.favorite_sharp
                                     : Icons.favorite_outline,
                                 color: primaryColor,
                               ),
@@ -104,13 +146,14 @@ class _ProductItemState extends State<ProductItem> {
                       //Price Product
                       Container(
                         padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 180,
+                        width: 205,
                         //color: Colors.green,
                         child: Row(
                           children: [
                             Text(
-                              "Price đ",
-                              style: const TextStyle(color: ktextColor, fontSize: 20),
+                              formatMoney.format(widget.price),
+                              style: const TextStyle(
+                                  color: ktextColor, fontSize: 20),
                             ),
                             const Spacer(),
                             IconButton(

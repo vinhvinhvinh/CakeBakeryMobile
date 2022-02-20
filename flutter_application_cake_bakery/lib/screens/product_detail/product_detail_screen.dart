@@ -23,7 +23,7 @@ class _ProductDetailState extends State<ProductDetail> {
   // }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: buildAppBar(context), body: Body(detail: widget.detail));
+    return MaterialApp(home: Scaffold(appBar: buildAppBar(context), body: Body(detail: widget.detail)));
   }
 
   AppBar buildAppBar(BuildContext context) {
