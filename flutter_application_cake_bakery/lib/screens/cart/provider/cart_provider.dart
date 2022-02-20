@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/base_url.dart';
 import 'package:flutter_application_cake_bakery/models/Product.dart';
+import 'package:flutter_application_cake_bakery/services/cart_service.dart';
 import 'package:flutter_application_cake_bakery/services/product_service.dart';
 import 'package:flutter_application_cake_bakery/models/cart.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +19,6 @@ class CartProvider extends ChangeNotifier {
     loading = true;
     productsInCart = await getAllProductInCart(context, accountId);
     loading = false;
-
     notifyListeners();
   }
 
@@ -32,24 +32,16 @@ class CartProvider extends ChangeNotifier {
     //notifyListeners();
   }
 
-  deleteCartRow(int cartId) async {
+  callDeleteCartRow(context, cartId) async {
     loading = true;
+    await deleteCartRow(context, cartId);
+    loading = false;
+    notifyListeners();
+  }
 
-    try {
-      final response = await http.delete(
-        Uri.parse(deleteCartRowUrl + '$cartId'),
-        headers: {
-          HttpHeaders.contentTypeHeader: "application/json",
-        },
-      );
-      if (response.statusCode == 200) {
-        print(json.decode(response.body));
-        //print(products);
-      }
-    } catch (e) {
-      rethrow;
-    }
-
+  callUpdateCartQty(context, id, quantity) async {
+    loading = true;
+    await updateCartQty(context, id, quantity.toString());
     loading = false;
     notifyListeners();
   }

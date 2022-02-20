@@ -16,6 +16,7 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
   final userr = DBHelper.instance.userr;
+  int totalIC = 0;
   @override
   void initState() {
     super.initState();
@@ -23,6 +24,8 @@ class _CartState extends State<Cart> {
     final productsInCart = Provider.of<CartProvider>(context, listen: false);
     productsInCart.getProductInCart(context, userr.id);
     productsInCart.getTotalInCart();
+
+    //productsIC.forEach((element) {totalIC+=element.});
   }
 
   @override
