@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/components/header.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/database/db_helper.dart';
+import 'package:flutter_application_cake_bakery/models/cart.dart';
+import 'package:flutter_application_cake_bakery/screens/cart/provider/cart_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'components/body.dart';
 
-class CheckoutScreen extends StatelessWidget {
-  const CheckoutScreen({Key? key}) : super(key: key);
+class CheckoutScreen extends StatefulWidget {
+  final int total;
+  const CheckoutScreen({Key? key, required this.total}) : super(key: key);
 
   @override
+  State<CheckoutScreen> createState() => _CheckoutScreenState();
+}
+
+class _CheckoutScreenState extends State<CheckoutScreen> {
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: PreferredSize(
+    return Scaffold(
+      appBar: const PreferredSize(
         child: Header(
             title: 'CHECKOUT',
             backgrColor: primaryColor,
@@ -18,19 +28,30 @@ class CheckoutScreen extends StatelessWidget {
             action: null),
         preferredSize: Size(double.infinity, 50),
       ),
-      body: Body(),
+      body: Body(
+        total: widget.total,
+      ),
       bottomNavigationBar: CheckOut(),
     );
   }
 }
 
-class CheckOut extends StatelessWidget {
+class CheckOut extends StatefulWidget {
   const CheckOut({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<CheckOut> createState() => _CheckOutState();
+}
+
+class _CheckOutState extends State<CheckOut> {
+  final usser = DBHelper.instance.userr;
+
+  @override
   Widget build(BuildContext context) {
+    List<Cart> lstCart =
+        Provider.of<CartProvider>(context, listen: false).productsInCart;
     return Container(
       height: 150,
       decoration: BoxDecoration(
@@ -69,6 +90,8 @@ class CheckOut extends StatelessWidget {
                     ),
                     onPressed: () {
                       print('PURCHASE');
+                      Provider.of<CartProvider>(context, listen: false)
+                          .callPay(context, usser.id, lstCart);
                     },
                     child: Text('PURCHASE',
                         style: myStyle(20, Colors.white, FontWeight.normal)),

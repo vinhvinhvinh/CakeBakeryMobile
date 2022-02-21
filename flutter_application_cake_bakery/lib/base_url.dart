@@ -27,10 +27,12 @@ const accountUrl = '/accounts';
 //Favorite
 const favUrl = baseUrl + '/favorites';
 
-const cmtUrl=baseUrl+'/comments';
+const cmtUrl = baseUrl + '/comments';
 //cart
 const deleteCartRowUrl = baseUrl + '/carts/delete/';
 const updateCartQtyUrl = baseUrl + '/carts/update/';
 
 //invoice
 const invoiceUrl=baseUrl+'/invoices';
+//pay
+const payUrl = 'http://10.0.2.2:8000/api/invoices/create';

@@ -34,7 +34,7 @@ class _CanceledState extends State<Canceled> {
             price: state.lstInvoiceByAccountIdAndStatus[index].price,
             totalPrice: state.lstInvoiceByAccountIdAndStatus[index].total,
             time: state.lstInvoiceByAccountIdAndStatus[index].issueDate,
-            text: 'Đã đặt', quantity: state.lstInvoiceByAccountIdAndStatus[index].quantity,
+            text: 'Đã hủy', quantity: state.lstInvoiceByAccountIdAndStatus[index].quantity,
           );
         },
         itemCount: state.lstInvoiceByAccountIdAndStatus.length,

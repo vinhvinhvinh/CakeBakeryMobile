@@ -68,7 +68,7 @@ class CakeBakery extends StatelessWidget {
           '/change': (context) => const ChangePassword(),
           'account': (context) => const AccountScreen(),
           'cart': (context) => const Cart(),
-          '/checkout': (context) => const CheckoutScreen(),
+          //'/checkout': (context) => CheckoutScreen(),
           'account/myprofile': (context) => const ProfileScreen(),
           'account/myorder': (context) => const MyOrderScreen(),
           'account/setting_and_security': (context) =>

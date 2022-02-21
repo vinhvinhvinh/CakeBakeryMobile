@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/components/header_without_pop.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 import 'package:flutter_application_cake_bakery/database/db_helper.dart';
+import 'package:flutter_application_cake_bakery/screens/cart/checkout/checkout_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/cart/provider/cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -105,10 +106,18 @@ class _CheckOutState extends State<CheckOut> {
                           const EdgeInsets.only(
                               top: 15, bottom: 15, left: 92, right: 92)),
                     ),
-                    onPressed: () {
-                      print('READY TO CHECKOUT');
-                      Navigator.pushNamed(context, '/checkout');
-                    },
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CheckoutScreen(
+                                total: Provider.of<CartProvider>(context,
+                                        listen: false)
+                                    .total,
+                              )),
+                    ),
+                    //print('READY TO CHECKOUT');
+                    //Navigator.pushNamed(context, '/checkout');
+
                     child: Text('Ready to checkout',
                         style: myStyle(20, Colors.white, FontWeight.normal)),
                   ),

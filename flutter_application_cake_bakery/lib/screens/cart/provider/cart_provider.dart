@@ -45,4 +45,11 @@ class CartProvider extends ChangeNotifier {
     loading = false;
     notifyListeners();
   }
+
+  callPay(context, userId, lineItem) async {
+    loading = true;
+    await pay(context, userId, lineItem);
+    loading = false;
+    notifyListeners();
+  }
 }
