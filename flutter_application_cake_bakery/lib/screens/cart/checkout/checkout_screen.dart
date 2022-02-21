@@ -22,7 +22,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return Scaffold(
       appBar: const PreferredSize(
         child: Header(
-            title: 'CHECKOUT',
+            title: '',
             backgrColor: primaryColor,
             textColor: Colors.white,
             action: null),
@@ -91,9 +91,9 @@ class _CheckOutState extends State<CheckOut> {
                     onPressed: () {
                       print('PURCHASE');
                       Provider.of<CartProvider>(context, listen: false)
-                          .callPay(context, usser.id, lstCart);
+                          .callPay(context, usser.id, lstCart, "", "");
                     },
-                    child: Text('PURCHASE',
+                    child: Text('THANH TOÁN',
                         style: myStyle(20, Colors.white, FontWeight.normal)),
                   ),
                 ],

@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
   AppBar buildAppBar() {
     return AppBar(
       title: Text(
-        'Home'.toUpperCase(),
+        'Trang chủ'.toUpperCase(),
       ),
       automaticallyImplyLeading: false,
       backgroundColor: primaryColor,

@@ -169,4 +169,62 @@ class UserProvider with ChangeNotifier {
     //print(userLogined);
     return userLogined;
   }
+
+  Future<UserDB?> changePassword(
+      context, int id, String recentPassword, String newPassword) async {
+    var response = await http.put(Uri.parse(changePassUrl + '$id'),
+        body: ({
+          "OldPassword": recentPassword,
+          "NewPassword": newPassword,
+        }));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      DBHelper.instance.delete(id, 'user');
+      var userLogined = UserToken.fromJson(json.decode(response.body));
+
+      print('Đang thay đổi thông tin');
+
+      dbHelper
+          .insertUser(
+            UserDB(
+              id: userLogined.user!.id,
+              username: userLogined.user!.username,
+              password: userLogined.user!.password,
+              email: userLogined.user!.email,
+              fullname: userLogined.user!.fullname,
+              address1: userLogined.user!.address1,
+              address2: userLogined.user!.address2,
+              phone: userLogined.user!.phone,
+              avatar: userLogined.user!.avatar,
+              otp: "",
+              userToken: userLogined.userToken,
+              status: userLogined.user!.status,
+            ),
+          )
+          .then((value) => print('Cập nhật sqflite thành công'))
+          .onError((error, stackTrace) =>
+              print('Thêm thất bại, Lỗi:' + error.toString()));
+
+      //Tạo một user để vừa lưu cho Provider vừa để trả về
+      UserDB userPackage = UserDB(
+        id: userLogined.user!.id,
+        username: userLogined.user!.username,
+        password: userLogined.user!.password,
+        email: userLogined.user!.email,
+        fullname: userLogined.user!.fullname,
+        address1: userLogined.user!.address1,
+        address2: userLogined.user?.address2,
+        phone: userLogined.user!.phone,
+        avatar: userLogined.user!.avatar,
+        otp: "",
+        userToken: userLogined.userToken,
+        status: userLogined.user!.status,
+      );
+
+      return userPackage;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Mật khẩu cũ không đúng")));
+    }
+  }
 }

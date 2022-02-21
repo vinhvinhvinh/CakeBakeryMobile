@@ -40,7 +40,8 @@ Future updateCartQty(context, int cartId, String qty) async {
   //print(products);
 }
 
-Future pay(context, int userId, lineItem) async {
+Future pay(
+    context, int userId, lineItem, shippingAddress, shippingPhone) async {
   List<Invoice> lstC = [];
   try {
     final response = await http.post(Uri.parse(payUrl),
@@ -49,6 +50,8 @@ Future pay(context, int userId, lineItem) async {
           "accept": "application/json",
         },
         body: json.encode({
+          "ShippingAddress": shippingAddress,
+          "PhoneShipping": shippingPhone,
           "userId": userId,
           "lineItem": lineItem,
         }));
@@ -80,4 +83,29 @@ Future pay(context, int userId, lineItem) async {
   } catch (e) {
     rethrow;
   }
+}
+
+Future addToCart(context, int userId, String productId, int qty) async {
+  try {
+    final response = await http.post(Uri.parse(addToCartUrl),
+        headers: {
+          "Content-Type": "application/json",
+          "accept": "application/json",
+        },
+        body: json.encode({
+          "userId": userId,
+          "ProductId": productId,
+          "Quantity": qty,
+        }));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Thêm vào giỏ hàng thành công")));
+
+      print('Thêm vào giỏ hàng thành công');
+    }
+  } catch (e) {
+    rethrow;
+  }
+  //print(products);
 }

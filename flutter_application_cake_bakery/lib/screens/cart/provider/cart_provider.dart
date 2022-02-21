@@ -18,18 +18,13 @@ class CartProvider extends ChangeNotifier {
   getProductInCart(context, accountId) async {
     loading = true;
     productsInCart = await getAllProductInCart(context, accountId);
-    loading = false;
-    notifyListeners();
-  }
-
-  getTotalInCart() {
-    loading = true;
     total = 0;
     for (int i = 0; i < productsInCart.length; i++) {
       total += (productsInCart[i].price * productsInCart[i].quantity);
     }
     loading = false;
-    //notifyListeners();
+
+    notifyListeners();
   }
 
   callDeleteCartRow(context, cartId) async {
@@ -46,9 +41,16 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  callPay(context, userId, lineItem) async {
+  callPay(context, userId, lineItem, shippingAddress, shippingPhone) async {
     loading = true;
-    await pay(context, userId, lineItem);
+    await pay(context, userId, lineItem, shippingAddress, shippingPhone);
+    loading = false;
+    notifyListeners();
+  }
+
+  callAddToCart(context, userId, productId, qty) async {
+    loading = true;
+    await addToCart(context, userId, productId, qty);
     loading = false;
     notifyListeners();
   }

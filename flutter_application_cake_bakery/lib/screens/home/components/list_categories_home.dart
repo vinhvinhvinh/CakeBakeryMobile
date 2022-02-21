@@ -161,7 +161,7 @@ class TitleWithButton extends StatelessWidget {
           ),
           onPressed: () {},
           child: const Text(
-            "View All",
+            "Xem",
             style: TextStyle(color: Colors.white),
           ),
         ),

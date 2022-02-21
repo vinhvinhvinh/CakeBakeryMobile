@@ -13,7 +13,7 @@ class AccountScreen extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, 50.0),
         child: HeaderWithoutPop(
-            title: 'Your Account',
+            title: 'Tài khoản của tôi',
             backgrColor: primaryColor,
             textColor: Colors.white,
             action: null),
