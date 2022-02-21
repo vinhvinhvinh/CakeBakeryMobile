@@ -26,6 +26,12 @@ class UserProvider with ChangeNotifier {
   UserDB? get user => _user;
   //get user Logined
 bool loading = false;
+updateProfile(context, id, username, fullname, address1, address2, email, phone) async {
+    loading = true;
+    await update(context, id, username, fullname, address1, address2, email, phone);
+    loading = false;
+    notifyListeners();
+}
   Future<UserDB?> login(String username, String password) async {
     var response = await http.post(Uri.parse(loginUrl),
         body: ({
@@ -172,32 +178,6 @@ bool loading = false;
     //print(userLogined);
     return userLogined;
   }
-
-<<<<<<< HEAD
-  // Future<http.Response> updateAlbum(context, id, String username, String fullname,
-  //     String email, String address1, String address2, String phone) {
-  //   return http.put(
-  //     Uri.parse(userUrl + '/updateByUser/$id'),
-  //     // headers: <String, String>{
-  //     //   'Content-Type': 'application/json; charset=UTF-8',
-  //     // },
-  //     body: jsonEncode({
-  //       'Username': username,
-  //       'Fullname': fullname,
-  //       'Email': email,
-  //       'Address1': address1,
-  //       'Address2': address2,
-  //       'Phone': phone,
-  //     }),
-  //   );
-  // }
-
-  updateProfile(context, id, username, fullname, address1, address2, email, phone) async {
-    loading = true;
-    await update(context, id, username, fullname, address1, address2, email, phone);
-    loading = false;
-    notifyListeners();
-=======
   Future<UserDB?> changePassword(
       context, int id, String recentPassword, String newPassword) async {
     var response = await http.put(Uri.parse(changePassUrl + '$id'),
@@ -254,6 +234,6 @@ bool loading = false;
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Mật khẩu cũ không đúng")));
     }
->>>>>>> 2402cd1fc6e5c418d175476becb7c9c34a69dc65
   }
 }
+

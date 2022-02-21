@@ -105,21 +105,32 @@ class _InfomationAreaState extends State<InfomationArea> {
                       ),
                       child: Text('Save Changed'),
                       onPressed: () async {
+                        print('Update Profile');
                         if (usernameController.text.isNotEmpty ||
                             fullnameController.text.isNotEmpty ||
                             emailController.text.isNotEmpty ||
                             addressController1.text.isNotEmpty ||
                             addressController2.text.isNotEmpty ||
                             phoneController.text.isNotEmpty) {
-                          update(
-                                  context,
-                                  snapshot.data!.id,
-                                  usernameController.text,
-                                  fullnameController.text,
-                                  emailController.text,
-                                  addressController1.text,
-                                  addressController2.text,
-                                  phoneController.text);
+                          userLogined.updateProfile(
+                              context,
+                              snapshot.data!.id,
+                              usernameController.text,
+                              fullnameController.text,
+                              emailController.text,
+                              addressController1.text,
+                              addressController2.text,
+                              phoneController.text).then((user) => {
+                            if (user != null)
+                              {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text("Cập nhật thành công"))),
+                                //Navigator.pop(context),
+                                //Navigator.pushNamed(context, '/logout')
+                                userLogined.logout(snapshot.data!.userToken, snapshot.data!.id, context)
+                              }
+                          });
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
