@@ -137,7 +137,7 @@ Future<List<Product>> getProductsFav(context, accountId) async {
     );
     if (response.statusCode == 200) {
       final item = json.decode(response.body);
-
+print(item);
       products = (item as List).map((prod) => Product.fromJson(prod)).toList();
     }
   } catch (e) {

@@ -31,3 +31,6 @@ const cmtUrl=baseUrl+'/comments';
 //cart
 const deleteCartRowUrl = baseUrl + '/carts/delete/';
 const updateCartQtyUrl = baseUrl + '/carts/update/';
+
+//invoice
+const invoiceUrl=baseUrl+'/invoices';

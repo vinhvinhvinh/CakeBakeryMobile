@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
 
+import '../../../../base_url.dart';
+
 class Product extends StatelessWidget {
   final String image;
   final String productname;
-  final String price;
-  final String totalPrice;
+  final int? price;
+  final int? quantity;
+  final int totalPrice;
   final String text;
   final String time;
   const Product({
@@ -16,6 +19,7 @@ class Product extends StatelessWidget {
     required this.totalPrice,
     required this.text,
     required this.time,
+    this.quantity,
   }) : super(key: key);
 
   @override
@@ -56,8 +60,8 @@ class Product extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    'assets/images/$image',
+                  child: Image.network(
+                  imgUrl + '/product/' + image,
                     width: 120,
                     height: 120,
                     fit: BoxFit.cover,
@@ -70,14 +74,17 @@ class Product extends StatelessWidget {
                     const Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: kDefaultPadding / 2)),
-                    Text(
-                      productname,
-                      style: myStyle(18, Colors.black, FontWeight.bold),
+                    Container(
+                      width: 140,
+                      child: Text(
+                        productname,
+                        style: myStyle(18, Colors.black, FontWeight.bold),
+                      ),
                     ),
                     const SizedBox(
                       height: (kDefaultPadding / 2),
                     ),
-                    Text(price),
+                    Text( formatMoney.format(price),),
                   ],
                 ),
                 //const SizedBox(width: (kDefaultPadding * 2),),
@@ -86,14 +93,14 @@ class Product extends StatelessWidget {
                     const Padding(
                         padding: EdgeInsets.only(top: kDefaultPadding * 2)),
                     Text(
-                      'X$totalPrice',
+                      'X$quantity',
                       style: myStyle(18, Colors.black, FontWeight.bold),
                     ),
                     const SizedBox(
                       height: (kDefaultPadding / 2),
                     ),
                     Text(
-                      'Total Price',
+                       formatMoney.format(totalPrice),
                       style: myStyle(18, Colors.black, FontWeight.bold),
                     ),
                   ],
