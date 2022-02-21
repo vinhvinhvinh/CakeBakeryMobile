@@ -162,7 +162,7 @@ class TitleWithButton extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
             child: Text(
-              "BEST SELLING",
+              "Bán chạy nhất",
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -180,7 +180,7 @@ class TitleWithButton extends StatelessWidget {
           ),
           onPressed: () {},
           child: const Text(
-            "View All",
+            "Xem",
             style: TextStyle(color: Colors.white),
           ),
         ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/base_url.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/database/db_helper.dart';
 import 'package:flutter_application_cake_bakery/models/Product.dart';
 import 'package:flutter_application_cake_bakery/models/comment.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
+import 'package:flutter_application_cake_bakery/screens/cart/provider/cart_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/provider/comment_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +18,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  int qtyy = 1;
   @override
   void initState() {
     super.initState();
@@ -25,6 +28,7 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    final usser = DBHelper.instance.userr;
     return Column(
       children: [
         //Ảnh
@@ -64,7 +68,7 @@ class _BodyState extends State<Body> {
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  widget.detail.stock.toString()+' chiếc',
+                  widget.detail.stock.toString() + ' chiếc',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -144,15 +148,23 @@ class _BodyState extends State<Body> {
                       style: TextStyle(fontSize: 18),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          if (qtyy > 1) qtyy--;
+                        });
+                      },
                       icon: const Icon(Icons.remove),
                     ),
                     Text(
-                      '1',
+                      qtyy.toString(),
                       style: const TextStyle(fontSize: 22, color: Colors.black),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          qtyy++;
+                        });
+                      },
                       icon: const Icon(Icons.add),
                     ),
                   ],
@@ -168,7 +180,11 @@ class _BodyState extends State<Body> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<CartProvider>(context, listen: false)
+                        .callAddToCart(
+                            context, usser.id, widget.detail.id, qtyy);
+                  },
                   child: Container(
                     padding: EdgeInsets.all(10),
                     child: const Text(
@@ -252,7 +268,9 @@ class _BodyState extends State<Body> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(50),
                         child: Image.network(
-              imgUrl + 'user/' + state.lstComments[index].avatar.toString(),
+                          imgUrl +
+                              'user/' +
+                              state.lstComments[index].avatar.toString(),
                           width: 50,
                           height: 50,
                         ),

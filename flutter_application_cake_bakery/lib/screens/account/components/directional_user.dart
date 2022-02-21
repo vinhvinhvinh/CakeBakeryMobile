@@ -30,34 +30,34 @@ class _DirectionalUserState extends State<DirectionalUser> {
       child: Column(
         children: [
           directionalUserItem(
-            'My Profile',
+            'Thông tin cá nhân',
             Icons.person_rounded,
             'account/myprofile',
             '',
           ),
           directionalUserItem(
-            'My Orders',
+            'Danh sách đơn hàng',
             Icons.receipt_long_outlined,
             'account/myorder',
             '',
           ),
           directionalUserItem(
-            'Notifications',
+            'Thông báo',
             Icons.notifications_active_rounded,
             '/notification',
             '',
           ),
           directionalUserItem(
-            'Settings and Security',
+            'Cài đặt & bảo mật',
             Icons.settings,
             'account/setting_and_security',
             '',
           ),
           directionalUserItem(
-            'Languages',
+            'Ngôn ngữ',
             Icons.language_rounded,
             '/language',
-            'English',
+            'Tiếng Việt',
           ),
           const SizedBox(height: 20),
           ElevatedButton.icon(

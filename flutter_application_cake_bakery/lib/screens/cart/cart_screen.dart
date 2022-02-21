@@ -24,7 +24,7 @@ class _CartState extends State<Cart> {
 
     final productsInCart = Provider.of<CartProvider>(context, listen: false);
     productsInCart.getProductInCart(context, userr.id);
-    productsInCart.getTotalInCart();
+    //productsInCart.getTotalInCart();
 
     //productsIC.forEach((element) {totalIC+=element.});
   }
@@ -56,6 +56,16 @@ class CheckOut extends StatefulWidget {
 }
 
 class _CheckOutState extends State<CheckOut> {
+  final userr = DBHelper.instance.userr;
+
+  void initState() {
+    super.initState();
+
+    final productsInCart = Provider.of<CartProvider>(context, listen: false);
+    productsInCart.getProductInCart(context, userr.id);
+    //productsInCart.getTotalInCart();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -81,7 +91,7 @@ class _CheckOutState extends State<CheckOut> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Total:',
+                Text('Tổng:',
                     style: myStyle(18, Colors.grey, FontWeight.normal)),
                 Text(
                     formatMoney.format(
@@ -118,7 +128,7 @@ class _CheckOutState extends State<CheckOut> {
                     //print('READY TO CHECKOUT');
                     //Navigator.pushNamed(context, '/checkout');
 
-                    child: Text('Ready to checkout',
+                    child: Text('Đặt hàng',
                         style: myStyle(20, Colors.white, FontWeight.normal)),
                   ),
                 ],

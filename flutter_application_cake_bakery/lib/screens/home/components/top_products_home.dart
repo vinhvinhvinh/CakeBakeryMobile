@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/constant.dart';
+import 'package:flutter_application_cake_bakery/database/db_helper.dart';
+import 'package:flutter_application_cake_bakery/screens/cart/provider/cart_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +27,9 @@ class _TopProductsState extends State<TopProducts> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductProvider>(builder: (context, state, child) {
+      final cartOfRecentUser =
+          Provider.of<CartProvider>(context, listen: false);
+      final usser = DBHelper.instance.userr;
       return Column(
         children: [
           const TitleTopProducts(),
@@ -130,7 +135,13 @@ class _TopProductsState extends State<TopProducts> {
                               Padding(
                                 padding: EdgeInsets.only(left: 0),
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    cartOfRecentUser.callAddToCart(
+                                        context,
+                                        usser.id,
+                                        state.topProducts[index].id,
+                                        1);
+                                  },
                                   icon: Icon(
                                     Icons.shopping_cart_outlined,
                                     color: primaryColor,
@@ -168,7 +179,7 @@ class TitleTopProducts extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
             child: Text(
-              "TOP PRODUCTS",
+              "Có thể bạn thích",
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -186,7 +197,7 @@ class TitleTopProducts extends StatelessWidget {
           ),
           onPressed: () {},
           child: const Text(
-            "View All",
+            "Xem",
             style: TextStyle(color: Colors.white),
           ),
         ),

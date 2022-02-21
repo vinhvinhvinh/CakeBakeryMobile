@@ -13,6 +13,8 @@ const registerUrl = 'http://10.0.2.2:8000/api/register';
 //Logout Url
 const logoutUrl = 'http://10.0.2.2:8000/api/logout';
 
+const changePassUrl = 'http://10.0.2.2:8000/api/users/changePassword/';
+
 //path of Object
 //Product
 const productUrl = baseUrl + '/products';
@@ -31,8 +33,10 @@ const cmtUrl = baseUrl + '/comments';
 //cart
 const deleteCartRowUrl = baseUrl + '/carts/delete/';
 const updateCartQtyUrl = baseUrl + '/carts/update/';
+const addToCartUrl = baseUrl + '/carts/create';
 
 //invoice
-const invoiceUrl=baseUrl+'/invoices';
+const invoiceUrl = baseUrl + '/invoices';
+
 //pay
 const payUrl = 'http://10.0.2.2:8000/api/invoices/create';
