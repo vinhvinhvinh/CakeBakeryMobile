@@ -56,12 +56,13 @@ class _MainScreenState extends State<MainScreen> {
       },
       currentIndex: pageIndex,
       items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: 'Home'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_basket_outlined), label: 'Cart'),
-        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
+            icon: Icon(Icons.home_outlined), label: 'Trang chủ'),
         BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline), label: 'Account'),
+            icon: Icon(Icons.shopping_basket_outlined), label: 'Giỏ hàng'),
+        BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Yêu thích'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.person_outline), label: 'Tài khoản'),
       ],
     );
   }

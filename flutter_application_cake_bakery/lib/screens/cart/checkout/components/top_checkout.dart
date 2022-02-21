@@ -39,7 +39,7 @@ class _TopCheckoutState extends State<TopCheckout> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Checkout 💳',
+            Text('Đặt hàng 💳',
                 style: myStyle(20, Colors.black, FontWeight.w400)),
             Text('💸' + formatMoney.format(widget.total),
                 style: myStyle(18, Colors.orange.shade900, FontWeight.normal)),

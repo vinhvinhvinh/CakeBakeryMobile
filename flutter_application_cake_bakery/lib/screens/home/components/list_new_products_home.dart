@@ -37,13 +37,13 @@ class _NewProductsState extends State<NewProducts> {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProductDetail(
-                      detail: state.newProducts[index],
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProductDetail(
+                        detail: state.newProducts[index],
+                      ),
                     ),
                   ),
-                ),
                   child: NewProds(
                     name: state.newProducts[index].name,
                     image: state.newProducts[index].image,
@@ -132,7 +132,7 @@ class TitleWithButton extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
             child: Text(
-              "NEW",
+              "Bánh mới ra lò",
               style: Theme.of(context).textTheme.headline6!.copyWith(
                   fontWeight: FontWeight.bold, color: Colors.redAccent),
             ),
@@ -149,7 +149,7 @@ class TitleWithButton extends StatelessWidget {
           ),
           onPressed: () {},
           child: const Text(
-            "View All",
+            "Xem",
             style: TextStyle(color: Colors.white),
           ),
         ),

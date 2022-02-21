@@ -21,8 +21,7 @@ class FavoriteScreen extends StatelessWidget {
           Icons.arrow_back,
           size: 24,
         ),
-        onPressed: () =>Navigator.pop(context),
-        
+        onPressed: () => Navigator.pop(context),
       ),
       title: Container(
         height: 65,
@@ -30,7 +29,7 @@ class FavoriteScreen extends StatelessWidget {
         margin: const EdgeInsets.only(top: 10, bottom: 10),
         child: const Center(
           child: Text(
-            'FAVORITE',
+            'Danh sách yêu thích',
             style: TextStyle(
               color: Colors.white,
             ),
