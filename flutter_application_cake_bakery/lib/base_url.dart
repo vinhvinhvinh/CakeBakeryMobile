@@ -36,3 +36,7 @@ const updateCartQtyUrl = baseUrl + '/carts/update/';
 const invoiceUrl=baseUrl+'/invoices';
 //pay
 const payUrl = 'http://10.0.2.2:8000/api/invoices/create';
+
+//UpdateUser
+const userUrl='http://10.0.2.2:8000/api/users';
+

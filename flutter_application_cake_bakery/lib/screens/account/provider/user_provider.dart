@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/base_url.dart';
 import 'package:flutter_application_cake_bakery/database/db_helper.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
+import 'package:flutter_application_cake_bakery/services/account_service.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:http/http.dart' as http;
@@ -19,10 +20,12 @@ class UserProvider with ChangeNotifier {
 
 //tạo 1 user để lưu user đã dang ky
   late Future<UserDB> userResigter;
+//tạo 1 user để lưu user đã cập nhật
+  late Future<UserDB> userUpdate;
   //get user
   UserDB? get user => _user;
   //get user Logined
-
+bool loading = false;
   Future<UserDB?> login(String username, String password) async {
     var response = await http.post(Uri.parse(loginUrl),
         body: ({
@@ -168,5 +171,30 @@ class UserProvider with ChangeNotifier {
     userLogined = DBHelper.instance.getUser();
     //print(userLogined);
     return userLogined;
+  }
+
+  // Future<http.Response> updateAlbum(context, id, String username, String fullname,
+  //     String email, String address1, String address2, String phone) {
+  //   return http.put(
+  //     Uri.parse(userUrl + '/updateByUser/$id'),
+  //     // headers: <String, String>{
+  //     //   'Content-Type': 'application/json; charset=UTF-8',
+  //     // },
+  //     body: jsonEncode({
+  //       'Username': username,
+  //       'Fullname': fullname,
+  //       'Email': email,
+  //       'Address1': address1,
+  //       'Address2': address2,
+  //       'Phone': phone,
+  //     }),
+  //   );
+  // }
+
+  updateProfile(context, id, username, fullname, address1, address2, email, phone) async {
+    loading = true;
+    await update(context, id, username, fullname, address1, address2, email, phone);
+    loading = false;
+    notifyListeners();
   }
 }

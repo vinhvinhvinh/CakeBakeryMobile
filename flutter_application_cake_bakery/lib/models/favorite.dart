@@ -5,6 +5,9 @@ class Favorite {
   late int status;
   String? createdAt;
   String? updatedAt;
+  String? name;
+  int? price;
+  String? image;
 
   Favorite(
       {required this.id,
@@ -12,7 +15,10 @@ class Favorite {
       required this.productId,
       required this.status,
       this.createdAt,
-      this.updatedAt});
+      this.updatedAt,
+      this.name,
+      this.price,
+      this.image});
 
   Favorite.fromJson(Map<String, dynamic> json) {
     id = json['Id'];
@@ -21,6 +27,9 @@ class Favorite {
     status = json['Status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    name = json['Name'];
+    price = json['Price'];
+    image = json['Image'];
   }
 
   Map<String, dynamic> toJson() {
@@ -31,6 +40,9 @@ class Favorite {
     data['Status'] = status;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
+    data['Name'] = name;
+    data['Price'] = price;
+    data['Image'] = image;
     return data;
   }
 }
