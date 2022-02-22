@@ -165,4 +165,6 @@ class UserDB {
     data['Status'] = status;
     return data;
   }
+
+  getUserData() {}
 }

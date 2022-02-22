@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_cake_bakery/base_url.dart';
 import 'package:flutter_application_cake_bakery/database/db_helper.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
+import 'package:flutter_application_cake_bakery/services/account_service.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:http/http.dart' as http;
@@ -19,10 +20,18 @@ class UserProvider with ChangeNotifier {
 
 //tạo 1 user để lưu user đã dang ky
   late Future<UserDB> userResigter;
+//tạo 1 user để lưu user đã cập nhật
+  late Future<UserDB> userUpdate;
   //get user
   UserDB? get user => _user;
   //get user Logined
-
+bool loading = false;
+updateProfile(context, id, username, fullname, address1, address2, email, phone) async {
+    loading = true;
+    await update(context, id, username, fullname, address1, address2, email, phone);
+    loading = false;
+    notifyListeners();
+}
   Future<UserDB?> login(String username, String password) async {
     var response = await http.post(Uri.parse(loginUrl),
         body: ({
@@ -169,7 +178,6 @@ class UserProvider with ChangeNotifier {
     //print(userLogined);
     return userLogined;
   }
-
   Future<UserDB?> changePassword(
       context, int id, String recentPassword, String newPassword) async {
     var response = await http.put(Uri.parse(changePassUrl + '$id'),
@@ -228,3 +236,4 @@ class UserProvider with ChangeNotifier {
     }
   }
 }
+

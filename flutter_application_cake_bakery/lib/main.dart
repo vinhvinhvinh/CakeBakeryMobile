@@ -3,6 +3,7 @@ import 'package:flutter_application_cake_bakery/models/user.dart';
 import 'package:flutter_application_cake_bakery/screens/account/provider/user_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/cart/checkout/checkout_screen.dart';
 import 'package:flutter_application_cake_bakery/screens/cart/provider/cart_provider.dart';
+import 'package:flutter_application_cake_bakery/screens/favorite/provider/favorite_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/account/myorder/provider/invoice_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/provider/comment_provider.dart';
@@ -45,7 +46,8 @@ class CakeBakery extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => CommentProvider()),
-         ChangeNotifierProvider(create: (_) => InvoiceProvider()),
+        ChangeNotifierProvider(create: (_) => InvoiceProvider()),
+        ChangeNotifierProvider(create: (_) => FavoriteProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

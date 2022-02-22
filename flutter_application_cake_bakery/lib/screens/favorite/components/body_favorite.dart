@@ -5,6 +5,7 @@ import 'package:flutter_application_cake_bakery/models/product.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
 import 'package:flutter_application_cake_bakery/screens/account/myorder/components/main.dart';
 import 'package:flutter_application_cake_bakery/screens/account/provider/user_provider.dart';
+import 'package:flutter_application_cake_bakery/screens/favorite/provider/favorite_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/home/provider/product_provider.dart';
 import 'package:flutter_application_cake_bakery/screens/product_detail/product_detail_screen.dart';
 import 'package:provider/provider.dart';
@@ -27,30 +28,150 @@ class _BodyState extends State<Body> {
 
     super.initState();
     print(userr.id);
-    final products = Provider.of<ProductProvider>(context, listen: false);
-    products.getProductFav(context, userr.id);
+    final products = Provider.of<FavoriteProvider>(context, listen: false);
+    products.getFavoriteByAccount(context, userr.id);
   }
 
   @override
   Widget build(BuildContext context) {
     //return Container();
     final userLogined = Provider.of<UserProvider>(context);
-    return Consumer<ProductProvider>(builder: (context, state, child) {
+    return Consumer<FavoriteProvider>(builder: (context, state, child) {
       return FutureBuilder(
           future: userLogined.getUserData(),
           builder: (context, AsyncSnapshot<UserDB> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data!.id != null) {
-                return state.productsFav.length > 0
+                return state.productsFavorite.length > 0
                     ? ListView.builder(
                         itemBuilder: (context, index) {
-                          return ProductItem(
-                            name: state.productsFav[index].name,
-                            image: state.productsFav[index].image,
-                            price: state.productsFav[index].price,
+                          return Container(
+                            height: 130,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 2,
+                                color: Colors.black.withOpacity(0.2),
+                              ),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                            child: Stack(children: [
+                              Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(25),
+                                      bottomLeft: Radius.circular(25),
+                                    ),
+                                    child: Image.network(
+                                      imgUrl +
+                                          '/product/' +
+                                          state.productsFavorite[index].image
+                                              .toString(),
+                                      height: 130,
+                                      width: 130,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  Stack(
+                                    children: [
+                                      //Product Name
+                                      Column(
+                                        children: [
+                                          Container(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 10, 0, 0),
+                                            width: 205,
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  //padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                                  width: 135,
+                                                  child: Text(
+                                                    state
+                                                        .productsFavorite[index]
+                                                        .name
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                        color: ktextColor,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 20),
+                                                  ),
+                                                ),
+                                                const Spacer(),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    state.callDeleteFavorite(
+                                                        context,
+                                                        state
+                                                            .productsFavorite[
+                                                                index]
+                                                            .id);
+                                                    setState(() {
+                                                      state.productsFavorite
+                                                          .removeAt(index);
+                                                    });
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.favorite_sharp,
+                                                    color: primaryColor,
+                                                  ),
+                                                  color: primaryColor,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          //Price Product
+                                          Container(
+                                            padding: const EdgeInsets.fromLTRB(
+                                                10, 0, 0, 0),
+                                            width: 205,
+                                            //color: Colors.green,
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  formatMoney.format(state
+                                                      .productsFavorite[index]
+                                                      .price),
+                                                  style: const TextStyle(
+                                                      color: ktextColor,
+                                                      fontSize: 20),
+                                                ),
+                                                const Spacer(),
+                                                IconButton(
+                                                  onPressed: () {},
+                                                  icon: const Icon(
+                                                    Icons
+                                                        .shopping_cart_outlined,
+                                                    color: primaryColor,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          //Icon Cart-Shopping
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Container(
+                                    //color: Colors.blue,
+                                    width: 30,
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(
+                                        Icons.arrow_forward_ios,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ]),
                           );
                         },
-                        itemCount: state.productsFav.length,
+                        itemCount: state.productsFavorite.length,
                       )
                     : Center(
                         child: Container(
@@ -74,141 +195,5 @@ class _BodyState extends State<Body> {
             );
           });
     });
-  }
-}
-
-class ProductItem extends StatefulWidget {
-  final String name;
-  final String image;
-  final int price;
-  ProductItem({
-    Key? key,
-    required this.name,
-    required this.image,
-    required this.price,
-    // required this.product,
-  }) : super(key: key);
-
-  @override
-  State<ProductItem> createState() => _ProductItemState();
-}
-
-class _ProductItemState extends State<ProductItem> {
-  bool _isChecked = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Container(
-        height: 130,
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 2,
-            color: Colors.black.withOpacity(0.2),
-          ),
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(25),
-        ),
-        margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-        child: Stack(children: [
-          Row(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  bottomLeft: Radius.circular(25),
-                ),
-                child: Image.network(
-                  imgUrl + '/product/' + widget.image,
-                  height: 130,
-                  width: 130,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              Stack(
-                children: [
-                  //Product Name
-                  Column(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                        width: 205,
-                        child: Row(
-                          children: [
-                            Container(
-                              //padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                              width: 135,
-                              child: Text(
-                                widget.name,
-                                style: const TextStyle(
-                                    color: ktextColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                            const Spacer(),
-                            IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  _isChecked = !_isChecked;
-                                });
-                              },
-                              icon: Icon(
-                                _isChecked
-                                    ? Icons.favorite_sharp
-                                    : Icons.favorite_outline,
-                                color: primaryColor,
-                              ),
-                              color: primaryColor,
-                            ),
-                          ],
-                        ),
-                      ),
-                      //Price Product
-                      Container(
-                        padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                        width: 205,
-                        //color: Colors.green,
-                        child: Row(
-                          children: [
-                            Text(
-                              formatMoney.format(widget.price),
-                              style: const TextStyle(
-                                  color: ktextColor, fontSize: 20),
-                            ),
-                            const Spacer(),
-                            IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.shopping_cart_outlined,
-                                color: primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      //Icon Cart-Shopping
-                    ],
-                  ),
-                ],
-              ),
-              Container(
-                //color: Colors.blue,
-                width: 30,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ]),
-      ),
-    );
   }
 }

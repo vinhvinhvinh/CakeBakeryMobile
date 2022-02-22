@@ -5,6 +5,7 @@ import 'package:flutter_application_cake_bakery/constant.dart';
 import 'package:flutter_application_cake_bakery/database/db_helper.dart';
 import 'package:flutter_application_cake_bakery/models/user.dart';
 import 'package:flutter_application_cake_bakery/screens/account/provider/user_provider.dart';
+import 'package:flutter_application_cake_bakery/services/account_service.dart';
 import 'package:provider/provider.dart';
 
 class InfomationArea extends StatefulWidget {
@@ -16,6 +17,7 @@ class InfomationArea extends StatefulWidget {
 
 class _InfomationAreaState extends State<InfomationArea> {
   var usernameController = TextEditingController();
+  var fullnameController = TextEditingController();
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
   var addressController1 = TextEditingController();
@@ -25,6 +27,7 @@ class _InfomationAreaState extends State<InfomationArea> {
   void dispose() {
     //Cleanup
     usernameController.dispose();
+    fullnameController.dispose();
     emailController.dispose();
     phoneController.dispose();
     addressController1.dispose();
@@ -50,9 +53,17 @@ class _InfomationAreaState extends State<InfomationArea> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Name:'),
+                    Text('Username:'),
                     userInfoTextField(
                         usernameController,
+                        snapshot.data!.username,
+                        TextCapitalization.words,
+                        50,
+                        1,
+                        TextInputType.text),
+                    Text('Name:'),
+                    userInfoTextField(
+                        fullnameController,
                         snapshot.data!.fullname,
                         TextCapitalization.words,
                         50,
@@ -93,8 +104,39 @@ class _InfomationAreaState extends State<InfomationArea> {
                             EdgeInsets.all(20)),
                       ),
                       child: Text('Save Changed'),
-                      onPressed: () {
-                        print('Save Changed');
+                      onPressed: () async {
+                        print('Update Profile');
+                        if (usernameController.text.isNotEmpty ||
+                            fullnameController.text.isNotEmpty ||
+                            emailController.text.isNotEmpty ||
+                            addressController1.text.isNotEmpty ||
+                            addressController2.text.isNotEmpty ||
+                            phoneController.text.isNotEmpty) {
+                          userLogined.updateProfile(
+                              context,
+                              snapshot.data!.id,
+                              usernameController.text,
+                              fullnameController.text,
+                              emailController.text,
+                              addressController1.text,
+                              addressController2.text,
+                              phoneController.text).then((user) => {
+                            if (user != null)
+                              {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text("Cập nhật thành công"))),
+                                //Navigator.pop(context),
+                                //Navigator.pushNamed(context, '/logout')
+                                userLogined.logout(snapshot.data!.userToken, snapshot.data!.id, context)
+                              }
+                          });
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content:
+                                      Text("Vui lòng để trống thông tin")));
+                        }
                       },
                     ),
                   ],
